@@ -1,0 +1,44 @@
+<!-- Behind the stage block starts ----------------------------------------->
+<div class="col-md-12">
+    <div class="row">
+        <!-- Behind the stage header -->
+        <div class="pa-header-title">
+            <h3 class="pa-heading-middle">Behind The Stage</h3>
+        </div>
+        <div class="inner-body">
+            <div class="row about-row">
+                <!-- team component starts --------------------------------->
+                <div class="member-component col-md-12">
+                    <div class="team-member-row">
+                        {% for t in team %}
+                        <div class="wrapper">
+                            <div class="ih-item circle ih-effect bottom-to-top">
+                                <!-- pic -->
+                                <div class="img">
+                                    <img src="{{ t.img.url }}" class="center-block" alt="{{ t.name }}"/>
+                                </div>
+                                <!-- info -->
+                                <div class="info">
+                                    <h3>{{ t.name }}</h3>
+                                    <p>{{ t.post_title }}</p>
+                                </div>
+                                <!-- social link -->
+                                <ul class="social">
+                                    <li>
+                                        <a href="{{ t.fb_url }}"><i class="fa fa-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ t.tw_url }}"><i class="fa fa-twitter"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- team component ends ----------------------------------->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Behind the stage block ends ------------------------------------------->

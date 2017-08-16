@@ -7,24 +7,24 @@
 
 {% block navbar %}
     <li class="sonar">
-        <a href="/"><span><i class="fa fa-home"></i><strong>Home</strong></span></a>
+        <a href="{% url 'home' %}"><span><i class="fa fa-home"></i><strong>Home</strong></span></a>
     </li>
     <li class="sonar">
-        <a href="/games/"><span><i class="fa fa-gamepad"></i><strong>Games</strong></span></a>
+        <a href="{% url 'games' %}"><span><i class="fa fa-gamepad"></i><strong>Games</strong></span></a>
     </li>
     <li class="sonar">
-        <a href="/portfolio/"><span><i class="fa fa-briefcase"></i><strong>Portfolio</strong></span></a>
+        <a href="{% url 'portfolio' %}"><span><i class="fa fa-briefcase"></i><strong>Portfolio</strong></span></a>
     </li>
     <li class="sonar">
-        <a href="/blog/"><span><i class="fa fa-book"></i><strong>Blog</strong></span></a>
+        <a href="{% url 'blog' %}"><span><i class="fa fa-book"></i><strong>Blog</strong></span></a>
     </li>
     <li class="sonar">
-        <a href="/about/"><span><i class="fa fa-comments-o"></i><strong>About</strong></span></a>
+        <a href="{% url 'about' %}"><span><i class="fa fa-comments-o"></i><strong>About</strong></span></a>
     </li>
 {% endblock navbar %}
 
 {% block main %}
-    {% include "include/aurora.html" %}
+    {% include "blocks/aurora.html" %}
     <!-- Some gap -->
     <div class="row pa-gapes"></div>
     <!-- Some gap -->
