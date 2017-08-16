@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="PandorAstrum Wbsite">
+    <meta name="author" content="Ashiquzzaman Khan">
+    <link href="{% static "/img/favicon.ico" %}" rel="shortcut icon" type="image/x-icon">
+    <title>{% block head_title %}PandorAstrum{% endblock head_title%}</title>
+    <!-- animate css-->
+    <link rel="stylesheet" href="{% static "css/animate.min.css" %}">
+    <!-- owl carousal-->
+    <link rel="stylesheet" href="{% static "css/owl.carousel.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/owl.theme.default.min.css" %}">
+    <!-- font css-->
+    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+    <!-- font awesome-->
+    <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+    <!-- Custom styles for this template -->
+    <link href="{% static "css/style.css" %}" rel="stylesheet">
+    <style>
+        @font-face{
+            font-family: Amaranth-Regular;
+            src: url("{% static "fonts/Amaranth-Regular.ttf" %}");
+        }
+        @font-face{
+            font-family: Amaranth-Bold;
+            src: url("{% static "fonts/Amaranth-Bold.ttf" %}");
+        }
+        .navbar {
+            background-image: url("{% static "img/navbar.png" %}");
+        }
+        .navbar-brand {
+            background-image: url("{% static "img/Logo.png" %}");
+        }
+        .panel-footer {
+            background-image: url("{% static "img/footerbar.png" %}");
+        }
+        {% block style %}{% endblock style %}
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+<!-- Navbar starts ---------------------------------------------------------------->
+<div class="row nav-block">
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- image background -->
+        <!-- menu bar -->
+        <div class="container-fluid">
+            <!-- background image css here -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                <!-- brand logo here -->
+                <a href="#" class="navbar-brand"></a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <!-- menu item starts -->
+                <ul class="nav navbar-nav navbar-right nav-block fa-ul">
+                    {% block navbar %}{% endblock navbar %}
+                </ul>
+                <!-- menu items ends-->
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- Navbar ends ------------------------------------------------------------------>
+    <!-- Rest of the content -->
+    <div class="row all-block">
+    {% block main %}{% endblock main %}
+    <!-- Some gape -->
+    <div class="pa-gapes"></div>
+    <!-- footers area -->
+    <div class="panel-footer">
+        <div class="text-center">
+            <span>Powered by Django</span>
+            <img src="{% static "/img/footermarklogo.png" %}">
+            <span>Handcrafted by PandorAstrum</span>
+        </div>
+    </div>
+    <!-- star effects -->
+    <div class="bg-stars">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+    </div>
+        <!-- star effects ends -->
+</div>
+
+</div>
+
+<!-- Bootstrap core JavaScript
+ ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/ie10-viewport-bug-workaround.js" %}"></script>
+{% block js_file %} {% endblock js_file %}
+<script type="text/ecmascript">
+    $(document).ready(function() {
+        {% block pure_js %}
+
+        {% endblock pure_js %}
+
+    });
+</script>
+
+</body>
+</html>

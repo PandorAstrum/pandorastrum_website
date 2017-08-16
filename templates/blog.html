@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block head_title %}Blog | {{ block.super }}{% endblock head_title%}
+
+{% block style %}{% endblock style %}
+
+{% block navbar %}
+    <li class="sonar">
+        <a href="{% url 'home' %}"><span><i class="fa fa-home"></i><strong>Home</strong></span></a>
+    </li>
+    <li class="sonar">
+        <a href="{% url 'games' %}"><span><i class="fa fa-gamepad"></i><strong>Games</strong></span></a>
+    </li>
+    <li class="sonar">
+        <a href="{% url 'portfolio' %}"><span><i class="fa fa-briefcase"></i><strong>Portfolio</strong></span></a>
+    </li>
+    <li class="sonar">
+        <a href="{% url 'blog' %}"  class="selected"><span><i class="fa fa-book"></i><strong>Blog</strong></span></a>
+    </li>
+    <li class="sonar">
+        <a href="{% url 'about' %}"><span><i class="fa fa-comments-o"></i><strong>About</strong></span></a>
+    </li>
+{% endblock navbar %}
+
+{% block main %}
+
+{% include "include/aurora.html" %}
+    <!-- some gap -->
+    <div class="row pa-gapes"></div>
+
+    <!-- svg for tab style -->
+    <svg class="hidden">
+        <defs>
+            <path id="tabshape" d="M80,60C34,53.5,64.417,0,0,0v60H80z"/>
+        </defs>
+    </svg>
+
+{% endblock main %}
+
+{% block js_file %} {% endblock js_file %}
+
+{% block pure_js %}{% endblock pure_js %}

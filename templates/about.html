@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head_title %}About | {{ block.super }}{% endblock head_title%}
+
+{% block style %}
+    .team-member-row .wrapper {
+        background: url({% static "img/member-card-bg.png" %}) no-repeat;
+        display: inline-block;
+        padding-top: 2%;
+        padding-bottom: 2%;
+        background-position: center center;
+        background-size: contain;
+        margin: 0 auto;
+    }
+    .thanks-name {
+        background: url({% static "img/animated_text_fill.png" %}) repeat-y;
+        font: 700 1.7em Amaranth-Regular;
+        letter-spacing: 0;
+        padding: .25em 0 .325em;
+        display: inline-block;
+        text-shadow: 0 0 80px rgba(255, 255, 255, 0.5);
+        -webkit-background-clip: text;
+        background-clip: text;
+        /* Animate Background Image */
+        -webkit-text-fill-color: transparent;
+        -webkit-animation: aitf 80s linear infinite;
+        /* Activate hardware acceleration for smoother animations */
+        -webkit-transform: translate3d(0, 0, 0);
+        -webkit-backface-visibility: hidden;
+    }
+{% endblock style %}
+
+{% block navbar %}
+    <li class="sonar">
+        <a href="{% url 'home' %}"><span><i class="fa fa-home"></i><strong>Home</strong></span></a>
+    </li>
+    <li class="sonar">
+        <a href="{% url 'games' %}"><span><i class="fa fa-gamepad"></i><strong>Games</strong></span></a>
+    </li>
+    <li class="sonar">
+        <a href="{% url 'portfolio' %}"><span><i class="fa fa-briefcase"></i><strong>Portfolio</strong></span></a>
+    </li>
+    <li class="sonar">
+        <a href="{% url 'blog' %}"><span><i class="fa fa-book"></i><strong>Blog</strong></span></a>
+    </li>
+    <li class="sonar">
+        <a href="{% url 'about' %}" class="selected"><span><i class="fa fa-comments-o"></i><strong>About</strong></span></a>
+    </li>
+{% endblock navbar %}
+
+{% block main %}
+
+<<<<<<< HEAD
+{% include "blocks/aurora.html" %}
+    <!-- some gap -->
+    <div class="row pa-gapes"></div>
+    <div class="row pa-row">
+    {% include "blocks/behind_the_stage_block.html" %}
+    {% include "blocks/service_block.html" %}
+    {% include "blocks/thanks_block.html" %}
+    {% include "blocks/contact_block.html" %}
+=======
+{% include "include/aurora.html" %}
+    <!-- some gap -->
+    <div class="row pa-gapes"></div>
+    <div class="row pa-row">
+    {% include "include/behind_the_stage_block.html" %}
+    {% include "include/service_block.html" %}
+    {% include "include/thanks_block.html" %}
+    {% include "include/contact_block.html" %}
+>>>>>>> parent of f3fa7cc... include fix test
+    </div>
+
+{% endblock main %}
+
+{% block js_file %}
+    <script src={% static "js/TweenMax.min.js" %}></script>
+    <script src={% static "js/about.js" %}></script>
+{% endblock js_file %}
+
+{% block pure_js %}
+    // thanks block animate
+    var w = document.getElementsByClassName('thanks-span');
+    var cite = document.getElementsByTagName('cite');
+
+    var animate = function animate() {
+        var maxDelay = 0;
+        var maxDuration = 0;
+
+        for (var i = 0; i < w.length; i++) {
+            var word = w[i];
+            var duration = word.dataset.duration;
+            var delay = word.dataset.delay;
+            var blur = word.dataset.blur;
+
+            maxDelay = Math.max(delay, maxDelay);
+            maxDuration = Math.max(duration, maxDuration);
+
+            TweenLite.set(word, {
+                'webkitFilter': 'blur(' + blur + 'px)'
+            });
+            TweenLite.set(word, {
+                className: "+=animate",
+                transition: 'all ' + duration + 's ease-in ' + delay + 's'
+            });
+        }
+
+        TweenLite.set(cite, {
+            className: "+=animate",
+            transition: 'all ' + maxDuration + 's ease-in ' + maxDelay + 's'
+        });
+
+        TweenLite.delayedCall(maxDuration + maxDelay, function () {
+            var baseDelay = 3;
+            TweenLite.set(w, { className: "-=animate", delay: baseDelay });
+            TweenLite.set(cite, { className: "-=animate", delay: baseDelay });
+            TweenLite.delayedCall(baseDelay + maxDuration * 2, animate);
+        });
+    };
+
+    animate();
+{% endblock pure_js %}
