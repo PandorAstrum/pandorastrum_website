@@ -12,21 +12,27 @@
                         <div class="col-sm-2">
                             <div class="post__info post-info js-pushpin-target">
                                 <div class="post-info__date">
-                                    <div class="post-info__day">{{ b.published_on.day }}</div>
+                                    <div class="post-info__day">{{ b.get_day }}</div>
                                     <div class="post-info__month-year">{{ b.get_month_str }}</div>
                                 </div>
                                 <div class="post-info__hr"></div>
-                                <div class="post-info__tags"><a class="post-info__tag tag" href="#">All</a><a class="post-info__tag tag" href="#">Dev</a><a class="post-info__tag tag" href="#">3D</a><a class="post-info__tag tag" href="#">Animation</a><a class="post-info__tag tag" href="#">Info</a><a class="post-info__tag tag" href="#">Script</a></div>
+                                <div class="post-info__tags">
+                                    {% for t in b.tags.all %}
+                                        <a class="post-info__tag tag" href="{% url "blog_tagged" t.slug %}">{{ t.name }}</a>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-10">
                             <header class="post__header post-header">
                                 <h2 class="post-header__title"><a href="{{ b.get_absolute_url }}">{{ b.blog_title }}</a></h2>
                                 <div class="p-thumbnail">
+                                    {% if b.blog_thumbnail.url is not null %} }
                                     <img src="{{ b.blog_thumbnail.url }}">
                                     <div class="buttons">
                                         <a href="{{ b.get_absolute_url }}" class="fa fa-link"></a>
                                     </div>
+                                    {% endif %}
                                 </div>
                             </header>
                             <div class="post__content post-content">
@@ -39,60 +45,56 @@
                     </div>
                 </article>
                 {% endfor %}
-
-
             </div>
-                                <!-- right side -->
-                                <div class="col-md-3">
-                                    <aside class="blog-sidebar js-pushpin-target">
-                                        <div class="blog-search">
-                                            <div class="blog-search__btn"><i class="fa fa-search"></i></div>
-                                            <input type="text" placeholder="SEARCH"/>
-                                        </div>
-                                        <div class="tile blog-archive">
-                                            <div class="tile__title">Archive</div>
-                                            <ul class="blog-archive__years">
-                                                <li class="clearfix">2016
-                                                    <ul class="blog-archive__months">
-                                                        <li><a href="">September</a></li>
-                                                        <li><a href="">October</a></li>
-                                                        <li><a href="">November</a></li>
-                                                        <li><a href="">December</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="clearfix">2015
-                                                    <ul class="blog-archive__months">
-                                                        <li><a href="">September</a></li>
-                                                        <li><a href="">October</a></li>
-                                                        <li><a href="">November</a></li>
-                                                        <li><a href="">December   </a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="tile blog-categories">
-                                            <div class="tile__title">Categories</div>
-                                            <div class="blog-tags">
-                                                <a class="post-info__tag tag" href="#">All</a>
-                                                <a class="post-info__tag tag" href="#">Python</a>
-                                                <a class="post-info__tag tag" href="#">C#</a><a class="post-info__tag tag" href="#">Blender</a>
-                                                <a class="post-info__tag tag" href="#">Photoshop</a>
-                                                <a class="post-info__tag tag" href="#">Substance Painter</a>
-                                                <a class="post-info__tag tag" href="#">Zbrush</a>
-                                                <a class="post-info__tag tag" href="#">Unity</a>
-                                                <a class="post-info__tag tag" href="#">Unreal</a>
-                                                <a class="post-info__tag tag" href="#">Dev</a>
-                                                <a class="post-info__tag tag" href="#">Freebie</a>
-                                            </div>
-                                        </div>
-                                    </aside>
-                                </div>
-                            </div>
-
-                        </div>
-
+            <!-- right side -->
+            <div class="col-md-3">
+                <aside class="blog-sidebar js-pushpin-target">
+                    <div class="blog-search">
+                        <div class="blog-search__btn"><i class="fa fa-search"></i></div>
+                        <input type="text" placeholder="SEARCH"/>
                     </div>
-                    <!-- blog block ends ------------------------------------------------------->
+                    <div class="tile blog-archive">
+                        <div class="tile__title">Archive</div>
+                        <ul class="blog-archive__years">
+                            <li class="clearfix">2016
+                                <ul class="blog-archive__months">
+                                    <li><a href="">September</a></li>
+                                    <li><a href="">October</a></li>
+                                    <li><a href="">November</a></li>
+                                    <li><a href="">December</a></li>
+                                </ul>
+                            </li>
+                            <li class="clearfix">2015
+                                <ul class="blog-archive__months">
+                                    <li><a href="">September</a></li>
+                                    <li><a href="">October</a></li>
+                                    <li><a href="">November</a></li>
+                                    <li><a href="">December   </a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tile blog-categories">
+                        <div class="tile__title">Categories</div>
+                        <div class="blog-tags">
+                        {% if "blog_tagged" %}
+                            {% for tag in tags %}
+                                <a class="post-info__tag tag" href="{% url "blog_tagged" tag.slug %}">{{ tag.name }}</a>
+                            {% endfor %}
+                        {% endif %}
+                        {% if "blog"%}
+                            {% for tag in tag_list %}
+                                <a class="post-info__tag tag" href="{% url "blog_tagged" tag.slug %}">{{ tag.name }}</a>
+                            {% endfor %}
+                        {% endif %}
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- blog block ends ------------------------------------------------------->
 {#{% for b in blog %}#}
 {#    <a href="{{ b.get_absolute_url }}" ><h1 style="color: White">{{ b.blog_title }}</h1></a>#}
 {#    <p style="color: White">{{ b.blog_detail }}</p>#}

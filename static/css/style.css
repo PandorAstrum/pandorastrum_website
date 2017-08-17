@@ -647,91 +647,6 @@ General --------------------------------------------------------------
 }
 /*footers ends ------------------------------------------------*/
 
-/*404 page ----------------------------------------------------------*/
-
-#error-top {
-    background: -moz-linear-gradient(top, rgba(133,144,72,1) 0%, rgba(2,2,1,0) 59%, rgba(0,0,0,0) 60%);
-    background: -webkit-linear-gradient(top, rgba(133,144,72,1) 0%,rgba(2,2,1,0) 59%,rgba(0,0,0,0) 60%);
-    background: linear-gradient(to bottom, rgba(133,144,72,1) 0%,rgba(2,2,1,0) 59%,rgba(0,0,0,0) 60%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#859048', endColorstr='#00000000',GradientType=0 );
-}
-:root
-{
-    --spread: .5em;
-    --shift: .01em;
-    --base: #4d70c7;
-    --c1: #21c2f5;
-    --c2: #9c63c7;
-}
-.error404 {
-    text-align: center;
-    font-family: Amaranth-Regular;
-    color: #fff;
-    font-size: 4vmin;
-    width: 100%;
-    margin-right: 0px;
-    margin-left: 0px;
-}
-.error404 h3 {
-    font-weight: 100;
-    font-size: 5em;
-    letter-spacing: -.01em;
-    transform: rotate(-12deg);
-    color: transparent;
-    text-shadow: 0 0 0.05em var(--c1), 0 0 0.1em var(--base), calc(var(--shift) * 1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * 1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), 0 0 var(--spread) var(--base), 0 0 calc(var(--spread) / 1.5) var(--base);
-    margin: 0 .2em .2em;
-}
-.error404 h3 span:nth-child(1) {
-    -webkit-animation: flicker1 1s infinite alternate ease-in-out;
-    animation: flicker1 1s infinite alternate ease-in-out;
-}
-.error404 h3 span:nth-child(2) {
-    -webkit-animation: flicker1 1.5s infinite alternate ease-in-out;
-    animation: flicker1 1.5s infinite alternate ease-in-out;
-}
-.error404 h3 span:nth-child(3) {
-    -webkit-animation: flicker1 .47s infinite alternate ease-in-out;
-    animation: flicker1 .47s infinite alternate ease-in-out;
-}
-.error404 h3 span:nth-child(4) {
-    -webkit-animation: flicker2 .1s infinite alternate ease-in-out;
-    animation: flicker2 .1s infinite alternate ease-in-out;
-}
-.error404 p {
-    transform: translateX(25%);
-    margin-right: 20%;
-    margin-left: 20%;
-}
-
-/*animation*/
-@-webkit-keyframes flicker1{
-  95% {
-    text-shadow: 0 0 0.05em var(--c1), 0 0 0.1em var(--base), calc(var(--shift) * 1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * 1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), 0 0 var(--spread) var(--base), 0 0 calc(var(--spread) / 1.5) var(--base);
-  }
-  98% {
-    text-shadow: 0 0 0.05em var(--c1), 0 0 0.1em var(--c2), calc(var(--shift) * 1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * 1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), 0 0 0 var(--base), 0 0 0 var(--base);
-  }
-}
-@keyframes flicker1{
-  95% {
-    text-shadow: 0 0 0.05em var(--c1), 0 0 0.1em var(--base), calc(var(--shift) * 1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * 1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), 0 0 var(--spread) var(--base), 0 0 calc(var(--spread) / 1.5) var(--base);
-  }
-  98% {
-    text-shadow: 0 0 0.05em var(--c1), 0 0 0.1em var(--c2), calc(var(--shift) * 1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * 1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), 0 0 0 var(--base), 0 0 0 var(--base);
-  }
-}
-@-webkit-keyframes flicker2{
-  90% {
-    opacity: .1;
-    text-shadow: 0 0 0.05em var(--c1), 0 0 0.1em var(--c2), calc(var(--shift) * 1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * 1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), 0 0 0 var(--base), 0 0 0 var(--base);
-  }
-}
-@keyframes flicker2{
-  90% {
-    opacity: .1;
-    text-shadow: 0 0 0.05em var(--c1), 0 0 0.1em var(--c2), calc(var(--shift) * 1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * 1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), 0 0 0 var(--base), 0 0 0 var(--base);
-  }
-}
 
 /*
 ======================================================================
@@ -1656,7 +1571,6 @@ Blog Page ------------------------------------------------------------
 ======================================================================
 */
 .u-mb-200 {
-/*  margin-bottom: 200px;*/
     background-color: #1D1D1D;
 }
 .post {
@@ -1700,7 +1614,6 @@ Blog Page ------------------------------------------------------------
     padding: 0 15px 0 13px;
     position: relative;
     margin: 0 0 5px 5px;
-    text-decoration: none;
     cursor: pointer;
 }
 .tag:before {
@@ -1738,7 +1651,7 @@ Blog Page ------------------------------------------------------------
 }
 /*content*/
 .post-header__title {
-  margin: 0 0 25px;
+    margin: 0 0 25px;
 }
 .post-header__title a {
     text-decoration: none;
@@ -1790,7 +1703,7 @@ Blog Page ------------------------------------------------------------
 }
 .p-thumbnail .buttons .fa {
     background: rgb(256, 256, 256);
-    -webkt-border-radius: 50%;
+    -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
     display: inline-block;
@@ -1857,7 +1770,6 @@ Blog Page ------------------------------------------------------------
 }
 .blog-search input {
     margin-bottom: 25px;
-/*  border: none;*/
     font-family: Amaranth-Regular;
     padding-right: 30px;
     padding-left: 20px;
@@ -1874,7 +1786,6 @@ Blog Page ------------------------------------------------------------
 .blog-search textarea {
     display: block;
     outline: none !important;
-/*  border: 1px solid rgba(255, 255, 255, 0.3);*/
     padding: 12px 15px;
     width: 100%;
     resize: none;
@@ -1934,29 +1845,6 @@ Blog Page ------------------------------------------------------------
     color: #aaa;
 }
 
-
-
-
-
-
-
-
-.c-thumbnail:after {
-  content: '\e144';
-  font-family: 'Glyphicons Halflings';
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  font-size: 30px;
-  color: #fff;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  margin: auto;
-  text-align: center;
-}
-
 .js-scroll-fixing-target {
   position: relative;
   -webkit-transition: opacity 0.3s;
@@ -1970,7 +1858,6 @@ Blog Page ------------------------------------------------------------
 }
 
 /*----------------------------------------------------------------------*/
-
 
 /*
 ======================================================================
@@ -2826,4 +2713,98 @@ input:-webkit-autofill {
     -webkit-transform: translateY(0);
     transform: translateY(0);
 }
-/*map component ends --------------------------------------------*/
+/*map component end --------------------------------------------*/
+
+/*----------------------------------------------------------------------*/
+
+/*
+======================================================================
+Error page --------------------------------------------------------
+======================================================================
+*/
+
+#error-top {
+    background: -moz-linear-gradient(top, rgba(133,144,72,1) 0%, rgba(2,2,1,0) 59%, rgba(0,0,0,0) 60%);
+    background: -webkit-linear-gradient(top, rgba(133,144,72,1) 0%,rgba(2,2,1,0) 59%,rgba(0,0,0,0) 60%);
+    background: linear-gradient(to bottom, rgba(133,144,72,1) 0%,rgba(2,2,1,0) 59%,rgba(0,0,0,0) 60%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#859048', endColorstr='#00000000',GradientType=0 );
+}
+:root
+{
+    --spread: .5em;
+    --shift: .01em;
+    --base: #4d70c7;
+    --c1: #21c2f5;
+    --c2: #9c63c7;
+}
+.error404 {
+    text-align: center;
+    font-family: Amaranth-Regular;
+    color: #fff;
+    font-size: 4vmin;
+    width: 100%;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.error404 h3 {
+    font-weight: 100;
+    font-size: 5em;
+    letter-spacing: -.01em;
+    transform: rotate(-12deg);
+    color: transparent;
+    text-shadow: 0 0 0.05em var(--c1), 0 0 0.1em var(--base), calc(var(--shift) * 1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * 1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), 0 0 var(--spread) var(--base), 0 0 calc(var(--spread) / 1.5) var(--base);
+    margin: 0 .2em .2em;
+}
+.error404 h3 span:nth-child(1) {
+    -webkit-animation: flicker1 1s infinite alternate ease-in-out;
+    animation: flicker1 1s infinite alternate ease-in-out;
+}
+.error404 h3 span:nth-child(2) {
+    -webkit-animation: flicker1 1.5s infinite alternate ease-in-out;
+    animation: flicker1 1.5s infinite alternate ease-in-out;
+}
+.error404 h3 span:nth-child(3) {
+    -webkit-animation: flicker1 .47s infinite alternate ease-in-out;
+    animation: flicker1 .47s infinite alternate ease-in-out;
+}
+.error404 h3 span:nth-child(4) {
+    -webkit-animation: flicker2 .1s infinite alternate ease-in-out;
+    animation: flicker2 .1s infinite alternate ease-in-out;
+}
+.error404 p {
+    transform: translateX(25%);
+    margin-right: 20%;
+    margin-left: 20%;
+}
+
+/*animation*/
+@-webkit-keyframes flicker1{
+  95% {
+    text-shadow: 0 0 0.05em var(--c1), 0 0 0.1em var(--base), calc(var(--shift) * 1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * 1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), 0 0 var(--spread) var(--base), 0 0 calc(var(--spread) / 1.5) var(--base);
+  }
+  98% {
+    text-shadow: 0 0 0.05em var(--c1), 0 0 0.1em var(--c2), calc(var(--shift) * 1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * 1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), 0 0 0 var(--base), 0 0 0 var(--base);
+  }
+}
+@keyframes flicker1{
+  95% {
+    text-shadow: 0 0 0.05em var(--c1), 0 0 0.1em var(--base), calc(var(--shift) * 1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * 1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), 0 0 var(--spread) var(--base), 0 0 calc(var(--spread) / 1.5) var(--base);
+  }
+  98% {
+    text-shadow: 0 0 0.05em var(--c1), 0 0 0.1em var(--c2), calc(var(--shift) * 1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * 1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), 0 0 0 var(--base), 0 0 0 var(--base);
+  }
+}
+@-webkit-keyframes flicker2{
+  90% {
+    opacity: .1;
+    text-shadow: 0 0 0.05em var(--c1), 0 0 0.1em var(--c2), calc(var(--shift) * 1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * 1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), 0 0 0 var(--base), 0 0 0 var(--base);
+  }
+}
+@keyframes flicker2{
+  90% {
+    opacity: .1;
+    text-shadow: 0 0 0.05em var(--c1), 0 0 0.1em var(--c2), calc(var(--shift) * 1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * 1) calc(var(--shift) * -1) calc(var(--spread) / 50) var(--c1), calc(var(--shift) * -1) calc(var(--shift) * 1) calc(var(--spread) / 50) var(--c1), 0 0 0 var(--base), 0 0 0 var(--base);
+  }
+}
+
+/*----------------------------------------------------------------------*/

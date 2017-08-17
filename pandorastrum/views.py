@@ -1,7 +1,8 @@
-from datetime import datetime
+from django.views.generic import ListView
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic.base import TemplateView
 from pandorastrum.models import GamesModel, AboutModel, AboutTeamImage, ThanksName, BlogModel
+from taggit.models import Tag
 
 # Redirection of root url
 def redirect_root(request):
@@ -29,14 +30,34 @@ def portfolio_pageView(request):
     }
     return render(request, "portfolio.html", context)
 
-def blog_pageView(request):
+def blog_pageView(request, tag_slug=None, **kwargs):
 
     blog = BlogModel.objects.all()
-    
+    tag_list = Tag.objects.all()
+    blog_tag = BlogModel.objects.filter(tags__slug=kwargs.get("slug"))
     context = {
         "blog" : blog,
+        "tag_list" : tag_list,
+        "blog_tag" : blog_tag
     }
     return render(request, "blog.html", context)
+
+class TagMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(TagMixin, self).get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
+
+
+class blog_tagView(TagMixin,ListView):
+    model = BlogModel
+    template_name = "blog.html"
+    paginate_by = '10'
+    context_object_name = "blog"
+
+    def get_queryset(self):
+        return BlogModel.objects.filter(tags__slug=self.kwargs.get("slug"))
+
 
 def blog_detailView(request, id):
     instance = get_object_or_404(BlogModel, id=id)

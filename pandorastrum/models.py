@@ -165,6 +165,11 @@ class BlogModel (models.Model):
     def get_month_str(self):
         return self.published_on.strftime("%b %Y")
 
+    def get_day(self):
+        return self.published_on.strftime("%d")
+    def get_tag(self):
+        return self.tags.all.name
+
     @property
     def title(self):
         return self.blog_title
