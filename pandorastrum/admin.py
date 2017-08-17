@@ -8,7 +8,8 @@ from pandorastrum.models import (
     GamesModel,
     AboutTeamImage,
     AboutModel,
-    ThanksName
+    ThanksName,
+    BlogModel
 )
 class Requirements(admin.TabularInline):
     model = GameRequirements
@@ -97,6 +98,31 @@ class AboutAdmin(admin.ModelAdmin):
 
     inlines = [Team, Thanks]
     readonly_fields = ('slug', "created")
+
+@admin.register(BlogModel)
+class BlogAdmin(admin.ModelAdmin):
+    date_hierarchy = 'created'
+    list_display = ["__str__", "created", "updated"]
+    list_filter = ('updated',)
+    fieldsets = (
+        (None, {
+            'fields': ((),('blog_title', "published_on", "blog_author"))
+        }),
+        ('Blog Details', {
+            'fields': ("blog_description",
+                       "blog_detail", "blog_thumbnail", "blogThumbnail"),
+        }),
+        ('Tags', {
+            'fields': ("tags",)
+        }),
+        ('Read Only Info', {
+            'classes': ('collapse',),
+            'fields': ('slug', "created")
+        }),
+    )
+
+
+    readonly_fields = ('slug', "created", "blogThumbnail")
 
 admin.site.site_header = "PandorAstrum Administration"
 admin.site.index_title = "Configurations"

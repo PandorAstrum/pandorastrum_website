@@ -2,7 +2,9 @@ from django.db import models
 from django.utils.safestring import mark_safe
 from pandorastrum.utility import unique_slug_generator
 from django.db.models.signals import pre_save, post_save
-from django.utils.html import format_html
+from django.core.urlresolvers import reverse
+
+from taggit.managers import TaggableManager
 # Create your models here.
 # games page
 class GamesModel (models.Model):
@@ -134,13 +136,39 @@ class ThanksName(models.Model):
     def __str__(self):
         return self.name_to_add
 
+# blog page
+class BlogModel (models.Model):
+    blog_title      = models.CharField(max_length=200, blank=True, null=True)
+    published_on     = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    blog_description       = models.TextField(blank=True, null=True)
+    blog_detail      = models.TextField(blank=True, null=True)
+    blog_author   = models.CharField(max_length=200, blank=True, null=True)
 
+    blog_thumbnail  = models.ImageField(upload_to="blogs", blank=True, null=True)
+    def blogThumbnail(self):
+        return mark_safe(u'<img src="%s" />' % (self.blog_thumbnail.url))
 
-class BlogModel(models.Model):
-    title = models.CharField(max_length=500)
+    blogThumbnail.allow_tags = True
+    blogThumbnail.short_description = 'Blog Image'
 
+    tags = TaggableManager()
+
+    slug            = models.SlugField(blank=True, null=True)
+    updated         = models.DateTimeField(auto_now=True, auto_now_add=False)
+    created         = models.DateTimeField(auto_now=False, auto_now_add=True, null=True, blank=True)
     def __str__(self):
-        return self.title
+        return self.blog_title
+
+    def get_absolute_url(self):
+        return reverse("detail", kwargs={"id": self.id})
+
+    def get_month_str(self):
+        return self.published_on.strftime("%b %Y")
+
+    @property
+    def title(self):
+        return self.blog_title
+
 
 
 def rl_pre_save(sender, instance, *args, **kwargs):
@@ -149,3 +177,4 @@ def rl_pre_save(sender, instance, *args, **kwargs):
 
 pre_save.connect(rl_pre_save, sender=GamesModel)
 pre_save.connect(rl_pre_save, sender=AboutModel)
+pre_save.connect(rl_pre_save, sender=BlogModel)

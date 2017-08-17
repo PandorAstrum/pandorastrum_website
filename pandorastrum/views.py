@@ -1,6 +1,7 @@
-from django.shortcuts import redirect, render
+from datetime import datetime
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic.base import TemplateView
-from pandorastrum.models import GamesModel, AboutModel, AboutTeamImage, ThanksName
+from pandorastrum.models import GamesModel, AboutModel, AboutTeamImage, ThanksName, BlogModel
 
 # Redirection of root url
 def redirect_root(request):
@@ -29,11 +30,22 @@ def portfolio_pageView(request):
     return render(request, "portfolio.html", context)
 
 def blog_pageView(request):
-    # queryset =
-    context = {
 
+    blog = BlogModel.objects.all()
+    
+    context = {
+        "blog" : blog,
     }
     return render(request, "blog.html", context)
+
+def blog_detailView(request, id):
+    instance = get_object_or_404(BlogModel, id=id)
+    context = {
+        "instance" : instance
+    }
+    return render(request, "blog_detail.html", context)
+
+
 
 def about_pageView(request):
     queryset = AboutModel.objects.all()
@@ -76,8 +88,13 @@ def error_pageView(request):
     return render(request, "error.html", context)
 
 
-
-
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+def handler404(request):
+    response = render_to_response('error.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
 
 
 

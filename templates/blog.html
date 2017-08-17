@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block head_title %}Blog | {{ block.super }}{% endblock head_title%}
 
@@ -28,15 +29,16 @@
     <!-- some gap -->
     <div class="row pa-gapes"></div>
 
-    <!-- svg for tab style -->
-    <svg class="hidden">
-        <defs>
-            <path id="tabshape" d="M80,60C34,53.5,64.417,0,0,0v60H80z"/>
-        </defs>
-    </svg>
+    <div class="row pa-row">
+    {% include 'blocks/blog_block.html' %}
+
+    </div>
+
 
 {% endblock main %}
 
-{% block js_file %} {% endblock js_file %}
+{% block js_file %}
+<script src="{% static 'js/blog.js'%}"></script>
+{% endblock js_file %}
 
 {% block pure_js %}{% endblock pure_js %}
