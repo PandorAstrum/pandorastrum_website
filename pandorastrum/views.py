@@ -1,7 +1,7 @@
 from django.views.generic import ListView
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic.base import TemplateView
-from pandorastrum.models import GamesModel, AboutModel, AboutTeamImage, ThanksName, BlogModel
+from pandorastrum.models import GamesModel, AboutModel, AboutTeamImage, ThanksName, BlogModel, BlogContentModel
 from taggit.models import Tag
 
 # Redirection of root url
@@ -48,7 +48,6 @@ class TagMixin(object):
         context['tags'] = Tag.objects.all()
         return context
 
-
 class blog_tagView(TagMixin,ListView):
     model = BlogModel
     template_name = "blog.html"
@@ -59,10 +58,13 @@ class blog_tagView(TagMixin,ListView):
         return BlogModel.objects.filter(tags__slug=self.kwargs.get("slug"))
 
 
-def blog_detailView(request, id):
+def blog_detailView(request, id, **kwargs):
     instance = get_object_or_404(BlogModel, id=id)
+    content = BlogContentModel.objects.filter(related_to=instance.id)
+    # content = get_object_or_404(BlogContentModel, pk=pk)
     context = {
-        "instance" : instance
+        "instance" : instance,
+        "content" : content
     }
     return render(request, "blog_detail.html", context)
 

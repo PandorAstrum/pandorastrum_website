@@ -137,12 +137,31 @@ class ThanksName(models.Model):
         return self.name_to_add
 
 # blog page
+class AuthorModel(models.Model):
+    author_name = models.CharField(max_length=200, blank=True, null=True)
+    author_image = models.ImageField(upload_to="user", blank=True, null=True)
+    def author_image_thumb(self):
+        return mark_safe(u'<img src="%s" />' % (self.author_image.url))
+    author_image_thumb.allow_tags = True
+    author_image_thumb.short_description = 'Author Image'
+    author_description = models.TextField(blank=True, null=True)
+
+    slug            = models.SlugField(blank=True, null=True)
+    updated         = models.DateTimeField(auto_now=True, auto_now_add=False)
+    created         = models.DateTimeField(auto_now=False, auto_now_add=True, null=True, blank=True)
+    def __str__(self):
+        return self.author_name
+
+    @property
+    def title(self):
+        return self.author_name
+
+
 class BlogModel (models.Model):
     blog_title      = models.CharField(max_length=200, blank=True, null=True)
     published_on     = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
     blog_description       = models.TextField(blank=True, null=True)
-    blog_detail      = models.TextField(blank=True, null=True)
-    blog_author   = models.CharField(max_length=200, blank=True, null=True)
+    blog_author   = models.ForeignKey(AuthorModel, on_delete=models.CASCADE, default='')
 
     blog_thumbnail  = models.ImageField(upload_to="blogs", blank=True, null=True)
     def blogThumbnail(self):
@@ -167,12 +186,30 @@ class BlogModel (models.Model):
 
     def get_day(self):
         return self.published_on.strftime("%d")
-    def get_tag(self):
-        return self.tags.all.name
+
+    def get_date(self):
+        return self.published_on.strftime("%d %b %Y")
+
+    class Meta:
+        ordering = ['published_on', ]
 
     @property
     def title(self):
         return self.blog_title
+
+class BlogContentModel(models.Model):
+    SIZE_CHOICES = (
+        ("Left-Side", "Left-Side"),
+        ("Right-Side", "Right-Side"),
+        ("Full-Width", "Full-Width")
+    )
+    related_to = models.ForeignKey(BlogModel, on_delete=models.CASCADE, blank=True, null=True)
+    paragraph = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to="blog", blank=True, null=True)
+    image_size = models.CharField(max_length=15, choices=SIZE_CHOICES, default='')
+    def __unicode__(self):
+        return self.id
+
 
 
 
@@ -183,3 +220,4 @@ def rl_pre_save(sender, instance, *args, **kwargs):
 pre_save.connect(rl_pre_save, sender=GamesModel)
 pre_save.connect(rl_pre_save, sender=AboutModel)
 pre_save.connect(rl_pre_save, sender=BlogModel)
+pre_save.connect(rl_pre_save, sender=AuthorModel)

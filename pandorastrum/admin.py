@@ -9,7 +9,9 @@ from pandorastrum.models import (
     AboutTeamImage,
     AboutModel,
     ThanksName,
-    BlogModel
+    BlogModel,
+    AuthorModel,
+    BlogContentModel
 )
 class Requirements(admin.TabularInline):
     model = GameRequirements
@@ -99,6 +101,11 @@ class AboutAdmin(admin.ModelAdmin):
     inlines = [Team, Thanks]
     readonly_fields = ('slug', "created")
 
+class BlogContent(admin.TabularInline):
+    model = BlogContentModel
+    extra = 1
+    classes = ["collapse"]
+
 @admin.register(BlogModel)
 class BlogAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
@@ -110,7 +117,8 @@ class BlogAdmin(admin.ModelAdmin):
         }),
         ('Blog Details', {
             'fields': ("blog_description",
-                       "blog_detail", "blog_thumbnail", "blogThumbnail"),
+                       "blog_thumbnail",
+                       "blogThumbnail"),
         }),
         ('Tags', {
             'fields': ("tags",)
@@ -121,8 +129,26 @@ class BlogAdmin(admin.ModelAdmin):
         }),
     )
 
+    inlines = [BlogContent]
 
     readonly_fields = ('slug', "created", "blogThumbnail")
+
+@admin.register(AuthorModel)
+class AuthorAdmin(admin.ModelAdmin):
+    date_hierarchy = 'created'
+    list_display = ["__str__", "created", "updated"]
+    list_filter = ('updated', 'author_name')
+    fieldsets = (
+        (None, {
+            'fields': ('author_name', "author_description", "author_image", "author_image_thumb")
+        }),
+        ('Read Only Info', {
+            'classes': ('collapse',),
+            'fields': ('slug', "created")
+        }),
+    )
+
+    readonly_fields = ('slug', "created", "author_image_thumb")
 
 admin.site.site_header = "PandorAstrum Administration"
 admin.site.index_title = "Configurations"
