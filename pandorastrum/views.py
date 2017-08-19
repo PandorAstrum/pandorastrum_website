@@ -3,6 +3,10 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic.base import TemplateView
 from pandorastrum.models import GamesModel, AboutModel, AboutTeamImage, ThanksName, BlogModel, BlogContentModel
 from taggit.models import Tag
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render
+
+
 
 # Redirection of root url
 def redirect_root(request):
@@ -31,37 +35,55 @@ def portfolio_pageView(request):
     return render(request, "portfolio.html", context)
 
 def blog_pageView(request, tag_slug=None, **kwargs):
-
-    blog = BlogModel.objects.all()
+    blog_list = BlogModel.objects.all().order_by("-created")
+    paginator = Paginator(blog_list, 10) # Show 25 contacts per page
+    page = request.GET.get('page')
+    normal_view = True
+    try:
+        blog = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        blog = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        blog = paginator.page(paginator.num_pages)
     tag_list = Tag.objects.all()
     blog_tag = BlogModel.objects.filter(tags__slug=kwargs.get("slug"))
     context = {
         "blog" : blog,
         "tag_list" : tag_list,
-        "blog_tag" : blog_tag
+        "blog_tag" : blog_tag,
+        "normal_view" : normal_view
     }
+
+
     return render(request, "blog.html", context)
 
-class TagMixin(object):
-    def get_context_data(self, **kwargs):
-        context = super(TagMixin, self).get_context_data(**kwargs)
-        context['tags'] = Tag.objects.all()
-        return context
 
-class blog_tagView(TagMixin,ListView):
+class blog_tagView(ListView):
     model = BlogModel
     template_name = "blog.html"
-    paginate_by = '10'
-    context_object_name = "blog"
+    paginate_by = 10
+
 
     def get_queryset(self):
         return BlogModel.objects.filter(tags__slug=self.kwargs.get("slug"))
 
+    def get_context_data(self, **kwargs):
+        context = super(blog_tagView, self).get_context_data(**kwargs)
+        p = Paginator(BlogModel.objects.all(), self.paginate_by)
+        context['blog'] =  p.page(context['page_obj'].number)
+        first = BlogContentModel.objects.filter(related_to=self.kwargs.get("id")).values_list('image', flat=True)
+        # context['first_image'] = accordion2_content.objects..values_list('image', flat=True)[0]
+        context['blog_content'] = BlogContentModel.objects.filter(related_to=self.kwargs.get("id")).values_list('image', flat=True)
+        context['tags'] = Tag.objects.all()
+        context['normal_view'] = False
+        return context
 
+# details single blog block ------------------------------------------------------------------------
 def blog_detailView(request, id, **kwargs):
     instance = get_object_or_404(BlogModel, id=id)
     content = BlogContentModel.objects.filter(related_to=instance.id)
-    # content = get_object_or_404(BlogContentModel, pk=pk)
     context = {
         "instance" : instance,
         "content" : content

@@ -135,8 +135,9 @@ class ThanksName(models.Model):
 
     def __str__(self):
         return self.name_to_add
-
-# blog page
+#================================================================================
+# blog page ---------------------------------------------------------------------
+#================================================================================
 class AuthorModel(models.Model):
     author_name = models.CharField(max_length=200, blank=True, null=True)
     author_image = models.ImageField(upload_to="user", blank=True, null=True)
@@ -145,7 +146,6 @@ class AuthorModel(models.Model):
     author_image_thumb.allow_tags = True
     author_image_thumb.short_description = 'Author Image'
     author_description = models.TextField(blank=True, null=True)
-
     slug            = models.SlugField(blank=True, null=True)
     updated         = models.DateTimeField(auto_now=True, auto_now_add=False)
     created         = models.DateTimeField(auto_now=False, auto_now_add=True, null=True, blank=True)
@@ -155,7 +155,6 @@ class AuthorModel(models.Model):
     @property
     def title(self):
         return self.author_name
-
 
 class BlogModel (models.Model):
     blog_title      = models.CharField(max_length=200, blank=True, null=True)
@@ -191,7 +190,7 @@ class BlogModel (models.Model):
         return self.published_on.strftime("%d %b %Y")
 
     class Meta:
-        ordering = ['published_on', ]
+        ordering = ['-created', ]
 
     @property
     def title(self):

@@ -2029,18 +2029,6 @@ Blog Page ------------------------------------------------------------
 .blog-single-component .side-by-side {
     padding-bottom: 1%;
 }
-/*.blog-single-component .side-by-side:nth-child(odd) img {*/
-    /*float: left;*/
-    /*padding-right: 2%;*/
-    /*margin-bottom: 5px;*/
-    /*padding-left: 2%;*/
-/*}*/
-/*.blog-single-component .side-by-side:nth-child(even) img {*/
-    /*float: right;*/
-    /*padding-right: 2%;*/
-    /*margin-bottom: 5px;*/
-    /*padding-left: 2%;*/
-/*}*/
 .blog-single-component .side-by-side .left-side {
     float: left;
     padding-right: 2%;
@@ -2058,15 +2046,11 @@ Blog Page ------------------------------------------------------------
 .blog-single-component .side-by-side .full-width {
     width:100%;
 }
-
-
 .blog-single-component .side-by-side p {
     padding-left: 2%;
     padding-right: 2%;
 }
-/*.blog-single-component .side-by-side .sided {*/
-    /*width: 60%;*/
-/*}*/
+
 /*author*/
 .author .author-wrapper {
     -moz-transition: width 0.4s;
