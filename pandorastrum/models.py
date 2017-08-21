@@ -158,19 +158,16 @@ class AuthorModel(models.Model):
 
 class BlogModel (models.Model):
     blog_title      = models.CharField(max_length=200, blank=True, null=True)
-    published_on     = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
-    blog_description       = models.TextField(blank=True, null=True)
-    blog_author   = models.ForeignKey(AuthorModel, on_delete=models.CASCADE, default='')
-
-    blog_thumbnail  = models.ImageField(upload_to="blogs", blank=True, null=True)
-    def blogThumbnail(self):
-        return mark_safe(u'<img src="%s" />' % (self.blog_thumbnail.url))
-
-    blogThumbnail.allow_tags = True
-    blogThumbnail.short_description = 'Blog Image'
-
-    tags = TaggableManager()
-
+    published_on    = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    blog_description= models.TextField(blank=True, null=True)
+    blog_author     = models.ForeignKey(AuthorModel, on_delete=models.CASCADE, default='')
+    is_featured     = models.BooleanField(default=False)
+    blog_banner     = models.ImageField(upload_to="blogs", blank=True, null=True)
+    def blogBanner(self):
+        return mark_safe(u'<img src="%s" height="300" />' % (self.blog_banner.url))
+    blogBanner.allow_tags = True
+    blogBanner.short_description = 'Blog Banner'
+    tags            = TaggableManager()
     slug            = models.SlugField(blank=True, null=True)
     updated         = models.DateTimeField(auto_now=True, auto_now_add=False)
     created         = models.DateTimeField(auto_now=False, auto_now_add=True, null=True, blank=True)
@@ -197,17 +194,18 @@ class BlogModel (models.Model):
         return self.blog_title
 
 class BlogContentModel(models.Model):
-    SIZE_CHOICES = (
+    SIZE_CHOICES    = (
         ("Left-Side", "Left-Side"),
         ("Right-Side", "Right-Side"),
         ("Full-Width", "Full-Width")
     )
-    related_to = models.ForeignKey(BlogModel, on_delete=models.CASCADE, blank=True, null=True)
-    paragraph = models.TextField(blank=True, null=True)
-    image = models.ImageField(upload_to="blog", blank=True, null=True)
-    image_size = models.CharField(max_length=15, choices=SIZE_CHOICES, default='')
-    def __unicode__(self):
-        return self.id
+    related_to      = models.ForeignKey(BlogModel, on_delete=models.CASCADE, blank=True, null=True)
+    paragraph       = models.TextField(blank=True, null=True)
+    attach_banner_here = models.BooleanField(default=False)
+    image           = models.ImageField(upload_to="blog", blank=True, null=True)
+    image_size      = models.CharField(max_length=15, choices=SIZE_CHOICES, default='')
+    def __str__(self):
+        return str(self.pk)
 
 
 

@@ -1,3 +1,142 @@
+{#<!-- blog block starts ----------------------------------------------------->#}
+{#<div class="blog-component">#}
+{#    <div class="container-fluid u-mb-200">#}
+{#        <div class="row js-pushpin-parent">#}
+{#            <!-- left side -->#}
+{#            <div class="col-md-9">#}
+{#                {% for b in blog %}#}
+{#                <!-- first post -->#}
+{#                <article class="post">#}
+{#                    <div class="row js-pushpin-parent">#}
+{#                        <!-- Date and tag -->#}
+{#                        <div class="col-sm-2">#}
+{#                            <div class="post__info post-info js-pushpin-target">#}
+{#                                <div class="post-info__date">#}
+{#                                    <div class="post-info__day">{{ b.get_day }}</div>#}
+{#                                    <div class="post-info__month-year">{{ b.get_month_str }}</div>#}
+{#                                </div>#}
+{#                                <div class="post-info__hr"></div>#}
+{#                                <div class="post-info__tags">#}
+{#                                    {% for t in b.tags.all %}#}
+{#                                        <a class="post-info__tag tag" href="{% url "blog_tagged" t.slug %}">{{ t.name }}</a>#}
+{#                                    {% endfor %}#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-sm-10">#}
+{#                            <header class="post__header post-header">#}
+{#                                <h2 class="post-header__title"><a href="{{ b.get_absolute_url }}">{{ b.blog_title }}</a></h2>#}
+{#                                <div class="p-thumbnail">#}
+{##}
+{##}
+{##}
+{##}
+{##}
+{##}
+{#                                    {% if b.blog_thumbnail.url is not null %} }#}
+{#                                    <img src="{{ b.blog_thumbnail.url }}">#}
+{#                                    <div class="buttons">#}
+{#                                        <a href="{{ b.get_absolute_url }}" class="fa fa-link"></a>#}
+{#                                    </div>#}
+{##}
+{#                                </div>#}
+{#                            </header>#}
+{#                            <div class="post__content post-content">#}
+{#                                <p>{{ b.blog_description }}</p>#}
+{#                                <div class="read-more">#}
+{#                                    <a href="{{ b.get_absolute_url }}"><span class="txt">Read More</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </article>#}
+{#                {% endfor %}#}
+{#            pagination#}
+{#                {% if normal_view%}#}
+{#                    <div class="pagination">#}
+{#                        <span class="step-links">#}
+{#                            {% if blog.has_previous %}#}
+{#                                <a href="?page={{ blog.previous_page_number }}">previous</a>#}
+{#                            {% endif %}#}
+{#                            <span class="current">#}
+{#                                Page {{ blog.number }} of {{ blog.paginator.num_pages }}.#}
+{#                            </span>#}
+{#                            {% if blog.has_next %}#}
+{#                                <a href="?page={{   blog.next_page_number }}">next</a>#}
+{#                            {% endif %}#}
+{#                        </span>#}
+{#                    </div>#}
+{#                {% else %}#}
+{#                    <div class="pagination">#}
+{#                        <span class="step-links">#}
+{#                            {% if page_obj.has_previous %}#}
+{#                                <a href="?page={{ page_obj.previous_page_number }}">previous</a>#}
+{#                            {% endif %}#}
+{#                            <span class="current">#}
+{#                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.#}
+{#                            </span>#}
+{#                            {% if page_obj.has_next %}#}
+{#                                <a href="?page={{   page_obj.next_page_number }}">next</a>#}
+{#                            {% endif %}#}
+{#                        </span>#}
+{#                    </div>#}
+{#                {% endif %}#}
+{##}
+{#            </div>#}
+{#            <!-- right side -->#}
+{#            <div class="col-md-3">#}
+{#                <aside class="blog-sidebar js-pushpin-target">#}
+{#                    <div class="blog-search">#}
+{#                        <div class="blog-search__btn"><i class="fa fa-search"></i></div>#}
+{#                        <input type="text" placeholder="SEARCH"/>#}
+{#                    </div>#}
+{#                    <div class="tile blog-archive">#}
+{#                        <div class="tile__title">Archive</div>#}
+{##}
+{#                        <ul class="blog-archive__years">#}
+{#                            {% for year in year_list %}#}
+{#                                <li class="clearfix">{{ year }}#}
+{##}
+{#                                </li>#}
+{#                            {% endfor %}#}
+{#                            <li class="clearfix">2016#}
+{#                                <ul class="blog-archive__months">#}
+{#                                    <li><a href="">September</a></li>#}
+{#                                    <li><a href="">October</a></li>#}
+{#                                    <li><a href="">November</a></li>#}
+{#                                    <li><a href="">December</a></li>#}
+{#                                </ul>#}
+{#                            </li>#}
+{#                            <li class="clearfix">2015#}
+{#                                <ul class="blog-archive__months">#}
+{#                                    <li><a href="">September</a></li>#}
+{#                                    <li><a href="">October</a></li>#}
+{#                                    <li><a href="">November</a></li>#}
+{#                                    <li><a href="">December   </a></li>#}
+{#                                </ul>#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                    <div class="tile blog-categories">#}
+{#                        <div class="tile__title">Categories</div>#}
+{#                        <div class="blog-tags">#}
+{#                            {% for tag in tags %}#}
+{#                                <a class="post-info__tag tag" href="{% url "blog_tagged" tag.slug %}">{{ tag.name }}</a>#}
+{#                            {% endfor %}#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </aside>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+<!-- blog block ends ------------------------------------------------------->
+{#{% for b in blog %}#}
+{#    <a href="{{ b.get_absolute_url }}" ><h1 style="color: White">{{ b.blog_title }}</h1></a>#}
+{#    <p style="color: White">{{ b.blog_detail }}</p>#}
+{#{% endfor %}#}
+
+
 <!-- blog block starts ----------------------------------------------------->
 <div class="blog-component">
     <div class="container-fluid u-mb-200">
@@ -5,7 +144,6 @@
             <!-- left side -->
             <div class="col-md-9">
                 {% for b in blog %}
-                <!-- first post -->
                 <article class="post">
                     <div class="row js-pushpin-parent">
                         <!-- Date and tag -->
@@ -17,124 +155,123 @@
                                 </div>
                                 <div class="post-info__hr"></div>
                                 <div class="post-info__tags">
-                                    {% for t in b.tags.all %}
-                                        <a class="post-info__tag tag" href="{% url "blog_tagged" t.slug %}">{{ t.name }}</a>
+                                    {% for tag in b.tags.all %}
+                                    <a class="post-info__tag tag" href="{% url "blog_tagged" tag.slug %}">{{ tag.name }}</a>
                                     {% endfor %}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-10">
+                        <div class="col-sm-10 total-blog">
                             <header class="post__header post-header">
                                 <h2 class="post-header__title"><a href="{{ b.get_absolute_url }}">{{ b.blog_title }}</a></h2>
                                 <div class="p-thumbnail">
-
-{##}
-
-
-
-
-{#                                    {% if b.blog_thumbnail.url is not null %} }#}
-{#                                    <img src="{{ b.blog_thumbnail.url }}">#}
+                                    {% if b.blog_banner %}
+                                    <img src="{{ b.blog_banner.url }}" alt=""/>
                                     <div class="buttons">
                                         <a href="{{ b.get_absolute_url }}" class="fa fa-link"></a>
                                     </div>
-
+                                    {% endif %}
                                 </div>
                             </header>
                             <div class="post__content post-content">
                                 <p>{{ b.blog_description }}</p>
-                                <div class="read-more">
-                                    <a href="{{ b.get_absolute_url }}"><span class="txt">Read More</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
+                                <div class="blog-footer">
+                                    <ul>
+                                        <li>{{ b.published_on|timesince }} ago</li>
+                                        <li>
+                                            <div class="read-more">
+                                                <a href="{{ b.get_absolute_url }}">
+                                                    <span class="txt">Read More</span>
+                                                    <span class="round">
+                                                        <i class="fa fa-chevron-right"></i>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </article>
                 {% endfor %}
-{#            pagination#}
+                <!-- pagination -->
                 {% if normal_view%}
-                    <div class="pagination">
-                        <span class="step-links">
-                            {% if blog.has_previous %}
-                                <a href="?page={{ blog.previous_page_number }}">previous</a>
-                            {% endif %}
-                            <span class="current">
-                                Page {{ blog.number }} of {{ blog.paginator.num_pages }}.
-                            </span>
-                            {% if blog.has_next %}
-                                <a href="?page={{   blog.next_page_number }}">next</a>
-                            {% endif %}
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if blog.has_previous %}
+                            <a href="?page={{ blog.previous_page_number }}">previous</a>
+                        {% endif %}
+                        <span class="current">
+                            Page {{ blog.number }} of {{ blog.paginator.num_pages }}
                         </span>
-                    </div>
-                {% elif normal_view is False %}
-                    <div class="pagination">
-                        <span class="step-links">
-                            {% if page_obj.has_previous %}
-                                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                            {% endif %}
-                            <span class="current">
-                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                            </span>
-                            {% if page_obj.has_next %}
-                                <a href="?page={{   page_obj.next_page_number }}">next</a>
-                            {% endif %}
+                        {% if blog.has_next %}
+                            <a href="?page={{ blog.next_page_number }}">next</a>
+                        {% endif %}
+                    </span>
+                </div>
+                {% else %}
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                         </span>
-                    </div>
+                        {% if page_obj.has_next %}
+                            <a href="?page={{   page_obj.next_page_number }}">next</a>
+                        {% endif %}
+                    </span>
+                </div>
                 {% endif %}
-
-
-
             </div>
             <!-- right side -->
             <div class="col-md-3">
                 <aside class="blog-sidebar js-pushpin-target">
                     <div class="blog-search">
-                        <div class="blog-search__btn"><i class="fa fa-search"></i></div>
-                        <input type="text" placeholder="SEARCH"/>
-                    </div>
-                    <div class="tile blog-archive">
-                        <div class="tile__title">Archive</div>
-                        <ul class="blog-archive__years">
-                            <li class="clearfix">2016
-                                <ul class="blog-archive__months">
-                                    <li><a href="">September</a></li>
-                                    <li><a href="">October</a></li>
-                                    <li><a href="">November</a></li>
-                                    <li><a href="">December</a></li>
-                                </ul>
-                            </li>
-                            <li class="clearfix">2015
-                                <ul class="blog-archive__months">
-                                    <li><a href="">September</a></li>
-                                    <li><a href="">October</a></li>
-                                    <li><a href="">November</a></li>
-                                    <li><a href="">December   </a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="tile blog-categories">
-                        <div class="tile__title">Categories</div>
-                        <div class="blog-tags">
-                        {% if "blog_tagged" %}
-                            {% for tag in tags %}
+                        <form id="searchform" action="#" method="get" accept-charset="utf-8">
+                            <div class="blog-search__btn">
+                                                    <button class="primary" type="submit">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </div>
+                                                <input type="text" name="q" placeholder="SEARCH"/>
+                                            </form>
+                                        </div>
+                                        <div class="tile blog-archive">
+                                            <div class="tile__title">Archive</div>
+                                            <ul class="blog-archive__years">
+                                                <li class="clearfix">2018
+                                                    <ul class="blog-archive__months">
+                                                        <li><a href="">September</a></li>
+                                                        <li><a href="">October</a></li>
+                                                        <li><a href="">November</a></li>
+                                                        <li><a href="">December</a></li>
+                                                    </ul>
+</li>
+                                                <li class="clearfix">2017
+                                                    <ul class="blog-archive__months">
+                                                        <li><a href="">September</a></li>
+                                                        <li><a href="">October</a></li>
+                                                        <li><a href="">November</a></li>
+                                                        <li><a href="">December   </a></li>
+</ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="tile blog-categories">
+                                            <div class="tile__title">Categories</div>
+                                            <div class="blog-tags">
+                                                {% for tag in tags %}
                                 <a class="post-info__tag tag" href="{% url "blog_tagged" tag.slug %}">{{ tag.name }}</a>
                             {% endfor %}
-                        {% endif %}
-                        {% if "blog"%}
-                            {% for tag in tag_list %}
-                                <a class="post-info__tag tag" href="{% url "blog_tagged" tag.slug %}">{{ tag.name }}</a>
-                            {% endfor %}
-                        {% endif %}
+
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </aside>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- blog block ends ------------------------------------------------------->
-{#{% for b in blog %}#}
-{#    <a href="{{ b.get_absolute_url }}" ><h1 style="color: White">{{ b.blog_title }}</h1></a>#}
-{#    <p style="color: White">{{ b.blog_detail }}</p>#}
-{#{% endfor %}#}
+                    <!-- blog block ends ------------------------------------------------------->

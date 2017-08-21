@@ -33,7 +33,10 @@
     </div>
 {% endblock main %}
 
-{% block js_file %}{% endblock js_file %}
+{% block js_file %}
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
+{% endblock js_file %}
 
 {% block pure_js %}
 // scroll to top

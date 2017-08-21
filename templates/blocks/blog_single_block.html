@@ -1,3 +1,4 @@
+{% load static %}
 <!-- blog single starts ----------------------------------------------------->
 <div class="blog-single-component">
     <div class="container-fluid u-mb-200">
@@ -62,36 +63,35 @@
                         </div>
                     </div>
                 </div>
-                <!-- facebook like share-->
-                <div class="like-and-share">
-                    <div class="fb-like" data-href="{{ instance.get_absolute_url }}" data-layout="button" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
-                </div>
                 <!-- action buttons-->
                 <div id="actions">
                     <ul>
                         <li>
-                            <a id="BtnPrint" title="Print" href="#" onclick="window.print();">
-                                <i class="fa fa-print"></i>
-                                <span>Print</span>
+                            <div class="fb-like" data-href="{{ request.absolute_uri }}" data-layout="button" data-action="like" data-size="large" data-show-faces="false" data-share="true"></div>
+                        </li>
+                        <li>
+                            <a class="twitter-share-button" data-size="large" href="https://twitter.com/home?status={{ summery_msg }}%20{{ request.absolute_uri }}" title="Share on Twitter">
+                                <img src="{% static "img/tweet-button.png" %}" width="80px" alt="tweet">
                             </a>
                         </li>
                         <li>
-                            <a id="BtnSave" title="Save to Desktop" href="#">
-                                <i class="fa fa-get-pocket"></i>
-                                <span>Save</span>
-                            </a>
+                            <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+                            <script type="IN/Share" data-url="https://www.linkedin.com/shareArticle?mini=false&url=&title={{ title_msg }}&summary={{ summery_msg }}&source={{ request.absolute_uri }}"></script>
                         </li>
                         <li>
-                            <a id="BtnBookmark" href="#" title="Bookmark">
-                                <i class="fa fa-bookmark"></i>
-                                <span>Bookmark</span>
-                            </a>
+                            <g:plusone></g:plusone>
+                        </li>
+                        <li>
+                            <a data-pin-do="buttonBookmark" data-pin-tall="true" data-pin-save="true" href="https://www.pinterest.com/pin/create/button/"></a>
+                        </li>
+                        <li>
+                            <a href="http://www.reddit.com/submit?url={{ request.absolute_uri }}&title={{ title_msg }}" title="Share on Reddit"> <img src="//www.redditstatic.com/spreddit10.gif" alt="submit to reddit" border="0" /> </a>
                         </li>
                     </ul>
                 </div>
                 <!-- facebook comments -->
                 <div class="fb">
-                    <div class="fb-comments" data-href="https://pandorastrum.herokuapp.com/blog/" data-colorscheme="dark" data-numposts="5" data-width="100%"></div>
+                    <div class="fb-comments" data-href="{{ request.absolute_uri }}" data-colorscheme="dark" data-numposts="5" data-width="100%"></div>
                 </div>
             </div>
             <!-- up button -->

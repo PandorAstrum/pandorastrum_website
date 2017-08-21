@@ -1826,6 +1826,7 @@ Blog Page ------------------------------------------------------------
     bottom: 0;
     margin: auto;
     line-height: 25px;
+    color: #aaa;
 }
 .blog-component .blog-search__btn button {
     border: none;
