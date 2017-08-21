@@ -1,4 +1,6 @@
 import datetime
+from functools import reduce
+
 from django.views.generic import ListView
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic.base import TemplateView
@@ -7,7 +9,8 @@ from taggit.models import Tag
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from urllib.parse import quote_plus
-
+import operator
+from django.db.models import Q
 
 # Redirection of root url
 def redirect_root(request):
@@ -37,70 +40,80 @@ def portfolio_pageView(request):
 
 # blog normal block ------------------------------------------------------------------------
 def blog_pageView(request, tag_slug=None, **kwargs):
-    blog_list = BlogModel.objects.all().order_by("-created")
-    paginator = Paginator(blog_list, 10) # Show 25 contacts per page
-    page = request.GET.get('page')
-    normal_view = True
+    blog_list   = BlogModel.objects.all().order_by("-created")
+    # paginator
+    paginator   = Paginator(blog_list, 10) # Show 25 contacts per page
+    page        = request.GET.get('page')
     try:
-        blog = paginator.page(page)
+        blog_list = paginator.page(page)
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        blog = paginator.page(1)
+        blog_list = paginator.page(1)
     except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        blog = paginator.page(paginator.num_pages)
-    tag_list = Tag.objects.all()
-    blog_tag = BlogModel.objects.filter(tags__slug=kwargs.get("slug"))
+        blog_list = paginator.page(paginator.num_pages)
 
-    year_list = []
-    month_list = []
-    year_month = []
-    for b in blog_list:
-        if b.published_on.year not in year_list:
-            year_list.append(b.published_on.year)
-    for y in year_list:
-        for b in blog_list:
-            if b.published_on.month not in month_list and b.published_on.year is y:
-                month_list.append(b.published_on.month)
-        year_month.append(month_list)
+    # tags
+    tag_list = Tag.objects.all()
+    tag_slugs = request.GET.get("tag_slug")
+    if tag_slugs:
+        blog_list = BlogModel.objects.filter(tags__slug=tag_slugs)
+        # paginator
+        paginator = Paginator(blog_list, 10)  # Show 25 contacts per page
+        page = request.GET.get('page')
+        try:
+            blog_list = paginator.page(page)
+        except PageNotAnInteger:
+            blog_list = paginator.page(1)
+        except EmptyPage:
+            blog_list = paginator.page(paginator.num_pages)
+
+    # search
+    query = request.GET.get("q")
+    if query:
+        query_list = query.split()
+        blog_list = BlogModel.objects.filter(
+                    reduce(operator.and_,(Q(blog_title__icontains=q) for q in query_list)) |
+                    reduce(operator.and_, (Q(tags__slug__icontains=q) for q in query_list))
+        )
+        # paginator
+        paginator = Paginator(blog_list, 10)  # Show 25 contacts per page
+        page = request.GET.get('page')
+        try:
+            blog_list = paginator.page(page)
+        except PageNotAnInteger:
+            blog_list = paginator.page(1)
+        except EmptyPage:
+            blog_list = paginator.page(paginator.num_pages)
+
+    # year month
+    date_field = 'published_on'
+    archive = {}
+    years = BlogModel.objects.all().dates(date_field, 'year')[::-1]
+    for date_year in years:
+        months = BlogModel.objects.filter(published_on__year=date_year.year).dates(date_field, 'month')
+        archive[date_year] = months
+
+    archive = sorted(archive.items(), reverse=True)
+    ym = request.GET.get("y_m")
+    if ym:
+        yy = ym.split("-")
+        blog_list= BlogModel.objects.filter(published_on__year=yy[0]).filter(published_on__month=yy[1])
+        # paginator
+        paginator = Paginator(blog_list, 10)  # Show 25 contacts per page
+        page = request.GET.get('page')
+        try:
+            blog_list = paginator.page(page)
+        except PageNotAnInteger:
+            blog_list = paginator.page(1)
+        except EmptyPage:
+            blog_list = paginator.page(paginator.num_pages)
 
 
     context = {
-        "blog" : blog,
+        "blog" : blog_list,
         "tags" : tag_list,
-        "blog_tag" : blog_tag,
-        "normal_view" : normal_view,
-        "year_list" : year_list
+        "archive" : archive
     }
     return render(request, "blog.html", context)
-
-# class based blog block -------------------------------------------------------------------
-class TagMixin(object):
-    def get_context_data(self, **kwargs):
-        context = super(TagMixin, self).get_context_data(**kwargs)
-        context['tags'] = Tag.objects.all()
-        context["class_tagged"] = True
-        return context
-
-class blog_tagView(TagMixin, ListView):
-    model = BlogModel
-    template_name = "blog.html"
-    paginate_by = 10
-    context_object_name = "blog"
-
-    def get_queryset(self):
-        return BlogModel.objects.filter(tags__slug=self.kwargs.get("slug"))
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(blog_tagView, self).get_context_data(**kwargs)
-    #     p = Paginator(BlogModel.objects.all(), self.paginate_by)
-    #     context['blog'] =  p.page(context['page_obj'].number)
-    #     first = BlogContentModel.objects.filter(related_to=self.kwargs.get("id")).values_list('image', flat=True)
-    #     # context['first_image'] = accordion2_content.objects..values_list('image', flat=True)[0]
-    #     context['blog_content'] = BlogContentModel.objects.filter(related_to=self.kwargs.get("id")).values_list('image', flat=True)
-    #     context['tags'] = Tag.objects.all()
-    #     context['normal_view'] = False
-    #     return context
 
 # details single blog block ------------------------------------------------------------------------
 def blog_detailView(request, id, **kwargs):
