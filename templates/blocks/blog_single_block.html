@@ -57,7 +57,7 @@
                         <div class="tagged-under">
                             <span>Tagged under :
                                 {% for t in instance.tags.all %}
-                                    <a class="tag" href="{% url "blog_tagged" t.slug %}" >{{ t.name }}</a>
+                                    <a class="tag" href="{% url "blog" %}?tag_slug={{ t.slug|urlencode }}" >{{ t.name }}</a>
                                 {% endfor %}
                             </span>
                         </div>
@@ -96,7 +96,7 @@
             </div>
             <!-- up button -->
             <a href="#header" title="Go to Top" class="up-btn"><i class="fa fa-angle-double-up"></i></a>
-            <a href="{% url "blog_tagged" "all" %}" title="Back to All" class="back-btn"><i class="fa fa-angle-double-left"></i></a>
+            <a href="{% url "blog" %}" title="Back to All" class="back-btn"><i class="fa fa-angle-double-left"></i></a>
         </div>
     </div>
 </div>
