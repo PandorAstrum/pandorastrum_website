@@ -1,0 +1,347 @@
+<!-- Portfolio blocks starts -------------------------------------------------->
+<div class="portfolio p-inactive">
+    <!-- portfolio inner starts -->
+    <div class="p-inner">
+        <!-- 1st element 3D -->
+        <div class="p-el">
+            <!-- overflow -->
+            <div class="p-el-overflow">
+                <div class="p-el-inner">
+                    <div class="p-el-bg"></div>
+                    <div class="p-el-preview">
+                        <h2 class="p-el-heading">3D</h2>
+                    </div>
+                    <!-- expanded view -->
+                    <div class="p-el-content" id="first-content">
+                        <div class="p-el-text">Game Ready Models</div>
+                        <div class="p-el-close-btn"></div>
+                        <!-- element inner content -->
+                        <div class="p-gallery">
+                            <div class="inner-g">
+                                <div class="image-grid-component">
+                                    <div id="grid-gallery-first" class="grid-gallery">
+                                        <section class="grid-wrap">
+                                            <ul class="grid">
+                                                <li class="grid-sizer"></li>
+                                                {% for project in 3d %}
+                                                    {% for im in project %}
+                                                        <li>
+                                                            <figure><img class="img-responsive" src="{{ im.image.url }}" /></figure>
+                                                        </li>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            </ul>
+                                        </section>
+                                        <section class="slideshow">
+                                            <ul>
+                                                {% for project in 3d %}
+                                                    {% for im in project %}
+                                                        <li>
+                                                            <figure>
+                                                                <figcaption>
+                                                                    <h3>{{ im.image_title }}</h3>
+                                                                    <p>{{ im.image_caption }}</p>
+                                                                </figcaption>
+                                                                <img class="img-responsive center-block" src="{{ im.image.url }}" />
+                                                            </figure>
+                                                        </li>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            </ul>
+                                            <nav>
+                                                <span class="fa fa-chevron-left"></span>
+                                                <span class="fa fa-chevron-right"></span>
+                                                <span class="nav-close"></span>
+                                            </nav>
+                                            <div class="info-keys">Navigate with arrow keys</div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- number index -->
+            <div class="p-el-index">
+                <div class="p-el-index-back">1</div>
+                <div class="p-el-index-front">
+                    <div class="p-el-index-overlay" data-index="1">1</div>
+                </div>
+            </div>
+        </div>
+        <!-- 2nd element Concept -->
+        <div class="p-el">
+            <!-- overflow -->
+            <div class="p-el-overflow">
+                <div class="p-el-inner">
+                    <div class="p-el-bg"></div>
+                    <div class="p-el-preview">
+                        <h2 class="p-el-heading">Concept</h2>
+                    </div>
+                    <!-- expanded view -->
+                    <div class="p-el-content" id="second-content">
+                        <div class="p-el-text">Concept and Arts</div>
+                        <div class="p-el-close-btn"></div>
+                        <!-- element inner content -->
+                        <div class="p-gallery">
+                            <div class="inner-g">
+                                <div class="image-grid-component">
+                                    <div id="grid-gallery-second" class="grid-gallery">
+                                        <section class="grid-wrap">
+                                            <ul class="grid">
+                                                <li class="grid-sizer"></li>
+                                                {% for project in Concept %}
+                                                    {% for im in project %}
+                                                        <li>
+                                                            <figure><img class="img-responsive" src="{{ im.image.url }}" /></figure>
+                                                        </li>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            </ul>
+                                        </section>
+                                        <section class="slideshow">
+                                            <ul>
+                                                {% for project in Concept %}
+                                                    {% for im in project %}
+                                                        <li>
+                                                            <figure>
+                                                                <figcaption>
+                                                                    <h3>{{ im.image_title }}</h3>
+                                                                    <p>{{ im.image_caption }}</p>
+                                                                </figcaption>
+                                                                <img class="img-responsive center-block" src="{{ im.image.url }}" />
+                                                            </figure>
+                                                        </li>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            </ul>
+                                            <nav>
+                                                <span class="fa fa-chevron-left"></span>
+                                                <span class="fa fa-chevron-right"></span>
+                                                <span class="nav-close"></span>
+                                            </nav>
+                                            <div class="info-keys">Navigate with arrow keys</div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- number index -->
+            <div class="p-el-index">
+                <div class="p-el-index-back">2</div>
+                <div class="p-el-index-front">
+                    <div class="p-el-index-overlay" data-index="2">2</div>
+                </div>
+            </div>
+        </div>
+        <!-- 3rd element Unity -->
+        <div class="p-el">
+            <!-- overflow -->
+            <div class="p-el-overflow">
+                <div class="p-el-inner">
+                    <div class="p-el-bg"></div>
+                    <div class="p-el-preview">
+                        <h2 class="p-el-heading">Unity</h2>
+                    </div>
+                    <!-- expanded view -->
+                    <div class="p-el-content" id="third-content">
+                        <div class="p-el-text">Games on Unity early stage development</div>
+                        <div class="p-el-close-btn"></div>
+                                             <!-- element inner content -->
+                        <div class="p-gallery">
+                            <div class="inner-g">
+                                <div class="image-grid-component">
+                                    <div id="grid-gallery-third" class="grid-gallery">
+                                        <section class="grid-wrap">
+                                            <ul class="grid">
+                                                <li class="grid-sizer"></li>
+                                                {% for project in Unity %}
+                                                    {% for im in project %}
+                                                        <li>
+                                                            <figure><img class="img-responsive" src="{{ im.image.url }}" /></figure>
+                                                        </li>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            </ul>
+                                        </section>
+                                        <section class="slideshow">
+                                            <ul>
+                                                {% for project in Unity %}
+                                                    {% for im in project %}
+                                                        <li>
+                                                            <figure>
+                                                                <figcaption>
+                                                                    <h3>{{ im.image_title }}</h3>
+                                                                    <p>{{ im.image_caption }}</p>
+                                                                </figcaption>
+                                                                <img class="img-responsive center-block" src="{{ im.image.url }}" />
+                                                            </figure>
+                                                        </li>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            </ul>
+                                            <nav>
+                                                <span class="fa fa-chevron-left"></span>
+                                                <span class="fa fa-chevron-right"></span>
+                                                <span class="nav-close"></span>
+                                            </nav>
+                                            <div class="info-keys">Navigate with arrow keys</div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- number index -->
+            <div class="p-el-index">
+                <div class="p-el-index-back">3</div>
+                <div class="p-el-index-front">
+                    <div class="p-el-index-overlay" data-index="3">3</div>
+                </div>
+            </div>
+        </div>
+        <!-- 4th element Unreal -->
+        <div class="p-el">
+            <!-- overflow -->
+            <div class="p-el-overflow">
+                <div class="p-el-inner">
+                    <div class="p-el-bg"></div>
+                    <div class="p-el-preview">
+                        <h2 class="p-el-heading">Unreal</h2>
+                    </div>
+                    <!-- expanded view -->
+                    <div class="p-el-content" id="forth-content">
+                        <div class="p-el-text">Games on Unreal early development stage</div>
+                        <div class="p-el-close-btn"></div>
+                                             <!-- element inner content -->
+                        <div class="p-gallery">
+                            <div class="inner-g">
+                                <div class="image-grid-component">
+                                    <div id="grid-gallery-forth" class="grid-gallery">
+                                        <section class="grid-wrap">
+                                            <ul class="grid">
+                                                <li class="grid-sizer"></li>
+                                                {% for project in Unreal %}
+                                                    {% for im in project %}
+                                                        <li>
+                                                            <figure><img class="img-responsive" src="{{ im.image.url }}" /></figure>
+                                                        </li>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            </ul>
+                                        </section>
+                                        <section class="slideshow">
+                                            <ul>
+                                                {% for project in Unreal %}
+                                                    {% for im in project %}
+                                                        <li>
+                                                            <figure>
+                                                                <figcaption>
+                                                                    <h3>{{ im.image_title }}</h3>
+                                                                    <p>{{ im.image_caption }}</p>
+                                                                </figcaption>
+                                                                <img class="img-responsive center-block" src="{{ im.image.url }}" />
+                                                            </figure>
+                                                        </li>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            </ul>
+                                            <nav>
+                                                <span class="fa fa-chevron-left"></span>
+                                                <span class="fa fa-chevron-right"></span>
+                                                <span class="nav-close"></span>
+                                            </nav>
+                                            <div class="info-keys">Navigate with arrow keys</div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- number index -->
+            <div class="p-el-index">
+                <div class="p-el-index-back">4</div>
+                <div class="p-el-index-front">
+                    <div class="p-el-index-overlay" data-index="4">4</div>
+                </div>
+            </div>
+        </div>
+        <!-- 5th element Experimental -->
+        <div class="p-el">
+            <!-- overflow -->
+            <div class="p-el-overflow">
+                <div class="p-el-inner">
+                    <div class="p-el-bg"></div>
+                    <div class="p-el-preview">
+                        <h2 class="p-el-heading">Experimental</h2>
+                    </div>
+                    <!-- expanded view -->
+                    <div class="p-el-content" id="fifth-content">
+                        <div class="p-el-text">Experiment on various</div>
+                        <div class="p-el-close-btn"></div>
+                                             <!-- element inner content -->
+                        <div class="p-gallery">
+                            <div class="inner-g">
+                                <div class="image-grid-component">
+                                    <div id="grid-gallery-fifth" class="grid-gallery">
+                                        <section class="grid-wrap">
+                                            <ul class="grid">
+                                                <li class="grid-sizer"></li>
+                                                {% for project in Experimental %}
+                                                    {% for im in project %}
+                                                        <li>
+                                                            <figure><img class="img-responsive" src="{{ im.image.url }}" /></figure>
+                                                        </li>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            </ul>
+                                        </section>
+                                        <section class="slideshow">
+                                            <ul>
+                                                {% for project in Experimental %}
+                                                    {% for im in project %}
+                                                        <li>
+                                                            <figure>
+                                                                <figcaption>
+                                                                    <h3>{{ im.image_title }}</h3>
+                                                                    <p>{{ im.image_caption }}</p>
+                                                                </figcaption>
+                                                                <img class="img-responsive center-block" src="{{ im.image.url }}" />
+                                                            </figure>
+                                                        </li>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            </ul>
+                                            <nav>
+                                                <span class="fa fa-chevron-left"></span>
+                                                <span class="fa fa-chevron-right"></span>
+                                                <span class="nav-close"></span>
+                                            </nav>
+                                            <div class="info-keys">Navigate with arrow keys</div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- number index -->
+            <div class="p-el-index">
+                <div class="p-el-index-back">5</div>
+                <div class="p-el-index-front">
+                    <div class="p-el-index-overlay" data-index="5">5</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Portfolio blocks ends ---------------------------------------------------->

@@ -1,8 +1,43 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block head_title %}Portfolio | {{ block.super }}{% endblock head_title%}
 
-{% block style %}{% endblock style %}
+{% block style %}
+    /*1st portfolio picture*/
+    .portfolio .p-el:nth-child(1) .p-el-bg:before {
+        -webkit-transition-delay: 0s;
+        transition-delay: 0s;
+        background-image: url({% static "img/portfolio_w/portfolio1.png" %});
+    }
+    /*2nd portfolio picture*/
+    .portfolio .p-el:nth-child(2) .p-el-bg:before {
+        -webkit-transition-delay: 0.1s;
+        transition-delay: 0.1s;
+        background-image: url({% static "img/portfolio_w/portfolio2.png" %});
+    }
+    /*3rd portfolio picture*/
+    .portfolio .p-el:nth-child(3) .p-el-bg:before {
+        -webkit-transition-delay: 0.2s;
+        transition-delay: 0.2s;
+        background-image: url({% static "img/portfolio_w/portfolio3.png" %});
+    }
+    /*4th portfolio picture*/
+    .portfolio .p-el:nth-child(4) .p-el-bg:before {
+        -webkit-transition-delay: 0.3s;
+        transition-delay: 0.3s;
+        background-image: url({% static "img/portfolio_w/portfolio4.png" %});
+    }
+    /*5th portfolio picture*/
+    .portfolio .p-el:nth-child(5) .p-el-bg:before {
+        -webkit-transition-delay: 0.4s;
+        transition-delay: 0.4s;
+        background-image: url({% static "img/portfolio_w/portfolio5.png" %});
+    }
+{% endblock style %}
+
+{% block extra %}
+    <script src="{% static 'js/modernizr.custom.js' %}"></script>
+{% endblock extra %}
 
 {% block navbar %}
     <li class="sonar">
@@ -26,17 +61,41 @@
 
 {% include "blocks/aurora.html" %}
     <!-- some gap -->
-    <div class="row pa-gapes"></div>
+    <div class="row pa-gapes" id="portfolio-top"></div>
 
-    <!-- svg for tab style -->
-    <svg class="hidden">
-        <defs>
-            <path id="tabshape" d="M80,60C34,53.5,64.417,0,0,0v60H80z"/>
-        </defs>
-    </svg>
+
+    {% include 'blocks/portfolio-block.html' %}
+
 
 {% endblock main %}
 
-{% block js_file %} {% endblock js_file %}
+{% block js_file %}
+    <script src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/classie.js' %}"></script>
+    <script src="{% static 'js/portfolio.js' %}"></script>
+{% endblock js_file %}
 
-{% block pure_js %}{% endblock pure_js %}
+{% block pure_js %}
+    // grid gallery init
+    $("#first-content").on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
+    function() {
+        new CBPGridGallery( document.getElementById( 'grid-gallery-first' ) );
+    });
+    $("#second-content").on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
+    function() {
+        new CBPGridGallery( document.getElementById( 'grid-gallery-second' ) );
+    });
+    $("#third-content").on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
+    function() {
+        new CBPGridGallery( document.getElementById( 'grid-gallery-third' ) );
+    });
+    $("#forth-content").on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
+    function() {
+        new CBPGridGallery( document.getElementById( 'grid-gallery-forth' ) );
+    });
+    $("#fifth-content").on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
+    function() {
+        new CBPGridGallery( document.getElementById( 'grid-gallery-fifth' ) );
+    });
+{% endblock pure_js %}

@@ -135,6 +135,42 @@ class ThanksName(models.Model):
 
     def __str__(self):
         return self.name_to_add
+
+#================================================================================
+# portfolio page ----------------------------------------------------------------
+#================================================================================
+class PortfolioModel (models.Model):
+    CATEGORY_CHOICES ={
+        ("3D", "3d"),
+        ("CONCEPT", "Concept"),
+        ("UNITY", "Unity"),
+        ("UNREAL", "Unreal"),
+        ("EXPERIMENTAL", "Experimental")
+    }
+    project_name    = models.CharField(max_length=200, blank=True, null=True)
+    category_type   = models.CharField(max_length=12, choices=CATEGORY_CHOICES)
+    slug            = models.SlugField(blank=True, null=True)
+    updated         = models.DateTimeField(auto_now=True, auto_now_add=False)
+    created         = models.DateTimeField(auto_now=False, auto_now_add=True)
+    def __str__(self):
+        return self.project_name
+
+    @property
+    def title(self):
+        return self.project_name
+
+class Images(models.Model):
+    related_to      = models.ForeignKey(PortfolioModel, on_delete=models.CASCADE, blank=True, null=True, related_name="images")
+    image_title     = models.CharField(max_length=200, blank=True, null=True)
+    is_featured     = models.BooleanField(default=False)
+    image           = models.ImageField(upload_to="portfolio", blank=True, null=True)
+    def imageThumb(self):
+        return mark_safe(u'<img src="%s" height="100" />' % (self.image.url))
+    imageThumb.allow_tags = True
+    image_caption   = models.TextField(blank=True, null=True)
+    def __str__(self):
+        return self.image_title
+
 #================================================================================
 # blog page ---------------------------------------------------------------------
 #================================================================================
@@ -218,3 +254,4 @@ pre_save.connect(rl_pre_save, sender=GamesModel)
 pre_save.connect(rl_pre_save, sender=AboutModel)
 pre_save.connect(rl_pre_save, sender=BlogModel)
 pre_save.connect(rl_pre_save, sender=AuthorModel)
+pre_save.connect(rl_pre_save, sender=PortfolioModel)

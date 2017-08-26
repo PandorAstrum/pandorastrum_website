@@ -4,14 +4,23 @@ from functools import reduce
 from django.views.generic import ListView
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic.base import TemplateView
-from pandorastrum.models import GamesModel, AboutModel, AboutTeamImage, ThanksName, BlogModel, BlogContentModel
+
 from taggit.models import Tag
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from urllib.parse import quote_plus
 import operator
 from django.db.models import Q
-
+from pandorastrum.models import (
+    GamesModel,
+    AboutModel,
+    AboutTeamImage,
+    ThanksName,
+    BlogModel,
+    BlogContentModel,
+    PortfolioModel,
+    Images
+)
 # Redirection of root url
 def redirect_root(request):
     return redirect("/home/")
@@ -31,10 +40,39 @@ def game_pageView(request):
     }
     return render(request, "games.html", context)
 
-def portfolio_pageView(request):
-    # queryset =
-    context = {
+# portfolio block --------------------------------------------------------------------------
+def portfolio_pageView(request, **kwargs):
+    portfolio_3d = PortfolioModel.objects.filter(category_type__iexact="3D")
+    portfolio_3d_images = []
+    for i in portfolio_3d:
+        portfolio_3d_images.append(Images.objects.filter(related_to=i))
 
+    portfolio_concept = PortfolioModel.objects.filter(category_type__iexact="Concept")
+    portfolio_concept_images = []
+    for i in portfolio_concept:
+        portfolio_concept_images.append(Images.objects.filter(related_to=i))
+
+    portfolio_unity = PortfolioModel.objects.filter(category_type__iexact="Unity")
+    portfolio_unity_images = []
+    for i in portfolio_unity:
+        portfolio_unity_images.append(Images.objects.filter(related_to=i))
+
+    portfolio_unreal = PortfolioModel.objects.filter(category_type__iexact="Unreal")
+    portfolio_unreal_images = []
+    for i in portfolio_unreal:
+        portfolio_unreal_images.append(Images.objects.filter(related_to=i))
+
+    portfolio_exp = PortfolioModel.objects.filter(category_type__iexact="Experimental")
+    portfolio_exp_images = []
+    for i in portfolio_exp:
+        portfolio_exp_images.append(Images.objects.filter(related_to=i))
+
+    context = {
+        "3d" : portfolio_3d_images,
+        "Concept" : portfolio_concept_images,
+        "Unity" : portfolio_unity_images,
+        "Unreal" : portfolio_unreal_images,
+        "Experimental" : portfolio_exp_images
     }
     return render(request, "portfolio.html", context)
 
@@ -115,7 +153,7 @@ def blog_pageView(request, tag_slug=None, **kwargs):
     }
     return render(request, "blog.html", context)
 
-# details single blog block ------------------------------------------------------------------------
+# details single blog block ----------------------------------------------------------------
 def blog_detailView(request, id, **kwargs):
     instance = get_object_or_404(BlogModel, id=id)
     blog_content = BlogContentModel.objects.filter(related_to=instance.id)

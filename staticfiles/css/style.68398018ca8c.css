@@ -4,9 +4,6 @@ General --------------------------------------------------------------
 ======================================================================
 */
 /*general logic ----------------------------------------------------*/
-body {
-    font-family: Amaranth-Regular;
-}
  .pa-row {
         margin: 0;
         padding-right: 100px;
@@ -53,8 +50,8 @@ body {
 }
 .pa-gapes {
     height: 200px;
-    margin-right: 0;
-    margin-left: 0;
+    margin-right: 0px;
+    margin-left: 0px;
     width: 100%;
 }
 .all-block {
@@ -431,7 +428,7 @@ body {
     display: flex;
     justify-content: center;
     align-content: center;
-    /*font-family: Amaranth-Regular;*/
+    font-family: Amaranth-Regular;
     font-size: 1.2em;
 }
 .step-links a {
@@ -667,7 +664,7 @@ body {
     padding: 0;
     overflow: hidden;
     width: 60%;
-    /*font-family: Amaranth-Regular;*/
+    font-family: Amaranth-Regular;
 }
 .panel-footer div span {
     color: #c5db3b;
@@ -706,7 +703,7 @@ Games page -----------------------------------------------------------
     display: block;
 }
 .game-card .game-card-body {
-    /*font-family: Amaranth-Regular;*/
+    font-family: Amaranth-Regular;
     color: white;
     background: #070000;
     background: -webkit-linear-gradient(to right, #070000, #4C0001, #070000);
@@ -931,7 +928,7 @@ Games page -----------------------------------------------------------
 .single-game-left {
     padding-bottom: 5%;
     padding-top: 5%;
-    /*font-family: Amaranth-Regular;*/
+    font-family: Amaranth-Regular;
 }
 
 /*right side*/
@@ -1695,7 +1692,7 @@ Portfolio Page -------------------------------------------------------
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.7);
     opacity: 0;
     -webkit-transition: opacity 0.5s;
     transition: opacity 0.5s;
@@ -1776,7 +1773,7 @@ Portfolio Page -------------------------------------------------------
     width: 100%;
 }
 .portfolio .p-el-text {
-    /*font-family: Amaranth-Regular;*/
+    font-family: Amaranth-Regular;
     font-size: 24px;
     color: #aaa;
     text-align: center;
@@ -2076,271 +2073,7 @@ Portfolio Page -------------------------------------------------------
     transform: scale(1.1);
 }
 
-/*grid gallery*/
-.portfolio .grid-gallery ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-.portfolio .grid-wrap {
-    width: 70%;
-	margin: 0 auto;
-	padding: 0 1em 1.875em;
-}
-.portfolio .grid {
-	margin: 0 auto;
-}
-.portfolio .grid li {
-	width: 25%;
-	float: left;
-	cursor: pointer;
-}
-.portfolio .grid figure {
-	padding: 8px;
-	-webkit-transition: opacity 0.2s;
-	transition: opacity 0.2s;
-}
-.portfolio .grid li:hover figure {
-    opacity: 0.7;
-}
 
-/* Slideshow style */
-.portfolio .slideshow {
-	position: fixed;
-	background: rgba(0,0,0,0.7);
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	z-index: 500;
-	opacity: 0;
-	visibility: hidden;
-	overflow: hidden;
-	-webkit-perspective: 1000px;
-	perspective: 1000px;
-	-webkit-transition: opacity 0.5s, visibility 0s 0.5s;
-	transition: opacity 0.5s, visibility 0s 0.5s;
-    /*font-family: Amaranth-Regular;*/
-}
-.portfolio .slideshow-open .slideshow {
-	opacity: 1;
-	visibility: visible;
-	-webkit-transition: opacity 0.5s;
-	transition: opacity 0.5s;
-}
-.portfolio .slideshow ul {
-	width: 100%;
-	height: 100%;
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
-	-webkit-transform: translate3d(0,0,150px);
-	transform: translate3d(0,0,150px);
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
-}
-.portfolio .slideshow ul.animatable li {
-    -webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
-}
-.portfolio .slideshow-open .slideshow ul {
-    -webkit-transform: translate3d(0,0,0);
-	transform: translate3d(0,0,0);
-}
-.portfolio .slideshow li {
-	width: 75%;
-	position: absolute;
-	top: 8%;
-	left: 14%;
-	visibility: hidden;
-}
-.portfolio .slideshow li.show {
-	visibility: visible;
-}
-.portfolio .slideshow li:after {
-	content: '';
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	background: rgba(0,0,0,0.8);
-	-webkit-transition: opacity 0.5s;
-	transition: opacity 0.5s;
-}
-.portfolio .slideshow li.current:after {
-	visibility: hidden;
-	opacity: 0;
-	-webkit-transition: opacity 0.5s, visibility 0s 0.5s;
-	transition: opacity 0.5s, visibility 0s 0.5s;
-}
-.portfolio .slideshow figure {
-	width: 100%;
-	height: 100%;
-    padding: 2%;
-}
-.portfolio .slideshow figcaption {
-    color: #aaa;
-    text-align: center;
-}
-.portfolio .slideshow figcaption h3 {
-	font-weight: 500;
-}
-.portfolio .slideshow figcaption ul {
-    color: #c5db3b;
-    list-style: none;
-}
-.portfolio .slideshow figcaption  ul li {
-    display: inline-block;
-    position: relative;
-    width: 10%;
-    min-width: 135px;
-    padding: 1em 2em;
-    white-space: nowrap;
-}
-.portfolio .slideshow figcaption  ul li a {
-    text-decoration: none;
-    color: #c5db3b;
-}
-.portfolio .slideshow figcaption ul li .fa {
-    visibility: visible;
-}
-.portfolio .slideshow figcaption ul li span {
-    visibility: visible;
-}
-
-/* Navigation */
-.portfolio .slideshow nav span {
-    position: fixed;
-	z-index: 1000;
-	color: #aaa;
-	text-align: center;
-	padding: 3%;
-	cursor: pointer;
-	font-size: 3em;
-}
-.portfolio .slideshow nav span.fa-chevron-left,
-.portfolio .slideshow nav span.fa-chevron-right {
-	top: 50%;
-	-webkit-transform: translateY(-50%);
-	transform: translateY(-50%);
-}
-.portfolio .slideshow nav span.fa-chevron-right {
-	right: 0;
-}
-.portfolio .slideshow nav span.nav-close {
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    display: inline-block;
-    position: absolute;
-    top: 13%;
-    right: 7%;
-    -webkit-transform: translate(50%, -50%);
-    transform: translate(50%, -50%);
-    border-radius: 100%;
-    background: transparent;
-    border: solid 4px #aaa;
-    transition: all 0.5s;
-}
-.portfolio .slideshow nav span.nav-close:after,
-.portfolio .slideshow nav span.nav-close:before {
-    content: "";
-    position: absolute;
-    top: 15%;
-    left: 45%;
-    height: 25px;
-    width: 4px;
-    border-radius: 30px;
-    background: #aaa;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-.portfolio .slideshow nav span.nav-close:after {
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-}
-.portfolio .slideshow nav span.nav-close:hover {
-    -webkit-transform: translate(50%, -50%) rotate(180deg);
-    transform: translate(50%, -50%) rotate(180deg);
-    background: tomato;
-    text-decoration: none;
-    border-color: #ffffff;
-}
-.portfolio .slideshow nav span.nav-close:hover:after,
-.portfolio .slideshow nav span.nav-close:hover:before {
-  background: #fff;
-}
-
-/* Info on arrow key navigation */
-.portfolio .info-keys {
-    position: fixed;
-	top: 10%;
-	left: 10%;
-	width: 70px;
-	font-size: 9px;
-	padding-top: 20px;
-	text-transform: uppercase;
-	color: #fff;
-	letter-spacing: 1px;
-	text-align: center;
-}
-.portfolio .info-keys:before,
-.portfolio .info-keys:after {
-	position: absolute;
-	top: 0;
-	width: 14px;
-	height: 14px;
-	border: 1px solid #fff;
-	text-align: center;
-	line-height: 12px;
-	font-size: 10px;
-}
-.portfolio .info-keys:before {
-	left: 18px;
-	content: "\e603";
-}
-.portfolio .info-keys:after {
-	right: 18px;
-	content: "\e604";
-}
-
-/*media query*/
-@media screen and (max-width: 60em) {
-	/* responsive columns; see "Element sizing" on http://masonry.desandro.com/options.html */
-	.grid li {
-		width: 33.3%;
-	}
-	.slideshow li {
-		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-		margin: 0;
-	}
-	.slideshow li figure img {
-		width: auto;
-		margin: 0 auto;
-		max-width: 100%;
-	}
-	.slideshow nav span,
-	.slideshow nav span.nav-close {
-		font-size: 1.8em;
-		padding: 0.3em;
-	}
-	.info-keys {
-		display: none;
-	}
-}
-@media screen and (max-width: 35em) {
-	.grid li {
-		width: 50%;
-	}
-}
-@media screen and (max-width: 24em) {
-	.grid li {
-		width: 100%;
-	}
-}
 /*------------------------------------------------------------------*/
 
 /*

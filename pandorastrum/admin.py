@@ -11,7 +11,9 @@ from pandorastrum.models import (
     ThanksName,
     BlogModel,
     AuthorModel,
-    BlogContentModel
+    BlogContentModel,
+    PortfolioModel,
+    Images
 )
 class Requirements(admin.TabularInline):
     model = GameRequirements
@@ -101,11 +103,33 @@ class AboutAdmin(admin.ModelAdmin):
     inlines = [Team, Thanks]
     readonly_fields = ('slug', "created")
 
+# portfolio -------------------------
+class Image(admin.TabularInline):
+    model = Images
+    extra = 0
 
-# blog
+@admin.register(PortfolioModel)
+class PortfolioAdmin(admin.ModelAdmin):
+    date_hierarchy = "created"
+    list_display = ["__str__", "category_type", "created", "updated"]
+    list_filter = ("category_type","updated",)
+    fieldsets = (
+        (None, {
+            'fields': ((), ("project_name", "category_type"))
+        }),
+        ('Read Only Info', {
+            'classes': ('collapse',),
+            'fields': ('slug', "created")
+        }),
+    )
+
+    inlines = [Image]
+    readonly_fields = ('slug', "created",)
+
+# blog ----------------------------------
 class BlogContent(admin.TabularInline):
     model = BlogContentModel
-    extra = 1
+    extra = 0
 
 @admin.register(BlogModel)
 class BlogAdmin(admin.ModelAdmin):
