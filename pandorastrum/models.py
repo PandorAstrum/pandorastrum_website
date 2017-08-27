@@ -32,8 +32,6 @@ class GamesModel (models.Model):
     slug            = models.SlugField(blank=True, null=True)
     updated         = models.DateTimeField(auto_now=True, auto_now_add=False)
     created         = models.DateTimeField(auto_now=False, auto_now_add=True)
-    def get_released_date(self):
-        return self.released_on.strftime("%d %b %Y")
     def get_absolute_url(self):
         return reverse("game_detail", kwargs={"id": self.id})
     def __str__(self):
@@ -43,8 +41,8 @@ class GamesModel (models.Model):
         return self.game_title
 
 class GamesDownloadLink(models.Model):
-    related_to = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
-    is_active = models.BooleanField(default=False)
+    related_to      = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
+    is_active       = models.BooleanField(default=False)
     STORE_CHOICES = (
         ('Play', 'Google PlayStore'),
         ('Win', 'Universal Windows AppStore'),
@@ -53,14 +51,13 @@ class GamesDownloadLink(models.Model):
         ('Smsg', 'Samsung AppStore'),
         ('Amz', 'Amazon Store'),
     )
-    store_name = models.CharField(max_length=4, choices=STORE_CHOICES)
-    link = models.URLField(default='')
-
+    store_name      = models.CharField(max_length=4, choices=STORE_CHOICES)
+    link            = models.URLField(default='')
     def __str__(self):
         return self.store_name
 
 class GameGenre(models.Model):
-    related_to = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
+    related_to      = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
     GENRE_CHOICES = {
         ("---" , "---"),
         ("2D" , "2D"),
@@ -86,54 +83,46 @@ class GameGenre(models.Model):
         ("MMO" , "Mmo"),
         ("MOBA" , "Moba"),
     }
-    game_genre = models.CharField(max_length=20, choices=GENRE_CHOICES, default='')
+    game_genre      = models.CharField(max_length=20, choices=GENRE_CHOICES, default='')
     def __str__(self):
         return self.game_genre
 
 class GameLore(models.Model):
-    related_to = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
-    topic_title = models.CharField(max_length=200, blank=True, null=True)
-    topic = models.TextField(blank=True, null=True)
+    related_to      = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
+    topic_title     = models.CharField(max_length=200, blank=True, null=True)
+    is_main         = models.BooleanField(default=False)
+    topic           = models.TextField(blank=True, null=True)
     def __str__(self):
         return self.topic_title
 
 class GamesGallery (models.Model):
-    related_to = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
-    img_title = models.CharField(max_length=50, blank=True, null=True)
-    img = models.ImageField(upload_to="gallery", blank=True, null=True)
-    img_caption = models.CharField(max_length=500)
-
+    related_to      = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
+    img_title       = models.CharField(max_length=50, blank=True, null=True)
+    img             = models.ImageField(upload_to="gallery", blank=True, null=True)
+    img_caption     = models.CharField(max_length=500)
     def __str__(self):
         return self.img_title
 
 class SystemRequirements(models.Model):
-    related_to = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
+    related_to      = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
     SPEC_CHOICES = (
         ("PC", "Computer"),
         ("ANDRIOD", "Android"),
         ("WEB", "Web"),
         ("OTHERS", "Others")
     )
-    spec_for = models.CharField(max_length=10, null=True, blank=True, choices=SPEC_CHOICES)
-    is_active = models.BooleanField(default=False)
-    spec_details = models.TextField(blank=True, null=True)
+    spec_for        = models.CharField(max_length=10, null=True, blank=True, choices=SPEC_CHOICES)
+    is_active       = models.BooleanField(default=False)
+    spec_details    = models.TextField(blank=True, null=True)
     def __str__(self):
         return self.spec_for
 
 class GamesTimeline(models.Model):
-    related_to = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
-    title = models.CharField(max_length=400, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    img = models.ImageField(upload_to="games", blank=True, null=True)
+    related_to      = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
+    title           = models.CharField(max_length=400, blank=True, null=True)
+    description     = models.TextField(blank=True, null=True)
+    img             = models.ImageField(upload_to="games", blank=True, null=True)
     completion_date = models.DateField(blank=True, null=True)
-    def get_year(self):
-        return self.completion_date.strftime("%Y")
-    def get_text(self):
-        return self.description
-    def get_month(self):
-        return self.completion_date.strftime("%d %B")
-    def get_day(self):
-        return self.completion_date.strftime("%A")
     def __str__(self):
         return self.title
 
@@ -151,12 +140,6 @@ class UpcomingGamesModel(models.Model):
     created         = models.DateTimeField(auto_now=False, auto_now_add=True)
     def __str__(self):
         return self.code_name
-    def first(self):
-        return self.milestone_first_init.strftime("%B,%Y")
-    def second(self):
-        return self.milestone_second_alpha.strftime("%B,%Y")
-    def third(self):
-        return self.milestone_third_beta.strftime("%B,%Y")
     @property
     def title(self):
         return self.code_name
@@ -281,15 +264,6 @@ class BlogModel (models.Model):
 
     def get_absolute_url(self):
         return reverse("detail", kwargs={"id": self.id})
-
-    def get_month_str(self):
-        return self.published_on.strftime("%b %Y")
-
-    def get_day(self):
-        return self.published_on.strftime("%d")
-
-    def get_date(self):
-        return self.published_on.strftime("%d %b %Y")
 
     class Meta:
         ordering = ['-created', ]

@@ -55,39 +55,34 @@ def game_detailView(request, id, **kwargs):
     sys_req = SystemRequirements.objects.filter(related_to=instance.id)
     game_genre = GameGenre.objects.filter(related_to=instance.id)
     game_lore = GameLore.objects.filter(related_to=instance.id)
-    info_body = game_lore.values_list('topic', flat=True)[0]
-    info_head = game_lore.values_list('topic_title', flat=True)[0]
     gallery = GamesGallery.objects.filter(related_to=instance.id)
     timeline = GamesTimeline.objects.filter(related_to=instance.id)
     # year month
     date_field = 'completion_date'
     archive = {}
-    text = {}
     years = timeline.dates(date_field, 'year')[::-1]
     for date_year in years:
-        months = timeline.filter(completion_date__year=date_year.year).dates(date_field, 'month')
-        archive[date_year] = months
-        for m in months:
-            topic = timeline.filter(completion_date__month=m.month)
+        object = timeline.filter(completion_date__year=date_year.year)
+        archive[date_year] = object
 
     archive = sorted(archive.items(), reverse=True)
+
     context = {
         "instance" : instance,
         "stores" : game_stores,
         "requirements" : sys_req,
         "genre" : game_genre,
         "lore" : game_lore,
-        "info_head" : info_head,
-        "info_body": info_body,
         "gallery" : gallery,
-        "timeline" : timeline,
-        "ym" : archive
+        "archive" : archive
     }
     return render(request, "game_detail.html", context)
 
+# upcoming block ---------------------------------------------------------------------------
 def upcomingView(request):
     context = {}
     return render(request, "upcoming.html", context)
+
 # portfolio block --------------------------------------------------------------------------
 def portfolio_pageView(request, **kwargs):
     portfolio_3d = PortfolioModel.objects.filter(category_type__iexact="3D")

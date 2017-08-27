@@ -10,7 +10,7 @@
                 <div class="bottomBorder"></div>
                 <img src="{{ instance.game_thumbnail.url }}" class="center-block" />
             </div>
-            <h3>Play On</h3>
+            <h3 class="topic-heading">Play On</h3>
             <!-- buttons -->
             <div class="button-tile">
                 {% for s in stores %} 
@@ -55,10 +55,10 @@
                     {% endif %}
                 {% endfor %}
             </div>
-            <h3>At a Glance</h3>
+            <h3 class="topic-heading">At a Glance</h3>
             <div class="glance">
                 <p class="title">Release Date:</p>
-                <p class="data">{{ instance.get_released_date }}</p>
+                <p class="data">{{ instance.released_on|date:"jS F Y" }}</p>
                 <p class="title">Genre:</p>
                 <p class="data">
                     {% for g in genre %}
@@ -67,8 +67,7 @@
                 </p>
                 <p class="title">Age Rating:</p>
                 <div class="age">
-                    <p class="data">{{ instance.age_rating }}</p>
-{#                    <img src="../assets/img/Age/8.png" class="img-responsive center-block">#}
+                    <p class="data">{{ instance.age_rating }} +</p>
                 </div>
                 <p class="title">Mode:</p>
                 <p class="data">
@@ -76,12 +75,12 @@
                     {% if instance.multiplayer %}/ Multiplayer /{% endif %}
                 </p>
                 <p class="title">Available On:</p>
-                    <p class="data">
-                        {% if instance.web %}/ Web Broswer /{% endif %}
-                        {% if instance.android %}/ Android /{% endif %}
-                        {% if instance.pc %}/ PC /{% endif %}
-                        {% if instance.console %}/ Console /{% endif %}
-                    </p>
+                <p class="data">
+                    {% if instance.web %}/ Web Broswer /{% endif %}
+                    {% if instance.android %}/ Android /{% endif %}
+                    {% if instance.pc %}/ PC /{% endif %}
+                    {% if instance.console %}/ Console /{% endif %}
+                </p>
             </div>
         </div>
     </div>
@@ -90,13 +89,9 @@
         <div class="single-game-right">
             <div class="row banner">
                 <h2 class="textAnim">{{ instance.game_title }}</h2>
-                                    <div class="back-btn">
-                                        <a href="{% url 'games' %}" title="Back to All Games" class="back-btn"><i class="fa fa-angle-double-left"></i></a>
-{#                                        <a id="backbtn" href="#all-games">#}
-{#                                            <i class="fa fa-arrow-left"></i>#}
-{#                                            <span>Back</span>#}
-{#                                        </a>#}
-                                    </div>
+                <div class="back-btn">
+                    <a href="{% url 'games' %}" title="Back to All Games" class="btn-inner"><i class="fa fa-angle-double-left"></i></a>
+                </div>
             </div>
             <div class="row pa-tab">
                 <!-- tab starts -->
@@ -137,9 +132,13 @@
                         <div class="content-wrap">
                             <!-- basic info -->
                             <section id="section-shape-1">
-                                <h4>{{ info_head }}</h4>
-                                <p>{{ info_body|linebreaks }}</p>
-                                <h4>System requiremnts</h4>
+                                {% for m in lore %}
+                                    {% if m.is_main %}
+                                        <h4>{{ m.topic_title }}</h4>
+                                        <p>{{ m.topic|linebreaks }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                                <h4>System requirements</h4>
                                 <div class="row sys-req">
                                     {% for r in requirements %}
                                         {% if r.is_active %}
@@ -159,7 +158,7 @@
                                 <div class="masonry-wrapper">
                                     <div class="masonry">
                                         {% for g in gallery %}
-                                            <div class="item"><a href="#"><img id="masonry-img" src="{{ g.img.url }}" alt="{{ g.img_caption }}"></a></div>
+                                            <div class="item"><img id="masonry-img" src="{{ g.img.url }}" alt="{{ g.img_caption }}"></div>
                                         {% endfor %}
                                     </div>
                                 </div>
@@ -167,195 +166,54 @@
                             <!-- Lore -->
                             <section id="section-shape-3">
                                 {% for l in lore %}
-                                    <h4>{{ l.topic_title }}</h4>
-                                    <p>{{ l.topic|linebreaks }}</p>
+                                    {% if l.is_main == False %}
+                                        <h4>{{ l.topic_title }}</h4>
+                                        <p>{{ l.topic|linebreaks }}</p>
+                                    {% endif %}
                                 {% endfor %}
                             </section>
                             <!-- timeline -->
                             <section id="section-shape-4">
                                 <div class="timeline">
-                                {% for y,months in ym %}
+                                {% for year, object in archive %}
                                     <div class="year">
                                         <div class="inner">
-                                            <span>{{ y }}</span>
+                                            <span>{{ year|date:"Y"}}</span>
                                         </div>
                                     </div>
                                     <ul class="days">
-                                        {% for m in months %}
-                                        <li class="day">
-                                            <div class="events">
+                                        {% for o in object %}
+                                            <li class="day">
+                                                <div class="events">
                                                     <div class="cd-timeline-img"></div>
                                                     <div class="day__img">
-                                                        <p>{{ m }}</p>
+                                                        {% if o.img %}
+                                                            <img class="img-responsive" src="{{ o.img.url }}" alt="" />
+                                                            <p class="caption">{{ o.description }}</p>
+                                                        {% else %}
+                                                            <p>{{ o.description }}</p>
+                                                        {% endif %}
                                                     </div>
-                                                    <div class="date">{{ object.get_month }} ({{ object.get_day }})</div>
+                                                    <div class="date">{{ o.completion_date|date:"F d" }} ({{o.completion_date|date:"l"}})</div>
                                                 </div>
-                                        </li>
-
+                                            </li>
                                         {% endfor %}
                                     </ul>
-
                                 {% endfor %}
-{#                                    {% for object in timeline %}#}
-{#                                        <div class="year">#}
-{#                                            <div class="inner">#}
-{#                                                <span>{{ object.get_year }}</span>#}
-{#                                            </div>#}
-{#                                        </div>#}
-{#                                        <ul class="days">#}
-{#                                            <li class="day">#}
-{#                                                <div class="events">#}
-{#                                                    <div class="cd-timeline-img"></div>#}
-{#                                                    <div class="day__img">#}
-{#                                                        <p>{{ object.get_text }}</p>#}
-{#                                                    </div>#}
-{#                                                    <div class="date">{{ object.get_month }} ({{ object.get_day }})</div>#}
-{#                                                </div>#}
-{#                                            </li>#}
-{#                                        </ul>#}
-{#                                    {% endfor %}#}
-{#                                                        <ul class="days">#}
-{#                                                            <!-- first event -->#}
-{##}
-{#                                                            <li class="day">#}
-{#                                                                <div class="events">#}
-{#                                                                    <div class="cd-timeline-img"></div>#}
-{#                                                                    <div class="day__img">#}
-{#                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>#}
-{#                                                                    </div>#}
-{#                                                                    <div class="date">18 October (Monday)</div>#}
-{#                                                                </div>#}
-{#                                                            </li>#}
-{#                                                            <!-- second event -->#}
-{#                                                            <li class="day">#}
-{#                                                                <div class="events">#}
-{#                                                                    <div class="cd-timeline-img"></div>#}
-{#                                                                    <div class="day__img">#}
-{#                                                                        <p>Lorem dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>#}
-{#                                                                    </div>#}
-{#                                                                    <div class="date">01 January (Thursday)</div>#}
-{#                                                                </div>#}
-{#                                                            </li>#}
-{#                                                            <!-- third event -->#}
-{#                                                            <li class="day">#}
-{#                                                                <div class="events">#}
-{#                                                                    <div class="cd-timeline-img"></div>#}
-{#                                                                    <div class="day__img">#}
-{#                                                                        <img class="img-responsive" src="../assets/img/Battlefield-3-Wallpaper-1920x1080.jpg" alt="" />#}
-{#                                                                        <p class="caption">Lorem ipsum dolor sit amet.</p>#}
-{#                                                                    </div>#}
-{#                                                                    <div class="date">18 October (Monday)</div>#}
-{#                                                                </div>#}
-{#                                                            </li>#}
-{#                                                            <!--fourth event -->#}
-{#                                                            <li class="day">#}
-{#                                                                <div class="events">#}
-{#                                                                    <div class="cd-timeline-img"></div>#}
-{#                                                                    <div class="day__img">#}
-{#                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>#}
-{#                                                                    </div>#}
-{#                                                                    <div class="date">18 October (Monday)</div>#}
-{#                                                                </div>#}
-{#                                                            </li>#}
-{#                                                            <!-- fifth event -->#}
-{#                                                            <li class="day">#}
-{#                                                                <div class="events">#}
-{#                                                                    <div class="cd-timeline-img"></div>#}
-{#                                                                    <div class="day__img">#}
-{#                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>#}
-{#                                                                    </div>#}
-{#                                                                    <div class="date">18 October (Monday)</div>#}
-{#          </div>#}
-{#                                                            </li>#}
-{#                                                            <!-- sixth event -->#}
-{#                                                            <li class="day">#}
-{#                                                                <div class="events">#}
-{#                                                                    <div class="cd-timeline-img"></div>#}
-{#                                                                    <div class="day__img">#}
-{#                                                                        <img class="img-responsive" src="../assets/img/event.jpg" alt="" />#}
-{#                                                                        <p class="caption">Lorem ipsum dolor sit amet.</p>#}
-{#                                                                    </div>#}
-{#                                                                    <div class="date">18 October (Monday)</div>#}
-{#                                                                </div>#}
-{#                                                            </li>#}
-{#                                                        </ul>#}
-{#                                                        <div class="year">#}
-{#                                                            <div class="inner">#}
-{#                                                                <span>2016</span>#}
-{#                                                            </div>#}
-{#                                                        </div>#}
-{#                                                        <ul class="days">#}
-{#                                                            <!-- first event -->#}
-{#                                                            <li class="day">#}
-{#                                                                <div class="events">#}
-{#                                                                    <div class="day__img">#}
-{#                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>#}
-{#                                                                    </div>#}
-{#                                                                    <div class="date">18 October (Monday)</div>#}
-{#                                                                </div>#}
-{#                                                            </li>#}
-{#                                                            <!-- second event -->#}
-{#                                                            <li class="day">#}
-{#                                                                <div class="events">#}
-{#                                                                    <div class="day__img">#}
-{#                                                                        <p>Lorem dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>#}
-{#                                                                    </div>#}
-{#                                                                    <div class="date">01 January (Thursday)</div>#}
-{#                                                                </div>#}
-{#                                                            </li>#}
-{#                                                            <!-- third event -->#}
-{#                                                            <li class="day">#}
-{#                                                                <div class="events">#}
-{#                                                                    <div class="day__img">#}
-{#                                                                        <img class="img-responsive" src="../assets/img/Battlefield-3-Wallpaper-1920x1080.jpg" alt="" />#}
-{#                                                                        <p class="caption">Lorem ipsum dolor sit amet.</p>#}
-{#                                                                    </div>#}
-{#                                                                    <div class="date">18 October (Monday)</div>#}
-{#                                                                </div>#}
-{#                                                            </li>#}
-{#                                                            <!--fourth event -->#}
-{#                                                            <li class="day">#}
-{#                                                                <div class="events">#}
-{#                                                                    <div class="day__img">#}
-{#                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>#}
-{#                                                                    </div>#}
-{#                                                                    <div class="date">18 October (Monday)</div>#}
-{#                                                                </div>#}
-{#                                                            </li>#}
-{#                                                            <!-- fifth event -->#}
-{#                                                            <li class="day">#}
-{#                                                                <div class="events">#}
-{#                                                                    <div class="day__img">#}
-{#                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>#}
-{#                                                                    </div>#}
-{#                                                                    <div class="date">18 October (Monday)</div>#}
-{#                                                                </div>#}
-{#                                                            </li>#}
-{#                                                            <!-- sixth event -->#}
-{#                                                            <li class="day">#}
-{#                                                                <div class="events">#}
-{#                                                                    <div class="day__img">#}
-{#                                                                        <img class="img-responsive" src="../assets/img/event.jpg" alt="" />#}
-{#                                                                        <p class="caption">Lorem ipsum dolor sit amet.</p>#}
-{#                                                                    </div>#}
-{#                                                                    <div class="date">18 October (Monday)</div>#}
-{#                                                                </div>#}
-{#                                                            </li>#}
-{#                                                        </ul>#}
-{#                                                        <div class="year year--end">#}
-{#                                                            <div class="inner">#}
-{#                                                                <span>2017</span>#}
-{#                                                            </div>#}
-{#                                                        </div>#}
-                                                    </div>
-                                                </section>
-                                            </div>
-                                            <!-- /content -->
+                                    <div class="year year--end">
+                                        <div class="inner">
+                                            <span>Started</span>
                                         </div>
-                                    </section>
-                                    <!-- /tabs -->
+                                    </div>
                                 </div>
-                            </div>
+                            </section>
                         </div>
+                        <!-- /content -->
                     </div>
-                    <!-- game detail block ends ------------------------------------------------>
+                </section>
+                <!-- /tabs -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- game detail block ends ------------------------------------------------>

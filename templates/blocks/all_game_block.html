@@ -22,7 +22,7 @@
                                                 <h3>{{ g.game_title }}</h3>
                                                 <p>{{ g.game_short_description }}</p>
                                                 <div>
-                                                    <span>Released on : {{ g.get_released_date }}</span>
+                                                    <span>Released on : {{ g.released_on|date:"jS F Y" }}</span>
                                                 </div>
                                                 <div>
                                                     <span>Games Compatibility:</span>

@@ -11,8 +11,8 @@
                         <div class="col-sm-2">
                             <div class="post__info post-info js-pushpin-target">
                                 <div class="post-info__date">
-                                    <div class="post-info__day">{{ b.get_day }}</div>
-                                    <div class="post-info__month-year">{{ b.get_month_str }}</div>
+                                    <div class="post-info__day">{{ b.published_on|date:"d" }}</div>
+                                    <div class="post-info__month-year">{{ b.published_on|date:"M Y" }}</div>
                                 </div>
                                 <div class="post-info__hr"></div>
                                 <div class="post-info__tags">

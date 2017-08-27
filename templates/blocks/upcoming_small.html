@@ -29,15 +29,15 @@
                                 <div class="col-md-4" id="banners">
                                 <div class="col-md-12">
                                     <img src="{% static 'img/redbanner.png' %}" class="img-responsive" />
-                                    <span class="release-date">Alpha Access: {{ u.first }}</span>
+                                    <span class="release-date">Alpha Access: {{ u.milestone_first_init|date:"F,Y" }}</span>
                                 </div>
                                 <div class="col-md-12">
                                     <img src="{% static 'img/yellowbanner.png' %}" class="img-responsive" />
-                                    <span class="release-date">Beta Release: {{ u.second }}</span>
+                                    <span class="release-date">Beta Release: {{ u.milestone_second_alpha|date:"F,Y" }}</span>
                                 </div>
                                 <div class="col-md-12">
                                     <img src="{% static 'img/bluebanner.png' %}" class="img-responsive" />
-                                    <span class="release-date">Final Release: {{ u.third }}</span>
+                                    <span class="release-date">Final Release: {{ u.milestone_third_beta|date:"F,Y" }}</span>
                                 </div>
                             </div>
                             </div>
