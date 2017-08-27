@@ -46,15 +46,12 @@
                                     <span class="fa fa-globe"></span> Production Studio
                                 </legend>
                                 <address> <strong>PandorAstrum</strong><br>
-                                    {{ pro_address1 }}<br>
-                                    {{ pro_address2 }}<br>
-                                    {{ pro_city }}<br>
-                                    {{ pro_country }}<br>
+                                    {{ production_address|linebreaksbr }}
                                     <abbr title="Phone">MOB :</abbr>
-                                    {{ pro_mob }}
+                                    {{ production_mobile }}
                                 </address>
                                 <address> <abbr title="Email"><strong>Email :</strong></abbr><br>
-                                    <a class="mail" href="mailto:{{ pro_email }}">{{ pro_email }}</a>
+                                    <a class="mail" href="mailto:{{ production_email }}">{{ production_email }}</a>
                                 </address>
                             </form>
                             <!-- Second contact-->
@@ -63,13 +60,10 @@
                                     <span class="fa fa-globe"></span> Project Operation
                                 </legend>
                                 <address> <strong>PandorAstrum</strong><br>
-                                    {{ op_address1 }}<br>
-                                    {{ op_address2 }}<br>
-                                    {{ op_city }}<br>
-                                    {{ op_country }}<br>
+                                    {{ operation_address|linebreaksbr }}
                                 </address>
                                 <address> <abbr title="Email"><strong>Email :</strong></abbr><br>
-                                    <a class="mail" href="mailto:{{ op_email }}">{{ op_email }}</a>
+                                    <a class="mail" href="mailto:{{ operation_email }}">{{ operation_email }}</a>
                                 </address>
                             </form>
                         </div>

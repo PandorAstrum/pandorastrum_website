@@ -174,11 +174,11 @@ class AuthorAdmin(admin.ModelAdmin):
 
 class Team(admin.TabularInline):
     model = AboutTeamImage
-    extra = 1
+    extra = 0
 
 class Thanks(admin.TabularInline):
     model = ThanksName
-    extra = 1
+    extra = 0
     classes = ["collapse"]
 
 @admin.register(AboutModel)
@@ -191,19 +191,13 @@ class AboutAdmin(admin.ModelAdmin):
             'fields': ('generic_model', )
         }),
         ('Production Studio Address', {
-            'fields' : ("pro_address1",
-                        "pro_address2",
-                        "pro_city",
-                        "pro_country",
-                        "pro_mobile",
-                        "pro_email" )
+            'fields' : ("production_address",
+                        "production_mobile",
+                        "production_email" )
         }),
         ('Operation Address', {
-            'fields': ("op_address1",
-                       "op_address2",
-                       "op_city",
-                       "op_country",
-                       "op_email")
+            'fields': ("operation_address",
+                       "operation_email")
         }),
         ('Read Only Info', {
             'classes': ('collapse',),

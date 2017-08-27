@@ -126,7 +126,6 @@ class GamesTimeline(models.Model):
     def __str__(self):
         return self.title
 
-
 class UpcomingGamesModel(models.Model):
     code_name = models.CharField(max_length=200, blank=True, null=True)
     is_active = models.BooleanField(default=False)
@@ -143,50 +142,6 @@ class UpcomingGamesModel(models.Model):
     @property
     def title(self):
         return self.code_name
-# about us page
-class AboutModel(models.Model):
-    generic_model = models.CharField(max_length=100, blank=True, null=True)
-
-    pro_address1 = models.CharField(max_length=100, blank=True, null=True)
-    pro_address2 = models.CharField(max_length=100, blank=True, null=True)
-    pro_city = models.CharField(max_length=100, blank=True, null=True)
-    pro_country = models.CharField(max_length=50, blank=True, null=True)
-    pro_mobile = models.CharField(max_length=20, blank=True, null=True)
-    pro_email = models.EmailField(default='')
-
-    op_address1 = models.CharField(max_length=100, blank=True, null=True)
-    op_address2 = models.CharField(max_length=100, blank=True, null=True)
-    op_city = models.CharField(max_length=100, blank=True, null=True)
-    op_country = models.CharField(max_length=50, blank=True, null=True)
-    op_email = models.EmailField(default='')
-
-    slug = models.SlugField(blank=True, null=True)
-    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
-    created = models.DateTimeField(auto_now=False, auto_now_add=True)
-    def __str__(self):
-        return self.generic_model
-
-    @property
-    def title(self):
-        return self.generic_model
-
-class AboutTeamImage(models.Model):
-    related_to = models.ForeignKey(AboutModel, on_delete=models.CASCADE, blank=True, null=True)
-    name = models.CharField(max_length=400)
-    img = models.ImageField(upload_to="about", blank=True, null=True)
-    fb_url = models.URLField(default='')
-    tw_url = models.URLField(default='')
-    post_title = models.CharField(max_length=100, blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-class ThanksName(models.Model):
-    related_to = models.ForeignKey(AboutModel, on_delete=models.CASCADE, blank=True, null=True)
-    name_to_add = models.CharField(max_length=200, blank=True, null=True)
-
-    def __str__(self):
-        return self.name_to_add
 
 #================================================================================
 # portfolio page ----------------------------------------------------------------
@@ -286,7 +241,44 @@ class BlogContentModel(models.Model):
     def __str__(self):
         return str(self.pk)
 
+#================================================================================
+# about us page -----------------------------------------------------------------
+#================================================================================
+class AboutModel(models.Model):
+    generic_model = models.CharField(max_length=100, blank=True, null=True)
+    production_address = models.TextField(blank=True, null=True)
+    production_mobile = models.CharField(max_length=20, blank=True, null=True)
+    production_email = models.EmailField(default='')
+    operation_address = models.TextField(blank=True, null=True)
+    operation_email = models.EmailField(default='')
 
+    slug = models.SlugField(blank=True, null=True)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+    created = models.DateTimeField(auto_now=False, auto_now_add=True)
+    def __str__(self):
+        return self.generic_model
+
+    @property
+    def title(self):
+        return self.generic_model
+
+class AboutTeamImage(models.Model):
+    related_to = models.ForeignKey(AboutModel, on_delete=models.CASCADE, blank=True, null=True)
+    name = models.CharField(max_length=400)
+    img = models.ImageField(upload_to="about", blank=True, null=True)
+    fb_url = models.URLField(default='')
+    tw_url = models.URLField(default='')
+    post_title = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+class ThanksName(models.Model):
+    related_to = models.ForeignKey(AboutModel, on_delete=models.CASCADE, blank=True, null=True)
+    name_to_add = models.CharField(max_length=200, blank=True, null=True)
+
+    def __str__(self):
+        return self.name_to_add
 
 
 def rl_pre_save(sender, instance, *args, **kwargs):

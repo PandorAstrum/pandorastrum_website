@@ -216,32 +216,20 @@ def about_pageView(request):
     queryset = AboutModel.objects.all()
     team = AboutTeamImage.objects.all()
     thanks = ThanksName.objects.all()
-    pro_address1 = AboutModel.objects.values_list('pro_address1', flat=True)[0]
-    pro_address2 = AboutModel.objects.values_list('pro_address2', flat=True)[0]
-    pro_city = AboutModel.objects.values_list('pro_city', flat=True)[0]
-    pro_country = AboutModel.objects.values_list('pro_country', flat=True)[0]
-    pro_mob = AboutModel.objects.values_list("pro_mobile", flat=True)[0]
-    pro_email = AboutModel.objects.values_list("pro_email", flat=True)[0]
-    op_address1 = AboutModel.objects.values_list("op_address1", flat=True)[0]
-    op_address2 = AboutModel.objects.values_list("op_address2", flat=True)[0]
-    op_city = AboutModel.objects.values_list("op_city", flat=True)[0]
-    op_country = AboutModel.objects.values_list("op_country", flat=True)[0]
-    op_email = AboutModel.objects.values_list("op_email", flat=True)[0]
+    pro_address = AboutModel.objects.values_list('production_address', flat=True)[0]
+    pro_mob = AboutModel.objects.values_list("production_mobile", flat=True)[0]
+    pro_email = AboutModel.objects.values_list("production_email", flat=True)[0]
+    op_address = AboutModel.objects.values_list("operation_address", flat=True)[0]
+    op_email = AboutModel.objects.values_list("operation_email", flat=True)[0]
     context = {
         "about" : queryset,
         "team" : team,
         "ty" : thanks,
-        "pro_address1" : pro_address1,
-        "pro_address2" : pro_address2,
-        "pro_city" : pro_city,
-        "pro_country" : pro_country,
-        "pro_mob" : pro_mob,
-        "pro_email" : pro_email,
-        "op_address1" : op_address1,
-        "op_address2" : op_address2,
-        "op_city" : op_city,
-        "op_country" : op_country,
-        "op_email" : op_email
+        "production_address" : pro_address,
+        "production_mobile" : pro_mob,
+        "production_email" : pro_email,
+        "operation_address" : op_address,
+        "operation_email" : op_email
     }
     return render(request, "about.html", context)
 
