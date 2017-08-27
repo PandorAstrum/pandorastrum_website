@@ -6,53 +6,45 @@ from django.core.urlresolvers import reverse
 
 from taggit.managers import TaggableManager
 # Create your models here.
-# games page
+#================================================================================
+# Game page ---------------------------------------------------------------------
+#================================================================================
 class GamesModel (models.Model):
-    game_title      = models.CharField(max_length=200)
+    game_title      = models.CharField(max_length=200, blank=True, null=True)
     released_on     = models.DateField(auto_now=False, auto_now_add=False)
-    game_desc       = models.TextField(blank=True, null=True)
-    age_rating      = models.IntegerField(blank=True)
-    single_player   = models.BooleanField(default=False)
-    multiplayer     = models.BooleanField(default=False)
-    game_story = models.TextField(blank=True, null=True)
-
+    game_short_description = models.TextField(blank=True, null=True)
     game_thumbnail  = models.ImageField(upload_to="games")
     slide_image     = models.ImageField(upload_to="games", blank=True)
+    is_slide_featured = models.BooleanField(default=False)
     def thumbnail(self):
-        return mark_safe(u'<img src="%s" />' % (self.game_thumbnail.url))
-
+        return mark_safe(u'<img src="%s" height="100"/>' % (self.game_thumbnail.url))
     thumbnail.allow_tags = True
     thumbnail.short_description = 'Image'
-    def slide(self):
-        return mark_safe(u'<img src="%s" />' % (self.slide_image.url))
-
-    # thumbnail.allow_tags = True
-    slide.short_description = 'Slide'
-
     web             = models.BooleanField(default=False)
     pc              = models.BooleanField(default=False)
     android         = models.BooleanField(default=False)
     console         = models.BooleanField(default=False)
-
+    single_player   = models.BooleanField(default=False)
+    multiplayer     = models.BooleanField(default=False)
+    age_rating      = models.IntegerField(blank=True, null=True)
+    current_version = models.CharField(max_length=20,blank=True, null=True)
+    version_details = models.TextField(blank=True, null=True)
     slug            = models.SlugField(blank=True, null=True)
     updated         = models.DateTimeField(auto_now=True, auto_now_add=False)
     created         = models.DateTimeField(auto_now=False, auto_now_add=True)
+    def get_released_date(self):
+        return self.released_on.strftime("%d %b %Y")
+    def get_absolute_url(self):
+        return reverse("game_detail", kwargs={"id": self.id})
     def __str__(self):
         return self.game_title
     @property
     def title(self):
         return self.game_title
 
-class GamesGallery (models.Model):
-    related_to = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
-    img = models.ImageField(upload_to="gallery", blank=True, null=True)
-    img_caption = models.CharField(max_length=500)
-
-    def __str__(self):
-        return self.gallery_name
-
 class GamesDownloadLink(models.Model):
     related_to = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
+    is_active = models.BooleanField(default=False)
     STORE_CHOICES = (
         ('Play', 'Google PlayStore'),
         ('Win', 'Universal Windows AppStore'),
@@ -67,17 +59,54 @@ class GamesDownloadLink(models.Model):
     def __str__(self):
         return self.store_name
 
-class GamesDev(models.Model):
+class GameGenre(models.Model):
     related_to = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
-    title = models.CharField(max_length=400, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    img = models.ImageField(upload_to="games", blank=True, null=True)
-    completion_date = models.DateField(blank=True, null=True)
+    GENRE_CHOICES = {
+        ("---" , "---"),
+        ("2D" , "2D"),
+        ("ARCADE" , "Arcade"),
+        ("3D" , "3d"),
+        ("ACTION" , "Action"),
+        ("HACK N SLASH" , "Hack n slash"),
+        ("BEAT EM UP" , "Beat em up"),
+        ("PLATFORMER" , "Platformer"),
+        ("TRIVIA" , "Trivia"),
+        ("PUZZLE" , "Puzzle"),
+        ("INFINITE RUNNER" , "Infinite Runner"),
+        ("ADVENTURE" , "Adventure"),
+        ("3RD PERSON" , "3rd Person"),
+        ("SHOOTING" , "Shooting"),
+        ("FPS" , "Fps"),
+        ("SPORTS" , "Sports"),
+        ("RPG" , "Rpg"),
+        ("STRATEGY" , "Strategy"),
+        ("SIMULATION" , "Simulation"),
+        ("RACING" , "Racing"),
+        ("SPACE" , "Space"),
+        ("MMO" , "Mmo"),
+        ("MOBA" , "Moba"),
+    }
+    game_genre = models.CharField(max_length=20, choices=GENRE_CHOICES, default='')
+    def __str__(self):
+        return self.game_genre
+
+class GameLore(models.Model):
+    related_to = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
+    topic_title = models.CharField(max_length=200, blank=True, null=True)
+    topic = models.TextField(blank=True, null=True)
+    def __str__(self):
+        return self.topic_title
+
+class GamesGallery (models.Model):
+    related_to = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
+    img_title = models.CharField(max_length=50, blank=True, null=True)
+    img = models.ImageField(upload_to="gallery", blank=True, null=True)
+    img_caption = models.CharField(max_length=500)
 
     def __str__(self):
-        return self.title
+        return self.img_title
 
-class GameRequirements(models.Model):
+class SystemRequirements(models.Model):
     related_to = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
     SPEC_CHOICES = (
         ("PC", "Computer"),
@@ -86,11 +115,51 @@ class GameRequirements(models.Model):
         ("OTHERS", "Others")
     )
     spec_for = models.CharField(max_length=10, null=True, blank=True, choices=SPEC_CHOICES)
+    is_active = models.BooleanField(default=False)
     spec_details = models.TextField(blank=True, null=True)
-
     def __str__(self):
         return self.spec_for
 
+class GamesTimeline(models.Model):
+    related_to = models.ForeignKey(GamesModel, on_delete=models.CASCADE, blank=True, null=True)
+    title = models.CharField(max_length=400, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    img = models.ImageField(upload_to="games", blank=True, null=True)
+    completion_date = models.DateField(blank=True, null=True)
+    def get_year(self):
+        return self.completion_date.strftime("%Y")
+    def get_text(self):
+        return self.description
+    def get_month(self):
+        return self.completion_date.strftime("%d %B")
+    def get_day(self):
+        return self.completion_date.strftime("%A")
+    def __str__(self):
+        return self.title
+
+
+class UpcomingGamesModel(models.Model):
+    code_name = models.CharField(max_length=200, blank=True, null=True)
+    is_active = models.BooleanField(default=False)
+    game_img = models.ImageField(upload_to="upcoming", blank=True, null=True)
+    milestone_first_init = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    milestone_second_alpha = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    milestone_third_beta = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    game_teaser_description = models.TextField(blank=True, null=True)
+    slug            = models.SlugField(blank=True, null=True)
+    updated         = models.DateTimeField(auto_now=True, auto_now_add=False)
+    created         = models.DateTimeField(auto_now=False, auto_now_add=True)
+    def __str__(self):
+        return self.code_name
+    def first(self):
+        return self.milestone_first_init.strftime("%B,%Y")
+    def second(self):
+        return self.milestone_second_alpha.strftime("%B,%Y")
+    def third(self):
+        return self.milestone_third_beta.strftime("%B,%Y")
+    @property
+    def title(self):
+        return self.code_name
 # about us page
 class AboutModel(models.Model):
     generic_model = models.CharField(max_length=100, blank=True, null=True)
@@ -255,3 +324,4 @@ pre_save.connect(rl_pre_save, sender=AboutModel)
 pre_save.connect(rl_pre_save, sender=BlogModel)
 pre_save.connect(rl_pre_save, sender=AuthorModel)
 pre_save.connect(rl_pre_save, sender=PortfolioModel)
+pre_save.connect(rl_pre_save, sender=UpcomingGamesModel)

@@ -13,6 +13,13 @@ import operator
 from django.db.models import Q
 from pandorastrum.models import (
     GamesModel,
+    GamesDownloadLink,
+    SystemRequirements,
+    GameGenre,
+    GameLore,
+    GamesGallery,
+    GamesTimeline,
+    UpcomingGamesModel,
     AboutModel,
     AboutTeamImage,
     ThanksName,
@@ -32,14 +39,55 @@ def home_pageView(request):
 
     }
     return render(request, "index.html", context)
-
+# gamebox block ---------------------------------------------------------------------------
 def game_pageView(request):
-    queryset = GamesModel.objects.all()
+    queryset = GamesModel.objects.all().order_by("-created")
+    upcoming = UpcomingGamesModel.objects.filter(is_active=True)
     context = {
-        "games" : queryset
+        "games" : queryset,
+        "upcoming" : upcoming
     }
     return render(request, "games.html", context)
 
+def game_detailView(request, id, **kwargs):
+    instance = get_object_or_404(GamesModel, id=id)
+    game_stores = GamesDownloadLink.objects.filter(related_to=instance.id)
+    sys_req = SystemRequirements.objects.filter(related_to=instance.id)
+    game_genre = GameGenre.objects.filter(related_to=instance.id)
+    game_lore = GameLore.objects.filter(related_to=instance.id)
+    info_body = game_lore.values_list('topic', flat=True)[0]
+    info_head = game_lore.values_list('topic_title', flat=True)[0]
+    gallery = GamesGallery.objects.filter(related_to=instance.id)
+    timeline = GamesTimeline.objects.filter(related_to=instance.id)
+    # year month
+    date_field = 'completion_date'
+    archive = {}
+    text = {}
+    years = timeline.dates(date_field, 'year')[::-1]
+    for date_year in years:
+        months = timeline.filter(completion_date__year=date_year.year).dates(date_field, 'month')
+        archive[date_year] = months
+        for m in months:
+            topic = timeline.filter(completion_date__month=m.month)
+
+    archive = sorted(archive.items(), reverse=True)
+    context = {
+        "instance" : instance,
+        "stores" : game_stores,
+        "requirements" : sys_req,
+        "genre" : game_genre,
+        "lore" : game_lore,
+        "info_head" : info_head,
+        "info_body": info_body,
+        "gallery" : gallery,
+        "timeline" : timeline,
+        "ym" : archive
+    }
+    return render(request, "game_detail.html", context)
+
+def upcomingView(request):
+    context = {}
+    return render(request, "upcoming.html", context)
 # portfolio block --------------------------------------------------------------------------
 def portfolio_pageView(request, **kwargs):
     portfolio_3d = PortfolioModel.objects.filter(category_type__iexact="3D")

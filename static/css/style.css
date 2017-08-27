@@ -689,46 +689,45 @@ Games page -----------------------------------------------------------
 ======================================================================
 */
 
-/*games component starts ------------------------------------------*/
-.games-row {
+/*game box starts ------------------------------------------*/
+.gamebox-component .games-row {
      margin: -15px 0;
 }
-.game-card {
+.gamebox-component .game-card {
     padding-left: 3%;
     padding-right: 3%;
     padding-bottom: 2%;
 }
-.games {
+.gamebox-component .games {
     list-style: none;
 }
-.game-card a {
+.gamebox-component .game-card a {
     text-decoration: none;
     display: block;
 }
-.game-card .game-card-body {
-    /*font-family: Amaranth-Regular;*/
+.gamebox-component .game-card .game-card-body {
     color: white;
     background: #070000;
     background: -webkit-linear-gradient(to right, #070000, #4C0001, #070000);
     background: linear-gradient(to right, #070000, rgba(76, 0, 1, 1), #070000);
 }
-.game-card:hover .game-card-body {
+.gamebox-component .game-card:hover .game-card-body {
     background: #C04848;
     background: -webkit-linear-gradient(to right, #480048, #C04848);
     background: linear-gradient(to right, #220122, #7b2b2b);
 
 }
-.game-card-body .col-md-6 img {
+.gamebox-component .game-card-body .col-md-6 img {
     background: #ffffff;
     width: 80%;
     height: 80%;
     -moz-transition: all 0.6s ease-in-out;
-  -webkit-transition: all 0.6s ease-in-out;
-  -o-transition: all 0.6s ease-in-out;
-  -ms-transition: all 0.6s ease-in-out;
-  transition: all 0.6s ease-in-out;
+    -webkit-transition: all 0.6s ease-in-out;
+    -o-transition: all 0.6s ease-in-out;
+    -ms-transition: all 0.6s ease-in-out;
+    transition: all 0.6s ease-in-out;
 }
-.game-card:hover .game-card-body .col-md-6 img {
+.gamebox-component .game-card:hover .game-card-body .col-md-6 img {
     background: #c5db3b;
     -webkit-transform: scale(1.2);
     -webkit-transform-origin: 50% 50%;
@@ -737,7 +736,7 @@ Games page -----------------------------------------------------------
     transform: scale(1.2);
     -transform-origin: 50% 50%;
 }
-.game-card-body .col-md-5 h3{
+.gamebox-component .game-card-body .col-md-5 h3{
     font-family: Amaranth-Bold;
     color: #c5db3b;
     text-shadow: 0 1px 3px rgba(255, 255, 255, 0.35);
@@ -745,15 +744,15 @@ Games page -----------------------------------------------------------
     position: relative;
     padding-bottom: 3px;
 }
-.game-card:hover .game-card-body .col-md-5 h3 {
-    text-shadow: 0px 2px 5px rgba(255, 255, 255, 0.35);
+.gamebox-component .game-card:hover .game-card-body .col-md-5 h3 {
+    text-shadow: 0 2px 5px rgba(255, 255, 255, 0.35);
     -moz-transition: all 0.6s ease-in-out;
     -webkit-transition: all 0.6s ease-in-out;
     -o-transition: all 0.6s ease-in-out;
     -ms-transition: all 0.6s ease-in-out;
     transition: all 0.6s ease-in-out;
 }
-.game-card-body .col-md-5 h3:before {
+.gamebox-component .game-card-body .col-md-5 h3:before {
     content: '';
     display: block;
     position: absolute;
@@ -763,7 +762,7 @@ Games page -----------------------------------------------------------
     width: 0;
     transition: width 0s ease, background .5s ease;
 }
-.game-card-body .col-md-5 h3:after {
+.gamebox-component .game-card-body .col-md-5 h3:after {
     content: '';
     display: block;
     position: absolute;
@@ -774,17 +773,17 @@ Games page -----------------------------------------------------------
     background: #c5db3b;
     transition: width .5s ease;
 }
-.game-card:hover .game-card-body .col-md-5 h3:before {
+.gamebox-component .game-card:hover .game-card-body .col-md-5 h3:before {
      width: 100%;
     background: #c5db3b;
     transition: width .5s ease;
 }
-.game-card:hover .game-card-body .col-md-5 h3:after {
+.gamebox-component .game-card:hover .game-card-body .col-md-5 h3:after {
      width: 100%;
     background: transparent;
     transition: all 0s ease;
 }
-.games-on div {
+.gamebox-component .games-on div {
     padding: 2%;
     float: left;
     width: 60px;
@@ -795,7 +794,7 @@ Games page -----------------------------------------------------------
     -ms-transition: all 0.5s ease;
     transition: all 0.4s ease;
 }
-.game-card:hover .games-on div {
+.gamebox-component .game-card:hover .games-on div {
     -webkit-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
     -o-transform: rotate(360deg);
@@ -803,19 +802,19 @@ Games page -----------------------------------------------------------
     transform: rotate(360deg);
 }
 
-.games-on div:nth-child(1) {
+.gamebox-component .games-on div:nth-child(1) {
     -webkit-transition-delay: 0.1s;
     transition-delay: 0.1s;
 }
-.games-on div:nth-child(2) {
+.gamebox-component .games-on div:nth-child(2) {
     -webkit-transition-delay: 0.2s;
     transition-delay: 0.2s;
 }
-.games-on div:nth-child(3) {
+.gamebox-component .games-on div:nth-child(3) {
     -webkit-transition-delay: 0.3s;
     transition-delay: 0.3s;
 }
-.games:hover .games-list:not(:hover) {
+.gamebox-component .games:hover .games-list:not(:hover) {
     -webkit-filter: blur(3px);
     -moz-filter: blur(3px);
     -o-filter: blur(3px);
@@ -823,29 +822,44 @@ Games page -----------------------------------------------------------
     filter: blur(3px);
     transition: filter 1s;
 }
-.game-details-div {
-/*
-    width:100%;
-    height:100%;
-
-    border:solid black 1px;
-*/
-/*    position: relative;*/
-}
-#g1, #g2 {
-/*    display: none;*/
-}
-
-.game-details-conatiner {
-/*    display: none;*/
-}
-.hide {
-
-}
-.all-games {
-/*    display: block;*/
-}
 /*games component ends --------------------------------------------*/
+
+/*upcoming*/
+.upcoming {
+    padding-top: 10px;
+    display: table;
+    color: #aaa;
+}
+.upcoming .col-md-4 {
+    float: none;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+.upcoming .col-md-4 a {
+    display: inline-block;
+    text-decoration: none;
+}
+.upcoming .col-md-4 .img-thumbnail {
+    background: #c5db3b;
+}
+.upcoming .col-md-4 a:hover .img-thumbnail {
+    background: #e5ff3f;
+}
+.upcoming .col-md-4 .read {
+    display: flex;
+    justify-content: center;
+}
+.upcoming #banners .col-md-12 {
+    position: relative;
+}
+.upcoming #banners .col-md-12 span {
+    position: absolute;
+    top: 15%;
+    left: 35%;
+    color: black;
+}
+
 /*single game component */
 .single-game-component {
     background-color: #1D1D1D;
@@ -1549,47 +1563,6 @@ Games page -----------------------------------------------------------
 }
 /*single game component */
 
-
-#upcoming
-{
-    padding-top: 10px;
-    display: table;
-    font-family: Amaranth-Regular;
-    color: white;
-}
-
-#upcoming .col-md-4
-{
-    float: none;
-    display: table-cell;
-    vertical-align: middle;
-}
-
-#upcoming .col-md-4 .img-thumbnail
-{
-    background: #e5ff3f;
-}
-
-#upcoming .col-md-4 h3,
-#upcoming .col-md-4 p
-{
-    text-align: center;
-}
-
-#banners .col-md-12
-{
-    position: relative;
-}
-
-#banners .col-md-12 span
-{
-    position: absolute;
-    top: 15%;
-    left: 35%;
-    color: black;
-}
-
-/*Game box ends*/
 
 /*
 ======================================================================

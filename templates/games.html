@@ -29,57 +29,15 @@
     <!-- some gap -->
     <div class="row pa-gapes"></div>
 
-    <!-- svg for tab style -->
-    <svg class="hidden">
-        <defs>
-            <path id="tabshape" d="M80,60C34,53.5,64.417,0,0,0v60H80z"/>
-        </defs>
-    </svg>
     <div class="row pa-row">
-
-        <div class="gamebox-component">
-            <div class="col-md-12 all-games animated" id="all-games">
-                <div class="row">
-                    <div class="pa-header-title">
-                        <h3 class="pa-heading-middle">All Games Released</h3>
-                    </div>
-                    <div class="inner-body">
-                        <div class="row games-row">
-                            <ul class="games">
-                                {% for game in games %}
-                                <li class="games-list">
-                                    <div class="col-md-6 game-card">
-                                        <a href="#g{{ game.pk }}" data-type="page-transition">
-                                            <div class="row game-card-body">
-                                                <div class="col-md-6">
-                                                    <img src="{{ game.game_thumbnail.url }}" class="img-responsive img-thumbnail center-block" />
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <h3>{{ game.game_title }}</h3>
-                                                    <p>{{ game.game_desc }}</p>
-                                                    <div>
-                                                        <span class="">Released on : {{ game.released_on }}</span>
-                                                    </div>
-                                                    <div>
-                                                        <span>Games on:</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div id="g{{ game.pk }}">
-
-                                    </div>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>    <h1>{{ game.game_title }}</h1>
+        {% include "blocks/all_game_block.html" %}
+    </div>
+    <div class="row pa-row">
+        {% include "blocks/upcoming_small.html" %}
+    </div>
 {% endblock main %}
+
+{% block extra_modal %}{% endblock extra_modal %}
 
 {% block js_file %} {% endblock js_file %}
 

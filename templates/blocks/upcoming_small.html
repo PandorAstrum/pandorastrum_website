@@ -1,0 +1,51 @@
+{% load static %}
+<!-- upcoming block starts -------------------------------------------->
+<div class="upcoming-component">
+    <div class="col-md-12 all-games" id="all-games">
+        <div class="row">
+            <!-- Upcoming header -->
+            <div class="pa-header-title">
+                <h3 class="pa-heading-middle">Upcoming Games</h3>
+            </div>
+            <div class="inner-body">
+                <div class="row games-row">
+                    <div class="col-md-12">
+                        {% for u in upcoming %}
+                            <div class="row upcoming">
+                                <div class="col-md-4">
+                                    <a href="{% url 'upcoming' %}">
+                                    <img src="{{ u.game_img.url }}" class="img-responsive img-thumbnail center-block" />
+                                </a>
+                                </div>
+                                <div class="col-md-4">
+                                    <h3>Code name: {{ u.code_name }}</h3>
+                                    <p>{{ u.game_teaser_description }}</p>
+                                    <div class="read">
+                                        <div class="read-more">
+                                            <a href="{% url "upcoming" %}"><span class="txt">See more..</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" id="banners">
+                                <div class="col-md-12">
+                                    <img src="{% static 'img/redbanner.png' %}" class="img-responsive" />
+                                    <span class="release-date">Alpha Access: {{ u.first }}</span>
+                                </div>
+                                <div class="col-md-12">
+                                    <img src="{% static 'img/yellowbanner.png' %}" class="img-responsive" />
+                                    <span class="release-date">Beta Release: {{ u.second }}</span>
+                                </div>
+                                <div class="col-md-12">
+                                    <img src="{% static 'img/bluebanner.png' %}" class="img-responsive" />
+                                    <span class="release-date">Final Release: {{ u.third }}</span>
+                                </div>
+                            </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Upcoming block ends ----------------------------------------------------->

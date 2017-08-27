@@ -1,0 +1,60 @@
+{% load static %}
+<!-- game box block starts -------------------------------------------->
+<div class="gamebox-component">
+    <div class="col-md-12 all-games" id="all-games">
+        <div class="row">
+            <!-- All games header -->
+            <div class="pa-header-title">
+                <h3 class="pa-heading-middle">All Released Games</h3>
+            </div>
+            <div class="inner-body">
+                <div class="row games-row">
+                    <ul class="games">
+                        {% for g in games %}
+                            <li class="games-list">
+                                <div class="col-md-6 game-card">
+                                    <a href="{{ g.get_absolute_url }}" data-type="page-transition">
+                                        <div class="row game-card-body">
+                                            <div class="col-md-6">
+                                                <img src="{{ g.game_thumbnail.url }}" class="img-responsive img-thumbnail center-block" />
+                                            </div>
+                                            <div class="col-md-5">
+                                                <h3>{{ g.game_title }}</h3>
+                                                <p>{{ g.game_short_description }}</p>
+                                                <div>
+                                                    <span>Released on : {{ g.get_released_date }}</span>
+                                                </div>
+                                                <div>
+                                                    <span>Games Compatibility:</span>
+                                                </div>
+                                                <div class="games-on">
+                                                    {% if g.android %}
+                                                        <div>
+                                                            <img src="{% static 'img/compatibility/android128x128.png' %}" class="img-responsive" />
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if g.pc %}
+                                                        <div>
+                                                            <img src="{% static 'img/compatibility/windows128x128.png' %}" class="img-responsive" />
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if g.web %}
+                                                        <div>
+                                                            <img src="{% static 'img/compatibility/chrome128x128.png' %}" class="img-responsive" />
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <!-- game component ends -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- game box blocks ends --------------------------------------------->

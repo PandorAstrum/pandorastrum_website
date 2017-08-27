@@ -1,0 +1,361 @@
+{% load static %}
+<!-- game detail block starts ---------------------------------------------->
+<div class="container-fluid single-game-component">
+    <!-- left side -->
+    <div class="col-md-3">
+        <div class="single-game-left">
+            <!-- thumbnail picture-->
+            <div class="thumbContainer">
+                <div class="topBorder"></div>
+                <div class="bottomBorder"></div>
+                <img src="{{ instance.game_thumbnail.url }}" class="center-block" />
+            </div>
+            <h3>Play On</h3>
+            <!-- buttons -->
+            <div class="button-tile">
+                {% for s in stores %} 
+                    {% if s.is_active %}
+                        {% if s.store_name == "Play" %}
+                            <div class="pa-button">
+                                <a href="{{ s.link }}">
+                                    <img src="{% static 'img/stores/playstore.png' %}" class="img-responsive" alt="PLayStore" />
+                                </a>
+                            </div>
+                        {% elif s.store_name == "FB" %}
+                            <div class="pa-button">
+                                <a href="{{ s.link }}">
+                                    <img src="{% static 'img/stores/facebook.png' %}" class="img-responsive" alt="Gameroom" />
+                                </a>
+                            </div>
+                        {% elif s.store_name == "Itch" %}
+                            <div class="pa-button">
+                                <a href="{{ s.link }}">
+                                    <img src="{% static 'img/stores/itch.png' %}" class="img-responsive" alt="Itch.IO" />
+                                </a>
+                            </div>
+                        {% elif s.store_name == "Smsg" %}
+                            <div class="pa-button">
+                                <a href="{{ s.link }}">
+                                    <img src="{% static 'img/stores/samsung.png' %}" class="img-responsive" alt="SamsungApp" />
+                                </a>
+                            </div>
+                        {% elif s.store_name == "Amz" %}
+                            <div class="pa-button">
+                                <a href="{{ s.link }}">
+                                    <img src="{% static 'img/stores/amazon.png' %}" class="img-responsive" alt="AmazonApp" />
+                                </a>
+                            </div>
+                        {% elif s.store_name == "Win" %}
+                            <div class="pa-button">
+                                <a href="{{ s.link }}">
+                                    <img src="{% static 'img/stores/windows.png' %}" class="img-responsive" alt="WindowsApp" />
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <h3>At a Glance</h3>
+            <div class="glance">
+                <p class="title">Release Date:</p>
+                <p class="data">{{ instance.get_released_date }}</p>
+                <p class="title">Genre:</p>
+                <p class="data">
+                    {% for g in genre %}
+                        {{ g.game_genre }},
+                    {% endfor %}
+                </p>
+                <p class="title">Age Rating:</p>
+                <div class="age">
+                    <p class="data">{{ instance.age_rating }}</p>
+{#                    <img src="../assets/img/Age/8.png" class="img-responsive center-block">#}
+                </div>
+                <p class="title">Mode:</p>
+                <p class="data">
+                    {% if instance.single_player %}/ Single Player /{% endif %}
+                    {% if instance.multiplayer %}/ Multiplayer /{% endif %}
+                </p>
+                <p class="title">Available On:</p>
+                    <p class="data">
+                        {% if instance.web %}/ Web Broswer /{% endif %}
+                        {% if instance.android %}/ Android /{% endif %}
+                        {% if instance.pc %}/ PC /{% endif %}
+                        {% if instance.console %}/ Console /{% endif %}
+                    </p>
+            </div>
+        </div>
+    </div>
+    <!-- right side -->
+    <div class="col-md-9">
+        <div class="single-game-right">
+            <div class="row banner">
+                <h2 class="textAnim">{{ instance.game_title }}</h2>
+                                    <div class="back-btn">
+                                        <a href="{% url 'games' %}" title="Back to All Games" class="back-btn"><i class="fa fa-angle-double-left"></i></a>
+{#                                        <a id="backbtn" href="#all-games">#}
+{#                                            <i class="fa fa-arrow-left"></i>#}
+{#                                            <span>Back</span>#}
+{#                                        </a>#}
+                                    </div>
+            </div>
+            <div class="row pa-tab">
+                <!-- tab starts -->
+                <section>
+                    <div class="tabs tabs-style-shape">
+                        <!-- navigation -->
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a href="#section-shape-1">
+                                        <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+                                        <span><i class="fa fa-info"></i>Info</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#section-shape-2">
+                                        <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+                                        <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+                                        <span><i class="fa fa-image"></i>Gallery</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#section-shape-3">
+                                        <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+                                        <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+                                        <span><i class="fa fa-globe"></i>Lore</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#section-shape-4">
+                                        <svg viewBox="0 0 80 60" preserveAspectRatio="none"><use xlink:href="#tabshape"></use></svg>
+                                        <span><i class="fa fa-hourglass"></i>Timeline</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <!-- content -->
+                        <div class="content-wrap">
+                            <!-- basic info -->
+                            <section id="section-shape-1">
+                                <h4>{{ info_head }}</h4>
+                                <p>{{ info_body|linebreaks }}</p>
+                                <h4>System requiremnts</h4>
+                                <div class="row sys-req">
+                                    {% for r in requirements %}
+                                        {% if r.is_active %}
+                                            <div class="col-md-4">
+                                                <h4>{{ r.spec_for }}</h4>
+                                                <p>{{ r.spec_details|linebreaks }}</p>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <h4>Current Issue</h4>
+                                <p>Version: {{ instance.current_version }}</p>
+                                <p>{{ instance.version_details|linebreaks }}</p>
+                            </section>
+                            <!-- image gallery -->
+                            <section id="section-shape-2">
+                                <div class="masonry-wrapper">
+                                    <div class="masonry">
+                                        {% for g in gallery %}
+                                            <div class="item"><a href="#"><img id="masonry-img" src="{{ g.img.url }}" alt="{{ g.img_caption }}"></a></div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </section>
+                            <!-- Lore -->
+                            <section id="section-shape-3">
+                                {% for l in lore %}
+                                    <h4>{{ l.topic_title }}</h4>
+                                    <p>{{ l.topic|linebreaks }}</p>
+                                {% endfor %}
+                            </section>
+                            <!-- timeline -->
+                            <section id="section-shape-4">
+                                <div class="timeline">
+                                {% for y,months in ym %}
+                                    <div class="year">
+                                        <div class="inner">
+                                            <span>{{ y }}</span>
+                                        </div>
+                                    </div>
+                                    <ul class="days">
+                                        {% for m in months %}
+                                        <li class="day">
+                                            <div class="events">
+                                                    <div class="cd-timeline-img"></div>
+                                                    <div class="day__img">
+                                                        <p>{{ m }}</p>
+                                                    </div>
+                                                    <div class="date">{{ object.get_month }} ({{ object.get_day }})</div>
+                                                </div>
+                                        </li>
+
+                                        {% endfor %}
+                                    </ul>
+
+                                {% endfor %}
+{#                                    {% for object in timeline %}#}
+{#                                        <div class="year">#}
+{#                                            <div class="inner">#}
+{#                                                <span>{{ object.get_year }}</span>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <ul class="days">#}
+{#                                            <li class="day">#}
+{#                                                <div class="events">#}
+{#                                                    <div class="cd-timeline-img"></div>#}
+{#                                                    <div class="day__img">#}
+{#                                                        <p>{{ object.get_text }}</p>#}
+{#                                                    </div>#}
+{#                                                    <div class="date">{{ object.get_month }} ({{ object.get_day }})</div>#}
+{#                                                </div>#}
+{#                                            </li>#}
+{#                                        </ul>#}
+{#                                    {% endfor %}#}
+{#                                                        <ul class="days">#}
+{#                                                            <!-- first event -->#}
+{##}
+{#                                                            <li class="day">#}
+{#                                                                <div class="events">#}
+{#                                                                    <div class="cd-timeline-img"></div>#}
+{#                                                                    <div class="day__img">#}
+{#                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>#}
+{#                                                                    </div>#}
+{#                                                                    <div class="date">18 October (Monday)</div>#}
+{#                                                                </div>#}
+{#                                                            </li>#}
+{#                                                            <!-- second event -->#}
+{#                                                            <li class="day">#}
+{#                                                                <div class="events">#}
+{#                                                                    <div class="cd-timeline-img"></div>#}
+{#                                                                    <div class="day__img">#}
+{#                                                                        <p>Lorem dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>#}
+{#                                                                    </div>#}
+{#                                                                    <div class="date">01 January (Thursday)</div>#}
+{#                                                                </div>#}
+{#                                                            </li>#}
+{#                                                            <!-- third event -->#}
+{#                                                            <li class="day">#}
+{#                                                                <div class="events">#}
+{#                                                                    <div class="cd-timeline-img"></div>#}
+{#                                                                    <div class="day__img">#}
+{#                                                                        <img class="img-responsive" src="../assets/img/Battlefield-3-Wallpaper-1920x1080.jpg" alt="" />#}
+{#                                                                        <p class="caption">Lorem ipsum dolor sit amet.</p>#}
+{#                                                                    </div>#}
+{#                                                                    <div class="date">18 October (Monday)</div>#}
+{#                                                                </div>#}
+{#                                                            </li>#}
+{#                                                            <!--fourth event -->#}
+{#                                                            <li class="day">#}
+{#                                                                <div class="events">#}
+{#                                                                    <div class="cd-timeline-img"></div>#}
+{#                                                                    <div class="day__img">#}
+{#                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>#}
+{#                                                                    </div>#}
+{#                                                                    <div class="date">18 October (Monday)</div>#}
+{#                                                                </div>#}
+{#                                                            </li>#}
+{#                                                            <!-- fifth event -->#}
+{#                                                            <li class="day">#}
+{#                                                                <div class="events">#}
+{#                                                                    <div class="cd-timeline-img"></div>#}
+{#                                                                    <div class="day__img">#}
+{#                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>#}
+{#                                                                    </div>#}
+{#                                                                    <div class="date">18 October (Monday)</div>#}
+{#          </div>#}
+{#                                                            </li>#}
+{#                                                            <!-- sixth event -->#}
+{#                                                            <li class="day">#}
+{#                                                                <div class="events">#}
+{#                                                                    <div class="cd-timeline-img"></div>#}
+{#                                                                    <div class="day__img">#}
+{#                                                                        <img class="img-responsive" src="../assets/img/event.jpg" alt="" />#}
+{#                                                                        <p class="caption">Lorem ipsum dolor sit amet.</p>#}
+{#                                                                    </div>#}
+{#                                                                    <div class="date">18 October (Monday)</div>#}
+{#                                                                </div>#}
+{#                                                            </li>#}
+{#                                                        </ul>#}
+{#                                                        <div class="year">#}
+{#                                                            <div class="inner">#}
+{#                                                                <span>2016</span>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                        <ul class="days">#}
+{#                                                            <!-- first event -->#}
+{#                                                            <li class="day">#}
+{#                                                                <div class="events">#}
+{#                                                                    <div class="day__img">#}
+{#                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>#}
+{#                                                                    </div>#}
+{#                                                                    <div class="date">18 October (Monday)</div>#}
+{#                                                                </div>#}
+{#                                                            </li>#}
+{#                                                            <!-- second event -->#}
+{#                                                            <li class="day">#}
+{#                                                                <div class="events">#}
+{#                                                                    <div class="day__img">#}
+{#                                                                        <p>Lorem dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>#}
+{#                                                                    </div>#}
+{#                                                                    <div class="date">01 January (Thursday)</div>#}
+{#                                                                </div>#}
+{#                                                            </li>#}
+{#                                                            <!-- third event -->#}
+{#                                                            <li class="day">#}
+{#                                                                <div class="events">#}
+{#                                                                    <div class="day__img">#}
+{#                                                                        <img class="img-responsive" src="../assets/img/Battlefield-3-Wallpaper-1920x1080.jpg" alt="" />#}
+{#                                                                        <p class="caption">Lorem ipsum dolor sit amet.</p>#}
+{#                                                                    </div>#}
+{#                                                                    <div class="date">18 October (Monday)</div>#}
+{#                                                                </div>#}
+{#                                                            </li>#}
+{#                                                            <!--fourth event -->#}
+{#                                                            <li class="day">#}
+{#                                                                <div class="events">#}
+{#                                                                    <div class="day__img">#}
+{#                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>#}
+{#                                                                    </div>#}
+{#                                                                    <div class="date">18 October (Monday)</div>#}
+{#                                                                </div>#}
+{#                                                            </li>#}
+{#                                                            <!-- fifth event -->#}
+{#                                                            <li class="day">#}
+{#                                                                <div class="events">#}
+{#                                                                    <div class="day__img">#}
+{#                                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius perferendis vitae, facere accusantium magni, explicabo mollitia quidem odio autem, iste optio? Consequuntur ratione dolorum velit maiores quam odit odio suscipit.</p>#}
+{#                                                                    </div>#}
+{#                                                                    <div class="date">18 October (Monday)</div>#}
+{#                                                                </div>#}
+{#                                                            </li>#}
+{#                                                            <!-- sixth event -->#}
+{#                                                            <li class="day">#}
+{#                                                                <div class="events">#}
+{#                                                                    <div class="day__img">#}
+{#                                                                        <img class="img-responsive" src="../assets/img/event.jpg" alt="" />#}
+{#                                                                        <p class="caption">Lorem ipsum dolor sit amet.</p>#}
+{#                                                                    </div>#}
+{#                                                                    <div class="date">18 October (Monday)</div>#}
+{#                                                                </div>#}
+{#                                                            </li>#}
+{#                                                        </ul>#}
+{#                                                        <div class="year year--end">#}
+{#                                                            <div class="inner">#}
+{#                                                                <span>2017</span>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+                                                    </div>
+                                                </section>
+                                            </div>
+                                            <!-- /content -->
+                                        </div>
+                                    </section>
+                                    <!-- /tabs -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- game detail block ends ------------------------------------------------>
