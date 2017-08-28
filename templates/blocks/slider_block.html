@@ -1,0 +1,100 @@
+<!-- Slider block starts -------------------------------------------->
+{% load static %}
+<div class="slider-component">
+    <!-- slider start -->
+    <div class="pa-slider main-slider">
+        <div class="pa-slider__slides">
+            <!-- side effects-->
+            <img class="effects-left img-responsive" src="{% static 'img/left-side-effects.png' %}" />
+            <img class="effects-right img-responsive" src="{% static 'img/right-side-effects.png' %}" />
+            <!-- slide 1 start -->
+            {% for s in slider %}
+                <div class="pa-slide {{ s.slider_blend_mode }} {% if forloop.first %}m--active-slide{% endif %}">
+                    <div class="pa-slide__inner">
+                        <div class="pa-slide__mask">
+                                        <div class="pa-slide__mask-inner"></div>
+                                    </div>
+                        <div class="pa-slide__content">
+                            <h2 class="pa-slide__heading">
+                                <div class="pa-slide__heading-line">
+                                    <span>{{ s.game_title }}</span>
+                                </div>
+                            </h2>
+                            <a class="pa-slide__action-btn" href="#getit{{ s.id }}" data-type="page-transition">Get It<span data-text="Get It">Get It</span></a>
+                        </div>
+                        <div id="getit{{ s.id }}">
+                            <div class="slider-component__credits-close"></div>
+                            <h3 class="slider-component__credits-name">{{ s.game_title }}</h3>
+                            <div class="button-tile">
+                                {% for store in stores %}
+                                    {% if store.related_to == s %}
+                                        {% if store.store_name == "Play" %}
+                                            <div class="pa-button">
+                                                <a href="{{ store.link }}">
+                                                    <img src="{% static 'img/stores/playstore.png' %}" class="img-responsive" alt="PLayStore" />
+                                                </a>
+                                            </div>
+                                        {% elif store.store_name == "FB" %}
+                                            <div class="pa-button">
+                                                <a href="{{ store.link }}">
+                                                    <img src="{% static 'img/stores/facebook.png' %}" class="img-responsive" alt="Gameroom" />
+                                                </a>
+                                            </div>
+                                        {% elif store.store_name == "Itch" %}
+                                            <div class="pa-button">
+                                                <a href="{{ store.link }}">
+                                                    <img src="{% static 'img/stores/itch.png' %}" class="img-responsive" alt="Itch.IO" />
+                                                </a>
+                                            </div>
+                                        {% elif store.store_name == "Smsg" %}
+                                            <div class="pa-button">
+                                                <a href="{{ store.link }}">
+                                                    <img src="{% static 'img/stores/samsung.png' %}" class="img-responsive" alt="SamsungApp" />
+                                                </a>
+                                            </div>
+                                        {% elif store.store_name == "Amz" %}
+                                            <div class="pa-button">
+                                                <a href="{{ store.link }}">
+                                                    <img src="{% static 'img/stores/amazon.png' %}" class="img-responsive" alt="AmazonApp" />
+                                                </a>
+                                            </div>
+                                        {% elif store.store_name == "Win" %}
+                                            <div class="pa-button">
+                                                <a href="{{ store.link }}">
+                                                    <img src="{% static 'img/stores/windows.png' %}" class="img-responsive" alt="WindowsApp" />
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <a href="{{ s.get_absolute_url }}" class="slider-component__credits-link">Game Details <i class="fa fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- navigation -->
+        <nav class="pa-nav">
+            <div class="pa-nav__bgs">
+                {% for s in slider %}
+                    <div class="pa-nav__bg {{ s.slider_navigation_color }} {% if forloop.first %}m--active-nav-bg{% endif %}"></div>
+                {% endfor %}
+            </div>
+            <div class="pa-nav__controls">
+                {% for s in slider %}
+                    <button class="pa-nav__control">{{ s.game_title }}<span class="pa-nav__control-progress"></span></button>
+                {% endfor %}
+            </div>
+        </nav>
+    </div>
+    <!-- side bar -->
+    <div class="slider-component__credits"></div>
+</div>
+<!-- star in carousel -->
+<div class="star-carousel-wrapper">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+</div>
+<!-- Slider block ends ---------------------------------------------->

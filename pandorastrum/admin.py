@@ -60,7 +60,7 @@ class Timeline (admin.TabularInline):
 @admin.register(GamesModel)
 class GamesAdmin(admin.ModelAdmin):
     date_hierarchy = "created"
-    list_display = ["__str__", "is_slide_featured", "created", "updated", "thumbnail"]
+    list_display = ["__str__", "is_slide_featured", "slider_blend_mode", "created", "updated", "thumbnail"]
     list_filter = ("released_on","game_title")
     fieldsets = (
         (None, {
@@ -73,7 +73,7 @@ class GamesAdmin(admin.ModelAdmin):
                        )
         }),
         ('Game Icons', {
-            'fields': (("slide_image", "is_slide_featured"),('game_thumbnail', "thumbnail"))
+            'fields': (("slide_image", "is_slide_featured", "slider_blend_mode", "slider_navigation_color"),('game_thumbnail', "thumbnail"))
         }),
         ('Read Only Info', {
             'classes': ('collapse',),

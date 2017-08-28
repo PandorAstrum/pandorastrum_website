@@ -12,10 +12,24 @@ from taggit.managers import TaggableManager
 class GamesModel (models.Model):
     game_title      = models.CharField(max_length=200, blank=True, null=True)
     released_on     = models.DateField(auto_now=False, auto_now_add=False)
+    BLEND_CHOICES =(
+        ("m--blend-gray", "m--blend-gray"),
+        ("m--blend-green", "m--blend-green"),
+        ("m--blend-red", "m--blend-red"),
+        ("m--blend-blue", "m--blend-blue")
+    )
+    NAV_COLOR_CHOICES = (
+        ("m--navbg-gray", "m--navbg-gray"),
+        ("m--navbg-green", "m--navbg-green"),
+        ("m--navbg-red", "m--navbg-red"),
+        ("m--navbg-blue", "m--navbg-blue")
+    )
     game_short_description = models.TextField(blank=True, null=True)
     game_thumbnail  = models.ImageField(upload_to="games")
     slide_image     = models.ImageField(upload_to="games", blank=True)
     is_slide_featured = models.BooleanField(default=False)
+    slider_blend_mode = models.CharField(max_length=15, choices=BLEND_CHOICES, default='')
+    slider_navigation_color = models.CharField(max_length=15, choices=NAV_COLOR_CHOICES, default='')
     def thumbnail(self):
         return mark_safe(u'<img src="%s" height="100"/>' % (self.game_thumbnail.url))
     thumbnail.allow_tags = True

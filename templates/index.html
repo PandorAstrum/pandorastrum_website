@@ -7,10 +7,21 @@
 
 
 {% extends "base.html" %}
-
+{% load static %}
 {% block head_title %}Home | {{ block.super }}{% endblock head_title%}
 
-{% block style %}{% endblock style %}
+{% block style %}
+    /*slide picture*/
+    {% for s in slider %}
+        .main-slider .pa-slide-{{ s.id }} .pa-slide__inner,
+        .main-slider .pa-slide-{{ s.id }} .pa-slide__mask-inner {
+            background-image: url("{{ s.slide_image.url }}");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+    {% endfor %}
+
+{% endblock style %}
 
 {% block extra %}{% endblock extra %}
 
@@ -33,13 +44,40 @@
 {% endblock navbar %}
 
 {% block main %}
-    <!-- some gap -->
-    <div class="row pa-gapes"></div>
+    {% include 'blocks/slider_block.html' %}
+    <div class="row pa-row">
+    {% include 'blocks/photo_accordion_block.html' %}
+    {% include 'blocks/sidebar_block.html' %}
+    </div>
+    <div class="row pa-row">
 
+    </div>
 {% endblock main %}
 
-{% block extra_modal %}{% endblock extra_modal %}
+{% block extra_modal %}
+    {% include 'blocks/modals_block.html' %}
+{% endblock extra_modal %}
 
-{% block js_file %} {% endblock js_file %}
+{% block js_file %}
+    <script src="{% static 'js/home.js' %}"></script>
+{% endblock js_file %}
 
-{% block pure_js %}{% endblock pure_js %}
+{% block pure_js %}
+     // calling owl carousal
+                $(".owl-carousel").owlCarousel({
+                    loop:true,
+                    autoplay:true,
+                    autoplayTimeout:2000,
+                    autoplayHoverPause:true,
+                });
+                // Modal
+                var modal = document.getElementById('myModal');
+                $('.buttons #eye').on('click', function(){
+                    var src = $(this).parent().parent().children().filter(':first').attr('src');
+                    var caption = $(this).parent().parent().children().filter(':first').attr('alt');
+                    var div = document.getElementById('caption');
+                    $('#modal-img').attr('src', src);
+                    div.innerHTML = caption;
+                    $('#myModal').modal('show');
+                });
+{% endblock pure_js %}

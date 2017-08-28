@@ -34,9 +34,11 @@ def redirect_root(request):
 
 # Create your views here.
 def home_pageView(request):
-    # queryset =
+    slider = GamesModel.objects.filter(is_slide_featured=True)
+    stores = GamesDownloadLink.objects.all()
     context = {
-
+        "slider" : slider,
+        "stores" : stores
     }
     return render(request, "index.html", context)
 # gamebox block ---------------------------------------------------------------------------
@@ -81,10 +83,8 @@ def game_detailView(request, id, **kwargs):
 # upcoming block ---------------------------------------------------------------------------
 def upcomingView(request):
     upcoming = UpcomingGamesModel.objects.filter(is_active=True)
-
     context = {
         "upcoming" : upcoming,
-
     }
     return render(request, "upcoming.html", context)
 
