@@ -1705,7 +1705,13 @@ Games page -----------------------------------------------------------
 }
 
 /*back btn*/
-.upcoming-component .u-mb-300 .back-to-games a {
+/*back button*/
+.upcoming-component .u-mb-300 .back-btn {
+    position: absolute;
+    right: 5%;
+    top: 30px;
+}
+.upcoming-component .u-mb-300 .back-btn .btn-inner {
     background: #f37254;
     border-radius: 50%;
     display: block;
@@ -1719,17 +1725,17 @@ Games page -----------------------------------------------------------
     transition: all 0.3s ease-in-out 0s;
     text-align: center;
 }
-.upcoming-component .u-mb-300 .back-to-games a:hover {
+.upcoming-component .u-mb-300 .back-btn .btn-inner:hover {
     background: transparent;
 }
-.upcoming-component .u-mb-300 .back-to-games a .fa {
+.upcoming-component .u-mb-300 .back-btn .fa {
     color: white;
     font-size: 50px;
     font-weight: 700;
     padding: 4px;
     padding-right: 8px;
 }
-.upcoming-component .u-mb-300 .back-to-games a:hover .fa {
+.upcoming-component .u-mb-300 .back-btn .btn-inner:hover .fa {
     color: #c5db3b;
 }
 /*

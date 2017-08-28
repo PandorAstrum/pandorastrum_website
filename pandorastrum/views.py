@@ -80,7 +80,12 @@ def game_detailView(request, id, **kwargs):
 
 # upcoming block ---------------------------------------------------------------------------
 def upcomingView(request):
-    context = {}
+    upcoming = UpcomingGamesModel.objects.filter(is_active=True)
+
+    context = {
+        "upcoming" : upcoming,
+
+    }
     return render(request, "upcoming.html", context)
 
 # portfolio block --------------------------------------------------------------------------

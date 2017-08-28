@@ -86,7 +86,7 @@ class GamesAdmin(admin.ModelAdmin):
 @admin.register(UpcomingGamesModel)
 class UpcomingAdmin(admin.ModelAdmin):
     date_hierarchy = "created"
-    list_display = ["__str__", "is_active", "created", "updated",]
+    list_display = ["__str__", "is_active", "dev_stage", "created", "updated",]
     list_filter = ("code_name",)
     fieldsets = (
         (None, {
@@ -94,6 +94,9 @@ class UpcomingAdmin(admin.ModelAdmin):
         }),
         ('Milestones', {
             'fields': ((), ("milestone_first_init", "milestone_second_alpha", "milestone_third_beta"))
+        }),
+        ('Details', {
+            'fields': (("teaser_img_1", "teaser_img_2"), ("key_feature", "dev_stage", "rated_for", "business_model"))
         }),
         ('Read Only Info', {
             'classes': ('collapse',),

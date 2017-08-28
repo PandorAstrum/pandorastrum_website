@@ -1704,34 +1704,7 @@ Games page -----------------------------------------------------------
     margin: 0 auto;
 }
 
-/*back btn*/
-.upcoming-component .u-mb-300 .back-to-games a {
-    background: #f37254;
-    border-radius: 50%;
-    display: block;
-    font-weight: 700;
-    width: 60px;
-    height: 60px;
-    z-index: 999;
-    -webkit-transition: all 0.3s ease-in-out 0s;
-    -moz-transition: all 0.3s ease-in-out 0s;
-    -o-transition: all 0.3s ease-in-out 0s;
-    transition: all 0.3s ease-in-out 0s;
-    text-align: center;
-}
-.upcoming-component .u-mb-300 .back-to-games a:hover {
-    background: transparent;
-}
-.upcoming-component .u-mb-300 .back-to-games a .fa {
-    color: white;
-    font-size: 50px;
-    font-weight: 700;
-    padding: 4px;
-    padding-right: 8px;
-}
-.upcoming-component .u-mb-300 .back-to-games a:hover .fa {
-    color: #c5db3b;
-}
+
 /*
 ======================================================================
 Portfolio Page -------------------------------------------------------

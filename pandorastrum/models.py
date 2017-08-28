@@ -127,13 +127,42 @@ class GamesTimeline(models.Model):
         return self.title
 
 class UpcomingGamesModel(models.Model):
-    code_name = models.CharField(max_length=200, blank=True, null=True)
-    is_active = models.BooleanField(default=False)
-    game_img = models.ImageField(upload_to="upcoming", blank=True, null=True)
+    code_name       = models.CharField(max_length=200, blank=True, null=True)
+    is_active       = models.BooleanField(default=False)
+    RATING_CHOICES  =(
+        ("Teen", "Teen"),
+        ("Everyone", "Everyone"),
+        ("Mature", "Mature"),
+        ("Adult", "Adult"),
+    )
+    BUSINESS_CHOICES = (
+        ("Free To Play" , "Free To Play"),
+        ("Demo/Purchase", "Demo/Purchase"),
+        ("Online MMO", "Online MMO")
+    )
+    DEV_CHOICES     =(
+        ("Idealization" , "Idealization"),
+        ("Concept Art", "Concept Art"),
+        ("Story Building", "Story Building"),
+        ("Programming", "Programming"),
+        ("3D Modelling", "3D Modeling"),
+        ("2D Sketching", "2D Sketching"),
+        ("Sound Mixing", "Sound Mixing"),
+        ("Polishing", "Polishing"),
+        ("Testing QA", "Testing QA"),
+        ("UI Building", "UI Building")
+    )
+    game_img        = models.ImageField(upload_to="upcoming", blank=True, null=True)
     milestone_first_init = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
     milestone_second_alpha = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
     milestone_third_beta = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
     game_teaser_description = models.TextField(blank=True, null=True)
+    teaser_img_1    = models.ImageField(upload_to="upcoming", blank=True, null=True)
+    teaser_img_2    = models.ImageField(upload_to="upcoming", blank=True, null=True)
+    rated_for       = models.CharField(max_length=10, choices=RATING_CHOICES, default='')
+    key_feature     = models.CharField(max_length=50, blank=True, null=True)
+    business_model  = models.CharField(max_length=40, choices=BUSINESS_CHOICES, default='')
+    dev_stage       = models.CharField(max_length=40, choices=DEV_CHOICES, default='')
     slug            = models.SlugField(blank=True, null=True)
     updated         = models.DateTimeField(auto_now=True, auto_now_add=False)
     created         = models.DateTimeField(auto_now=False, auto_now_add=True)
