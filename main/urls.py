@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'', include("pandorastrum.urls"))
     # url(r'^$', index_page)
 ]
+handler404 = 'pandorastrum.views.handler404'
 if local.DEBUG:
     urlpatterns += static(local.STATIC_URL, document_root=local.STATIC_ROOT)
     urlpatterns += static(local.MEDIA_URL, document_root=local.MEDIA_ROOT)
