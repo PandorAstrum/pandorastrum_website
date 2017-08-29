@@ -157,15 +157,19 @@ class BlogContent(admin.TabularInline):
 @admin.register(BlogModel)
 class BlogAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
-    list_display = ["__str__", "is_featured", "created", "updated"]
-    list_editable = ('is_featured',)
+    list_display = ["__str__",
+                    "is_featured",
+                    "is_freebies",
+                    "is_game_updates",
+                    "is_tips",
+                    "is_dev_talks",
+                    "created",
+                    "updated"]
     list_filter = ('updated',)
     fieldsets = (
         (None, {
-            'fields': (("is_featured"),('blog_title', "published_on", "blog_author"))
-        }),
-        ('Blog Details', {
-            'fields': (('blog_description', "blog_banner"), ("blogBanner",))
+            'fields': (("is_featured", "is_freebies", "is_game_updates", "is_tips", "is_dev_talks"),
+                       ('blog_title', "published_on", "blog_author"))
         }),
         ('Tags', {
             'fields': ("tags",)
@@ -177,7 +181,7 @@ class BlogAdmin(admin.ModelAdmin):
     )
 
     inlines = [BlogContent]
-    readonly_fields = ('slug', "created", "blogBanner")
+    readonly_fields = ('slug', "created")
 
 @admin.register(AuthorModel)
 class AuthorAdmin(admin.ModelAdmin):

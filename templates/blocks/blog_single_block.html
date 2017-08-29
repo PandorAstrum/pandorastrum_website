@@ -38,7 +38,7 @@
                                 {% endif %}
                             {% endif %}
                             {% if c.paragraph %}
-                                <p>{{ c.paragraph }}</p>
+                                <p>{{ c.paragraph|linebreaks }}</p>
                             {% endif %}
                             </div>
                         {% endfor %}

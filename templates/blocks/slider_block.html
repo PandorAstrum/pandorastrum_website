@@ -5,15 +5,15 @@
     <div class="pa-slider main-slider">
         <div class="pa-slider__slides">
             <!-- side effects-->
-            <img class="effects-left img-responsive" src="{% static 'img/left-side-effects.png' %}" />
-            <img class="effects-right img-responsive" src="{% static 'img/right-side-effects.png' %}" />
+            <img class="effects-left img-responsive" src="{% static 'img/left-side-effects.png' %}" alt="left"/>
+            <img class="effects-right img-responsive" src="{% static 'img/right-side-effects.png' %}" alt="right"/>
             <!-- slide 1 start -->
             {% for s in slider %}
                 <div class="pa-slide {{ s.slider_blend_mode }} {% if forloop.first %}m--active-slide{% endif %}">
                     <div class="pa-slide__inner">
                         <div class="pa-slide__mask">
-                                        <div class="pa-slide__mask-inner"></div>
-                                    </div>
+                            <div class="pa-slide__mask-inner"></div>
+                        </div>
                         <div class="pa-slide__content">
                             <h2 class="pa-slide__heading">
                                 <div class="pa-slide__heading-line">

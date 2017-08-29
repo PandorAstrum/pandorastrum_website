@@ -40,8 +40,12 @@ def home_pageView(request):
     stores = GamesDownloadLink.objects.all()
     portfolio = PortfolioModel.objects.filter(is_featured=True)
     owls = Images.objects.all()
-    game_updates = BlogModel.objects.filter(tags__slug="games")[:3]
-    freebies = BlogModel.objects.filter(tags__slug="freebies")
+    game_updates = BlogModel.objects.filter(is_game_updates=True).order_by("-created")[:3]
+    freebies = BlogModel.objects.filter(is_freebies=True).order_by("-created")[0]
+    tips_tricks = BlogModel.objects.filter(is_tips=True).order_by("-created")[:3]
+    dev_talks = BlogModel.objects.filter(is_dev_talks=True).order_by("-created")[:2]
+    content = BlogContentModel.objects.all()
+
     context = {
         "home_page" : homepage,
         "slider" : slider,
@@ -49,7 +53,10 @@ def home_pageView(request):
         "portfolio" : portfolio,
         "owls" : owls,
         "game_updates" : game_updates,
-        "freebies" : freebies
+        "content" : content,
+        "freebies" : freebies,
+        "tips_tricks" : tips_tricks,
+        "dev_talks" : dev_talks
     }
     return render(request, "index.html", context)
 # gamebox block ---------------------------------------------------------------------------
@@ -138,6 +145,7 @@ def portfolio_pageView(request, **kwargs):
 # blog normal block ------------------------------------------------------------------------
 def blog_pageView(request, tag_slug=None, **kwargs):
     blog_list   = BlogModel.objects.all().order_by("-created")
+    blog_content = BlogContentModel.objects.all()
     # paginator
     paginator   = Paginator(blog_list, 10) # Show 25 contacts per page
     page        = request.GET.get('page')
@@ -207,6 +215,7 @@ def blog_pageView(request, tag_slug=None, **kwargs):
 
     context = {
         "blog" : blog_list,
+        "content" : blog_content,
         "tags" : tag_list,
         "archive" : archive
     }
@@ -216,7 +225,7 @@ def blog_pageView(request, tag_slug=None, **kwargs):
 def blog_detailView(request, id, **kwargs):
     instance = get_object_or_404(BlogModel, id=id)
     blog_content = BlogContentModel.objects.filter(related_to=instance.id)
-    share_str = quote_plus(instance.blog_description+" -By "+instance.blog_author.author_name)
+    share_str = quote_plus(instance.blog_title+" -By "+instance.blog_author.author_name)
     linkedin_msg = quote_plus(instance.blog_title)
     context = {
         "instance" : instance,

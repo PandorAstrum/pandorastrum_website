@@ -2761,7 +2761,7 @@ Portfolio Page -------------------------------------------------------
     cursor: pointer;
 }
 .portfolio .p-el-overflow {
-    overflow: hidden;
+    /*overflow: hidden;*/
     position: relative;
     height: 100%;
 }
@@ -3242,7 +3242,6 @@ Portfolio Page -------------------------------------------------------
 	opacity: 0;
 	visibility: hidden;
 	overflow: hidden;
-    overflow-y: scroll;
 	-webkit-perspective: 1000px;
 	perspective: 1000px;
 	-webkit-transition: opacity 0.5s, visibility 0s 0.5s;
@@ -3576,8 +3575,6 @@ Blog Page ------------------------------------------------------------
 /*image*/
 .blog-component .p-thumbnail {
     position: relative;
-    width: 80%;
-    margin: 0 auto;
 }
 .blog-component .p-thumbnail:hover:before, .blog-component .p-thumbnail:hover:after {
     opacity: 1;
@@ -3652,7 +3649,6 @@ Blog Page ------------------------------------------------------------
     margin: 20px 0;
     color: #F5F7FA;
     letter-spacing: 0.1em;
-    text-indent: 20px;
 }
 
 /*blog footer*/
@@ -4007,7 +4003,6 @@ Blog Page ------------------------------------------------------------
 .blog-single-component .side-by-side p {
     padding-left: 2%;
     padding-right: 2%;
-    text-indent: 20px;
 }
 
 /*author*/

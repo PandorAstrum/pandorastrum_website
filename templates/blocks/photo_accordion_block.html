@@ -9,23 +9,20 @@
         <div class="owl-carousel">
             {% for p in portfolio %}
                 {% for owl in owls %}
-{#                    {% if owl.related_to == p %}#}
-                        {% if owl.is_featured %}
-                            <div class="owl-content">
-                                <img class="img-responsive" id="imgsource1" src="{{ owl.image.url }}" alt="{{ owl.image_title }}">
-                                    <div class="ovrly"></div>
-                                    <div class="buttons">
-                                        <a href="#" class="fa fa-arrow-right"></a>
-                                        <a href="#" class="fa fa-eye" id="eye"></a>
-                                    </div>
-                                </div>
-{#                        {% endif %}#}
+                    {% if owl.is_featured %}
+                        <div class="owl-content">
+                            <img class="img-responsive" src="{{ owl.image.url }}" alt="{{ owl.image_caption }}">
+                            <div class="ovrly"></div>
+                            <div class="buttons">
+                                <a href="{% url 'portfolio' %}" class="fa fa-arrow-right"></a>
+                                <a href="#" class="fa fa-eye" id="eye"></a>
+                            </div>
+                        </div>
                     {% endif %}
                 {% endfor %}
 
             {% endfor %}
-
-                            </div>
+        </div>
         <!-- own carousel block ends -------------------------------------->
     </div>
     <div class="row">
@@ -51,14 +48,20 @@
                             {% for game_update in game_updates %}
                                 <div class="col-md-4 acc-new-dw-box">
                                     <div class="row">
-                                        <img class="img-responsive img-thumbnail" src="{{ game_update.blog_banner.url }}" id="acc-inner-img">
-                                        <div class="col-md-12">
-                                            <h3>{{ game_update.blog_title }}</h3>
-                                            <p>{{ game_update.blog_description|truncatewords:20 }}</p>
-                                            <div class="read-more">
-                                                <a href="{{ game_update.get_absolute_url }}"><span class="txt">See more..</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
-                                            </div>
-                                        </div>
+                                        {% for c in content %}
+                                            {% if c.related_to == game_update %}
+                                                {% if c.is_main %}
+                                                    <img class="img-responsive img-thumbnail" src="{{ c.image.url }}" id="acc-inner-img"alt="{{ c.image }}">
+                                                    <div class="col-md-12">
+                                                        <h3>{{ game_update.blog_title }}</h3>
+                                                        <p>{{ c.paragraph|truncatewords:20 }}</p>
+                                                        <div class="read-more">
+                                                            <a href="{{ game_update.get_absolute_url }}"><span class="txt">Read Full..</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
                                     </div>
                                 </div>
                             {% endfor %}
@@ -70,109 +73,99 @@
                         <!-- head --->
                         <div class="head-2">
                             <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1,#accordion2,#accordion3" data-target="#collapseTwo2">
-                                <h4 class="panel-title">Top Free Resources</h4>
+                                <h4 class="panel-title">Weekly Freebies</h4>
                             </div>
                         </div>
                         <!--body -->
                         <div id="collapseTwo2" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <div class="row">
-                                    {% for freeby in freebies %}
-                                        {% if freeby.is_featured %}
-                                            <div class="col-md-4">
-                                            <img class="img-responsive center-block" src="{{ freeby.blog_banner.url }}" />
-                                        </div>
-                                            <div class="col-md-8">
-                                            <h3>{{ freeby.blog_title }}</h3>
-                                            <p>{{ freeby.blog_description }}</p>
-                                            <div class="read-more">
-                                                <a href="{{ freeby.get_absolute_url }}"><span class="txt">Take a Look</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
-                                            </div>
-                                                        </div>
+                                    {% for c in content %}
+                                        {% if c.related_to == freebies %}
+                                            {% if c.is_main %}
+                                                <div class="col-md-4">
+                                                    <img class="img-responsive center-block" src="{{ c.image.url }}" alt="{{ c.image }}"/>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h3>{{ freebies.blog_title }}</h3>
+                                                    <p>{{ c.paragraph|truncatewords:100 }}</p>
+                                                    <div class="read-more">
+                                                        <a href="{{ freebies.get_absolute_url }}"><span class="txt">Take a Look</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
                                         {% endif %}
                                     {% endfor %}
-
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- third accordion -->
-                                        <div class="panel panel-default">
-                                            <!-- head -->
-                                            <div class="head-3">
-                                                <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1,#accordion2,#accordion3" data-target="#collapseThree3">
-                                                    <h4 class="panel-title">Indie Talks and Tips</h4>
-                                                </div>
-                                            </div>
-                                            <!-- body -->
-                                            <div id="collapseThree3" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <div class="row">
-                                                        <!-- first news -->
-                                                        <div class="col-md-4">
-                                                            <h3>Column title</h3>
-                                                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                                            <div class="read-more">
-                                                                <a href="#"><span class="txt">Read More</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
-                                                            </div>
-                                                        </div>
-                                                        <!-- second news -->
-                                                        <div class="col-md-4">
-                                                            <h3>Column title</h3>
-                                                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                                            <div class="read-more">
-                                                                <a href="#"><span class="txt">Read More</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
-                                                            </div>
-                                                        </div>
-                                                        <!-- third news -->
-                                                        <div class="col-md-4">
-                                                            <h3>Column title</h3>
-                                                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                                            <div class="read-more">
-                                                                <a href="#"><span class="txt">Read More</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- fourth accordion -->
-                                        <div class="panel panel-default">
-                                            <!-- head -->
-                                            <div class="head-4">
-                                                <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1,#accordion2,#accordion3" data-target="#collapseFour4">
-                                                    <h4 class="panel-title">News From The Dev</h4>
-                                                </div>
-                                            </div>
-                                            <!-- body -->
-                                            <div id="collapseFour4" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <div class="row">
-                                                        <!-- first news -->
-                                                        <div class="col-md-6">
-                                                            <h3>Column title</h3>
-                                                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                                            <div class="read-more">
-                                                                <a href="#"><span class="txt">Read More</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
-                                                            </div>
-                                                        </div>
-                                                        <!-- second news -->
-                                                        <div class="col-md-6">
-                                                            <h3>Column title</h3>
-                                                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                                            <div class="read-more">
-                                                                <a href="#"><span class="txt">Read More</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                            <!-- accordion block ends ----------------------------------------->
                         </div>
                     </div>
-                    <!-- photo and accordion block ends --------------------------------------->
+                    <!-- third accordion -->
+                    <div class="panel panel-default">
+                        <!-- head -->
+                        <div class="head-3">
+                            <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1,#accordion2,#accordion3" data-target="#collapseThree3">
+                                <h4 class="panel-title">Tips & Tricks</h4>
+                            </div>
+                        </div>
+                        <!-- body -->
+                        <div id="collapseThree3" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="row">
+                                    {% for t in tips_tricks %}
+                                        {% for c in content %}
+                                            {% if c.related_to == t %}
+                                                {% if c.is_main %}
+                                                    <div class="col-md-4">
+                                                        <h3>{{ t.blog_title }}</h3>
+                                                        <p>{{ c.paragraph|truncatewords:200 }}</p>
+                                                        <div class="read-more">
+                                                            <a href="{{ t.get_absolute_url }}"><span class="txt">Read More..</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- fourth accordion -->
+                    <div class="panel panel-default">
+                        <!-- head -->
+                        <div class="head-4">
+                            <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1,#accordion2,#accordion3" data-target="#collapseFour4">
+                                <h4 class="panel-title">Indie Dev Insight</h4>
+                            </div>
+                        </div>
+                        <!-- body -->
+                        <div id="collapseFour4" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="row">
+                                    {% for talk in dev_talks %}
+                                        {% for c in content %}
+                                            {% if c.related_to == talk %}
+                                                {% if c.is_main %}
+                                                    <div class="col-md-6">
+                                                        <h3>{{ talk.blog_title }}</h3>
+                                                        <p>{{ c.paragraph|truncatewords:100 }}</p>
+                                                        <div class="read-more">
+                                                            <a href="{{ talk.get_absolute_url }}"><span class="txt">Read More..</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- accordion block ends ----------------------------------------->
+    </div>
+</div>
+<!-- photo and accordion block ends --------------------------------------->

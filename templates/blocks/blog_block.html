@@ -25,17 +25,29 @@
                         <div class="col-sm-10 total-blog">
                             <header class="post__header post-header">
                                 <h2 class="post-header__title"><a href="{{ b.get_absolute_url }}">{{ b.blog_title }}</a></h2>
-                                <div class="p-thumbnail">
-                                    {% if b.blog_banner %}
-                                    <img src="{{ b.blog_banner.url }}" alt=""/>
-                                    <div class="buttons">
-                                        <a href="{{ b.get_absolute_url }}" class="fa fa-link"></a>
-                                    </div>
+                                {% for c in content %}
+                                    {% if c.related_to == b %}
+                                        {% if c.is_main %}
+                                            {% if c.image %}
+                                                <div class="p-thumbnail">
+                                                    <img src="{{ c.image.url }}" alt="{{ c.image }}"/>
+                                                    <div class="buttons">
+                                                        <a href="{{ b.get_absolute_url }}" class="fa fa-link"></a>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
                                     {% endif %}
-                                </div>
+                                {% endfor %}
                             </header>
                             <div class="post__content post-content">
-                                <p>{{ b.blog_description }}</p>
+                                {% for c in content %}
+                                    {% if c.related_to == b %}
+                                        {% if c.is_main %}
+                                            <p>{{ c.paragraph|truncatewords:100 }}</p>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
                                 <div class="blog-footer">
                                     <ul>
                                         <li>{{ b.published_on|timesince }} ago</li>

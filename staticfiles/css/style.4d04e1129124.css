@@ -3576,8 +3576,6 @@ Blog Page ------------------------------------------------------------
 /*image*/
 .blog-component .p-thumbnail {
     position: relative;
-    width: 80%;
-    margin: 0 auto;
 }
 .blog-component .p-thumbnail:hover:before, .blog-component .p-thumbnail:hover:after {
     opacity: 1;
@@ -4007,7 +4005,6 @@ Blog Page ------------------------------------------------------------
 .blog-single-component .side-by-side p {
     padding-left: 2%;
     padding-right: 2%;
-    text-indent: 20px;
 }
 
 /*author*/
