@@ -22,5 +22,5 @@ urlpatterns = [
     url(r'^blog/$', blog_pageView, name="blog"),
     url(r'^blog/(?P<id>\d+)/$', blog_detailView, name="detail"),
     url(r'^about/$', about_pageView, name="about"),
-    url(r'^error/$', error_pageView, name="error"),
+    # url(r'^error/$', error_pageView, name="error"),
 ]

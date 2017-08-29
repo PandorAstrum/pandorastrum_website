@@ -11,7 +11,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'o!6a*jaobw4pj7706n_&wt3qk^1sx%$01b0y%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['pandorastrum.herokuapp.com']
+ALLOWED_HOSTS = ['pandorastrum.herokuapp.com', "*"]
 
 # Email settings
 EMAIL_HOST = 'smtp.gmail.com'
@@ -77,7 +77,10 @@ DATABASES = {
     #     default=config('DATABASE_URL')
     # )
 }
-
+# Update database configuration with $DATABASE_URL.
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+DATABASES['default']['padb'] = {'NAME': DATABASES['default']['NAME']}
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -103,10 +106,7 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# Update database configuration with $DATABASE_URL.
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
-DATABASES['default']['padb'] = {'NAME': DATABASES['default']['NAME']}
+
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
