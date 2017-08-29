@@ -1,59 +1,37 @@
 <div class="col-md-12">
-                        <div class="row">
-                            <!-- Blog story header -->
-                            <div class="pa-header-title">
-                                <h3 class="pa-heading">Top Blog</h3>
-                            </div>
-                            <!-- Blog block starts -------------------------------------->
-                            <div class="inner-body">
-                                <div class="blog-wrapper">
-                                    <!-- 1st blog post -->
-                                    <div class="col-md-6 single-post-blog">
-                                        <div class="col-md-6">
-                                            <img src="assets/img/acc2thumb.png" class="img-responsive" />
-                                        </div>
-                                        <div class="col-md-6">
-                                            <h3>Heading 3</h3>
-                                            <p>Paragraph aasdasda dasdasdasda adsasdasdasd asdasdasdasd asdasdasdasd asdasdasdasd asdadadadadasdadsads adadasdasdasd asdasdadadasdasdadsa asdadasdasdasd adsasdadadadsda adadsasdasdasd ........</p>
-                                        </div>
-                                        <div class="col-md-12 text-center publish-date">
-                                            <span><i class="fa-calendar fa"></i> 2 days, 8 hours ago</span>
-                                        </div>
-                                        <div class="blog-post-overlay">
-                                            <a href="#"><span>Read </span></a>
-                                        </div>
+    <div class="row">
+        <!-- Blog story header -->
+        <div class="pa-header-title">
+            <h3 class="pa-heading">Top Blog Post</h3>
+        </div>
+        <!-- Blog block starts -------------------------------------->
+        <div class="inner-body">
+            <div class="blog-wrapper">
+                {% for blog in featured_blogs %}
+                    {% for c in content %}
+                        {% if c.related_to == blog %}
+                            {% if c.is_main %}
+                                <div class="col-md-6 single-post-blog">
+                                    <div class="col-md-6">
+                                        <img src="{{ c.image.url }}" class="img-responsive" alt="{{ c.image }}"/>
                                     </div>
-                                    <!-- 2nd blog post -->
-                                    <div class="col-md-3 single-post-blog">
-                                        <div class="col-md-12">
-                                            <img src="assets/img/acc2thumb.png" class="img-responsive blog-img" />
-                                            <h3>Heading 3</h3>
-                                            <p>a bunch of paragraph with dots </p>
-                                        </div>
-                                        <div class="col-md-12 text-center publish-date">
-                                            <span><i class="fa-calendar fa"></i> 2 days, 8 hours ago</span>
-                                        </div>
-                                        <div class="blog-post-overlay">
-                                            <a href="#"><span>Read </span></a>
-                                        </div>
+                                    <div class="col-md-6">
+                                        <h3>{{ blog.blog_title|truncatewords:3 }}</h3>
+                                        <p>{{ c.paragraph|truncatewords:50 }}</p>
                                     </div>
-                                    <!-- 3rd blog post -->
-                                    <div class="col-md-3 single-post-blog">
-                                        <div class="col-md-12">
-                                            <img src="assets/img/acc2thumb.png" class="img-responsive blog-img" />
-                                            <h3>Heading 3</h3>
-                                            <p>Paragraph</p>
-                                        </div>
-                                        <div class="col-md-12 text-center publish-date">
-                                            <span><i class="fa-calendar fa"></i> 2 days, 8 hours ago</span>
-                                        </div>
-                                        <div class="blog-post-overlay">
-                                            <a href="#"><span>Read </span></a>
-                                        </div>
+                                    <div class="col-md-12 text-center publish-date">
+                                        <span><i class="fa-calendar fa"></i>{{ blog.published_on|timesince }} ago</span>
+                                    </div>
+                                    <div class="blog-post-overlay">
+                                        <a href="{{ blog.get_absolute_url }}"><span>Read </span></a>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Blog block ends -------------------------------------->
-                        </div>
-                        <!-- Gap for flowing -->
-                    </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+        <!-- Blog block ends -------------------------------------->
+    </div>
+</div>

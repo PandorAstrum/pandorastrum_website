@@ -44,6 +44,7 @@ def home_pageView(request):
     freebies = BlogModel.objects.filter(is_freebies=True).order_by("-created")[0]
     tips_tricks = BlogModel.objects.filter(is_tips=True).order_by("-created")[:3]
     dev_talks = BlogModel.objects.filter(is_dev_talks=True).order_by("-created")[:2]
+    featured_blog = BlogModel.objects.filter(is_featured=True).order_by("-created")[:3]
     content = BlogContentModel.objects.all()
 
     context = {
@@ -56,7 +57,8 @@ def home_pageView(request):
         "content" : content,
         "freebies" : freebies,
         "tips_tricks" : tips_tricks,
-        "dev_talks" : dev_talks
+        "dev_talks" : dev_talks,
+        "featured_blogs" : featured_blog
     }
     return render(request, "index.html", context)
 # gamebox block ---------------------------------------------------------------------------
