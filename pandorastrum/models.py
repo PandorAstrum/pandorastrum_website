@@ -7,6 +7,29 @@ from django.core.urlresolvers import reverse
 from taggit.managers import TaggableManager
 # Create your models here.
 #================================================================================
+# Home page ---------------------------------------------------------------------
+#================================================================================
+
+class HomeModel(models.Model):
+    home_page_name = models.CharField(max_length=100, blank=True, null=True)
+    facebook_link = models.URLField(default='')
+    twitter_link = models.URLField(default='')
+    twitch_link = models.URLField(default='')
+    youtube_link = models.URLField(default='')
+    patreon_link = models.URLField(default='')
+    event_date = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    event_name = models.CharField(max_length=100, blank=True, null=True)
+    event_description = models.TextField(blank=True, null=True)
+    event_image = models.ImageField(upload_to="event", blank=True, null=True)
+    slug = models.SlugField(blank=True, null=True)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+    created = models.DateTimeField(auto_now=False, auto_now_add=True)
+    def __str__(self):
+        return self.home_page_name
+    @property
+    def title(self):
+        return self.home_page_name
+#================================================================================
 # Game page ---------------------------------------------------------------------
 #================================================================================
 class GamesModel (models.Model):
@@ -199,6 +222,7 @@ class PortfolioModel (models.Model):
     }
     project_name    = models.CharField(max_length=200, blank=True, null=True)
     category_type   = models.CharField(max_length=12, choices=CATEGORY_CHOICES)
+    is_featured     = models.BooleanField(default=False)
     slug            = models.SlugField(blank=True, null=True)
     updated         = models.DateTimeField(auto_now=True, auto_now_add=False)
     created         = models.DateTimeField(auto_now=False, auto_now_add=True)
@@ -328,6 +352,7 @@ def rl_pre_save(sender, instance, *args, **kwargs):
     if not instance.slug:
         instance.slug = unique_slug_generator(instance)
 
+pre_save.connect(rl_pre_save, sender=HomeModel)
 pre_save.connect(rl_pre_save, sender=GamesModel)
 pre_save.connect(rl_pre_save, sender=AboutModel)
 pre_save.connect(rl_pre_save, sender=BlogModel)

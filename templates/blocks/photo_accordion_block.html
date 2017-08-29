@@ -1,135 +1,98 @@
 <!-- photo and accordion block starts ------------------------------------->
-                    <div class="col-md-8" id="LeftSide">
-                        <div class="row">
-                            <!-- Latest Gallery header -->
-                            <div class="pa-header-title">
-                                <h3 class="pa-heading">Latest Gallery</h3>
+<div class="col-md-8" id="LeftSide">
+    <div class="row">
+        <!-- Latest Gallery header -->
+        <div class="pa-header-title">
+            <h3 class="pa-heading">Latest Gallery</h3>
+        </div>
+        <!-- own carousel block starts ------------------------------------>
+        <div class="owl-carousel">
+            {% for p in portfolio %}
+                {% for owl in owls %}
+{#                    {% if owl.related_to == p %}#}
+                        {% if owl.is_featured %}
+                            <div class="owl-content">
+                                <img class="img-responsive" id="imgsource1" src="{{ owl.image.url }}" alt="{{ owl.image_title }}">
+                                    <div class="ovrly"></div>
+                                    <div class="buttons">
+                                        <a href="#" class="fa fa-arrow-right"></a>
+                                        <a href="#" class="fa fa-eye" id="eye"></a>
+                                    </div>
+                                </div>
+{#                        {% endif %}#}
+                    {% endif %}
+                {% endfor %}
+
+            {% endfor %}
+
                             </div>
-                            <!-- own carousel block starts ------------------------------------>
-                            <div class="owl-carousel">
-                                <!-- first image -->
-                                <div class="owl-content">
-                                    <img class="img-responsive" id="imgsource1" src="assets/img/Owl/gallery-latest-1.png" alt="Latest-1">
-                                    <div class="ovrly"></div>
-                                    <div class="buttons">
-                                        <a href="#" class="fa fa-arrow-right"></a>
-                                        <a href="#" class="fa fa-eye" id="eye"></a>
-                                    </div>
-                                </div>
-                                <!-- second image -->
-                                <div class="owl-content">
-                                    <img class="img-responsive" id="imgsource" src="assets/img/Owl/gallery-latest-2.png" alt="Latest-2">
-                                    <div class="ovrly"></div>
-                                    <div class="buttons">
-                                        <a href="#" class="fa fa-arrow-right"></a>
-                                        <a href="#" class="fa fa-eye" id="eye"></a>
-                                    </div>
-                                </div>
-                                <!-- third image -->
-                                <div class="owl-content">
-                                    <img class="img-responsive" src="assets/img/Owl/gallery-latest-3.png" alt="Latest-3">
-                                    <div class="ovrly"></div>
-                                    <div class="buttons">
-                                        <a href="#" class="fa fa-arrow-right"></a>
-                                        <a href="#" class="fa fa-eye" id="eye"></a>
-                                    </div>
-                                </div>
-                                <!-- fourth image -->
-                                <div class="owl-content">
-                                    <img class="img-responsive" src="assets/img/Owl/gallery-latest-1.png" alt="Latest-4">
-                                    <div class="ovrly"></div>
-                                    <div class="buttons">
-                                        <a href="#" class="fa fa-arrow-right"></a>
-                                        <a href="#" class="fa fa-eye" id="eye"></a>
-                                    </div>
-                                </div>
+        <!-- own carousel block ends -------------------------------------->
+    </div>
+    <div class="row">
+        <!-- In The Mix header -->
+        <div class="pa-header-title">
+            <h3 class="pa-heading">In The Mix</h3>
+        </div>
+        <!-- accordion blocks starts -------------------------------------->
+        <div class="inner-body">
+            <div class="accordion-wrapper">
+                <div id="accordion1" class="panel-group">
+                    <!-- first accordion -->
+                    <div class="panel panel-default">
+                        <!-- head -->
+                        <div class="head-1">
+                            <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1,#accordion2,#accordion3" data-target="#collapseOne1">
+                                <h1 class="panel-title">Game Updates</h1>
                             </div>
-                            <!-- own carousel block ends -------------------------------------->
                         </div>
-                        <div class="row">
-                            <!-- In The Mix header -->
-                            <div class="pa-header-title">
-                                <h3 class="pa-heading">In The Mix</h3>
-                            </div>
-                            <!-- accordion blocks starts -------------------------------------->
-                            <div class="inner-body">
-                                <div class="accordion-wrapper">
-                                    <div id="accordion1" class="panel-group">
-                                        <!-- first accordion -->
-                                        <div class="panel panel-default">
-                                            <!-- head -->
-                                            <div class="head-1">
-                                                <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1,#accordion2,#accordion3" data-target="#collapseOne1">
-                                                    <h1 class="panel-title">Portfolio Updates</h1>
-                                                </div>
-                                            </div>
-                                            <!-- body -->
-                                            <div id="collapseOne1" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <!-- first news -->
-                                                    <div class="col-md-4 acc-new-dw-box">
-                                                        <div class="row">
-                                                            <img class="img-responsive img-thumbnail" src="assets/img/Battlefield-3-Wallpaper-1920x1080.jpg" id="acc-inner-img">
-                                                            <div class="col-md-12">
-                                                                <h3>Low Poly Character</h3>
-                                                                <p>Get the latest test of this Super low poly model</p>
-                                                                <div class="read-more">
-                                                                    <a href="#"><span class="txt">See more..</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- second news -->
-                                                    <div class="col-md-4 acc-new-dw-box">
-                                                        <div class="row">
-                                                            <img class="img-responsive img-thumbnail" src="assets/img/Battlefield-3-Wallpaper-1920x1080.jpg" id="acc-inner-img">
-                                                            <div class="col-md-12">
-                                                                <h3>Low Poly Character</h3>
-                                                                <p>Get the latest test of this Super low poly model</p>
-                                                                <div class="read-more">
-                                                                    <a href="#"><span class="txt">See more..</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- third news -->
-                                                    <div class="col-md-4 acc-new-dw-box">
-                                                        <div class="row">
-                                                            <img class="img-responsive img-thumbnail" src="assets/img/Battlefield-3-Wallpaper-1920x1080.jpg" id="acc-inner-img">
-                                                            <div class="col-md-12">
-                                                                <h3>Low Poly Character</h3>
-                                                                <p>Get the latest test of this Super low poly model</p>
-                                                                <div class="read-more">
-                                                                    <a href="#"><span class="txt">See more..</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                        <!-- body -->
+                        <div id="collapseOne1" class="panel-collapse collapse">
+                            <div class="panel-body">
+                            {% for game_update in game_updates %}
+                                <div class="col-md-4 acc-new-dw-box">
+                                    <div class="row">
+                                        <img class="img-responsive img-thumbnail" src="{{ game_update.blog_banner.url }}" id="acc-inner-img">
+                                        <div class="col-md-12">
+                                            <h3>{{ game_update.blog_title }}</h3>
+                                            <p>{{ game_update.blog_description|truncatewords:20 }}</p>
+                                            <div class="read-more">
+                                                <a href="{{ game_update.get_absolute_url }}"><span class="txt">See more..</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
                                             </div>
                                         </div>
-                                        <!-- second accordion-->
-                                        <div class="panel panel-default">
-                                            <!-- head --->
-                                            <div class="head-2">
-                                                <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1,#accordion2,#accordion3" data-target="#collapseTwo2">
-                                                    <h4 class="panel-title">Weekly Resources</h4>
-                                                </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- second accordion-->
+                    <div class="panel panel-default">
+                        <!-- head --->
+                        <div class="head-2">
+                            <div class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1,#accordion2,#accordion3" data-target="#collapseTwo2">
+                                <h4 class="panel-title">Top Free Resources</h4>
+                            </div>
+                        </div>
+                        <!--body -->
+                        <div id="collapseTwo2" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="row">
+                                    {% for freeby in freebies %}
+                                        {% if freeby.is_featured %}
+                                            <div class="col-md-4">
+                                            <img class="img-responsive center-block" src="{{ freeby.blog_banner.url }}" />
+                                        </div>
+                                            <div class="col-md-8">
+                                            <h3>{{ freeby.blog_title }}</h3>
+                                            <p>{{ freeby.blog_description }}</p>
+                                            <div class="read-more">
+                                                <a href="{{ freeby.get_absolute_url }}"><span class="txt">Take a Look</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
                                             </div>
-                                            <!--body -->
-                                            <div id="collapseTwo2" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <img class="img-responsive center-block" src="assets/img/weekly_resources.jpg" />
                                                         </div>
-                                                        <div class="col-md-8">
-                                                            <h3>Resources for Unity</h3>
-                                                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                                            <div class="read-more">
-                                                                <a href="#"><span class="txt">Get it</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>
-                                                            </div>
-                                                        </div>
+                                        {% endif %}
+                                    {% endfor %}
+
+
                                                     </div>
                                                 </div>
                                             </div>

@@ -59,25 +59,33 @@
 {% endblock extra_modal %}
 
 {% block js_file %}
+    <script src=""{% static 'js/owl.carousel.min.js' %}></script>
     <script src="{% static 'js/home.js' %}"></script>
 {% endblock js_file %}
 
 {% block pure_js %}
+    // timer
+// this can be rewrite on main page
+window.onload = function() {
+{#	var deadline = new Date("Dec 22, 2017 10:10:00");#}
+	var deadline = new Date("{{ home_page.event_date|date:'c'}}");
+    startTimer('clock', deadline);
+}
      // calling owl carousal
-                $(".owl-carousel").owlCarousel({
-                    loop:true,
-                    autoplay:true,
-                    autoplayTimeout:2000,
-                    autoplayHoverPause:true,
-                });
-                // Modal
-                var modal = document.getElementById('myModal');
-                $('.buttons #eye').on('click', function(){
-                    var src = $(this).parent().parent().children().filter(':first').attr('src');
-                    var caption = $(this).parent().parent().children().filter(':first').attr('alt');
-                    var div = document.getElementById('caption');
-                    $('#modal-img').attr('src', src);
-                    div.innerHTML = caption;
-                    $('#myModal').modal('show');
-                });
+    $(".owl-carousel").owlCarousel({
+        loop:true,
+        autoplay:true,
+        autoplayTimeout:2000,
+        autoplayHoverPause:true,
+    });
+    // Modal
+    var modal = document.getElementById('myModal');
+    $('.buttons #eye').on('click', function(){
+        var src = $(this).parent().parent().children().filter(':first').attr('src');
+        var caption = $(this).parent().parent().children().filter(':first').attr('alt');
+        var div = document.getElementById('caption');
+        $('#modal-img').attr('src', src);
+        div.innerHTML = caption;
+        $('#myModal').modal('show');
+    });
 {% endblock pure_js %}

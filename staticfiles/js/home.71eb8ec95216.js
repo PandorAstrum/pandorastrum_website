@@ -41,7 +41,11 @@ function startTimer(id, deadline) {
 	}, 1000);
 }
 
-
+// this can be rewrite on main page
+window.onload = function() {
+	var deadline = new Date("July 22, 2018 10:10:00");
+	startTimer('clock', deadline);
+}
 //clock timer ends -----------------------
 /**
  * Created by Ana Ash on 8/28/2017.

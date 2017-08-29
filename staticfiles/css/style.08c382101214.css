@@ -1588,6 +1588,9 @@ Home page-------------------------------------------------------------
     width: 100%;
     overflow: hidden;
     position: relative;
+    -webkit-box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.3);
     padding: 10px;
 }
 .sidebar-upcoming .dtl12 {
@@ -1654,9 +1657,14 @@ Home page-------------------------------------------------------------
     opacity: 1;
 }
 
+
+
 /*clock*/
-#clock span {
+
+#clock span
+{
     width: 80px;
+    font-family: Amaranth-Regular;
     font-size: 40px;
     padding: 10px;
     margin: 5px 5px;
@@ -1667,25 +1675,38 @@ Home page-------------------------------------------------------------
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
-#clock span:nth-child(1) {
+
+#clock span:nth-child(1)
+{
     background: #db4844;
 }
-#clock span:nth-child(2) {
+
+#clock span:nth-child(2)
+{
     background: #f07c22;
 }
-#clock span:nth-child(3) {
+
+#clock span:nth-child(3)
+{
     background: #f6da74;
 }
-#clock span:nth-child(4) {
+
+#clock span:nth-child(4)
+{
     background: #abcd58;
 }
-#clock:after {
+
+#clock:after
+{
     content: "";
     display: block;
     clear: both;
 }
-#units span {
+
+#units span
+{
     width: 80px;
+    font-family: Amaranth-Regular;
     display: inline-block;
     text-align: center;
     margin: 5px 5px;
@@ -1695,37 +1716,48 @@ Home page-------------------------------------------------------------
     text-shadow: 1px 1px 1px rgba(10,10,10, 0.7);
     color: #c5db3b;
 }
-#clock span.turn {
+
+span.turn
+{
     animation: turn 0.7s ease forwards;
 }
 
 /*animation*/
+
 @keyframes turn{
 	0%{transform: rotateY(0deg)}
-	100%{transform: rotateX(360deg)}
+	100%{transform: rotateX(360deg)};
 }
 
-/*patreon*/
-.support-div {
-    padding-bottom:10px;
+.support-div
+{
+    padding: 10px;
 }
-.support-div .text-center{
-    padding-bottom: 10px;
+
+.support-div span
+{
+    font-family: Amaranth-Regular;
+    font-size: 22px;
+    color: white;
 }
-.support-div span {
-    font-size: 20px;
-    color: #fff;
+
+.support-div .img-responsive
+{
+    width: 100%;
+    height: 100%;
 }
 
 /* Shine */
-.support-div .patreon {
+
+.support-div .patreon
+{
     position: relative;
     margin: 0 auto;
-
     padding: 0;
     overflow: hidden;
     width: 60%;
 }
+
 .support-div .patreon::before {
 	position: absolute;
 	top: 0;
@@ -1740,7 +1772,9 @@ Home page-------------------------------------------------------------
 	-webkit-transform: skewX(-25deg);
 	transform: skewX(-25deg);
 }
-.support-div .patreon:hover::before {
+
+.support-div .patreon:hover::before
+{
     -webkit-animation: shine .75s;
     animation: shine .75s;
 }
@@ -1750,11 +1784,13 @@ Home page-------------------------------------------------------------
 		left: 125%;
 	}
 }
+
 @keyframes shine{
 	100% {
 		left: 125%;
 	}
 }
+
 /*sidebar block ends ---------------------------------------------*/
 
 /*

@@ -1,6 +1,6 @@
 from django.contrib import admin
-
 from pandorastrum.models import (
+    HomeModel,
     GamesModel,
     GamesDownloadLink,
     GameGenre,
@@ -27,6 +27,27 @@ from pandorastrum.models import (
 
 
 # Register your models here.
+#  home -----------------------------
+@admin.register(HomeModel)
+class Homeadmin(admin.ModelAdmin):
+    date_hierarchy = "created"
+    list_display = ["__str__", "created", "updated"]
+    fieldsets = (
+        (None, {
+            'fields': ("home_page_name",)
+        }),
+        ('Social Link', {
+            'fields': ((), ('facebook_link', 'twitter_link', "twitch_link", "youtube_link", "patreon_link"))
+        }),
+        ('Events', {
+            'fields': (("event_name", "event_date", "event_image", "event_description"),)
+        }),
+        ('Read Only Info', {
+            'classes': ('collapse',),
+            'fields': ('slug', "created")
+        }),
+    )
+    readonly_fields = ('slug', "created")
 
 # games -----------------------------
 class Gamestores(admin.TabularInline):
@@ -113,11 +134,11 @@ class Image(admin.TabularInline):
 @admin.register(PortfolioModel)
 class PortfolioAdmin(admin.ModelAdmin):
     date_hierarchy = "created"
-    list_display = ["__str__", "category_type", "created", "updated"]
+    list_display = ["__str__", "is_featured", "category_type", "created", "updated"]
     list_filter = ("category_type","updated",)
     fieldsets = (
         (None, {
-            'fields': ((), ("project_name", "category_type"))
+            'fields': ((), ("project_name", "category_type", "is_featured"))
         }),
         ('Read Only Info', {
             'classes': ('collapse',),
@@ -136,7 +157,7 @@ class BlogContent(admin.TabularInline):
 @admin.register(BlogModel)
 class BlogAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
-    list_display = ["__str__", "is_featured" ,"created", "updated"]
+    list_display = ["__str__", "is_featured", "created", "updated"]
     list_editable = ('is_featured',)
     list_filter = ('updated',)
     fieldsets = (

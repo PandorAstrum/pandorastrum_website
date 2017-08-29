@@ -12,6 +12,7 @@ from urllib.parse import quote_plus
 import operator
 from django.db.models import Q
 from pandorastrum.models import (
+    HomeModel,
     GamesModel,
     GamesDownloadLink,
     SystemRequirements,
@@ -34,11 +35,21 @@ def redirect_root(request):
 
 # Create your views here.
 def home_pageView(request):
+    homepage = HomeModel.objects.all()[0]
     slider = GamesModel.objects.filter(is_slide_featured=True)
     stores = GamesDownloadLink.objects.all()
+    portfolio = PortfolioModel.objects.filter(is_featured=True)
+    owls = Images.objects.all()
+    game_updates = BlogModel.objects.filter(tags__slug="games")[:3]
+    freebies = BlogModel.objects.filter(tags__slug="freebies")
     context = {
+        "home_page" : homepage,
         "slider" : slider,
-        "stores" : stores
+        "stores" : stores,
+        "portfolio" : portfolio,
+        "owls" : owls,
+        "game_updates" : game_updates,
+        "freebies" : freebies
     }
     return render(request, "index.html", context)
 # gamebox block ---------------------------------------------------------------------------
