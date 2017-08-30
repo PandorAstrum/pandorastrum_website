@@ -3,7 +3,7 @@ import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'o!6a*jaobw4pj7706n_&wt3qk^1sx%$01b0y%s=+kn10iz0-g0')
@@ -11,15 +11,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'o!6a*jaobw4pj7706n_&wt3qk^1sx%$01b0y%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['pandorastrum.herokuapp.com', "*"]
-
-# Email settings
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'primeintegerslab@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = "Ashiquzzaman Khan <primeintegerslab@gmail.com>"
+ALLOWED_HOSTS = ['pandorastrum.herokuapp.com', "127.0.0.1", "localhost"]
 
 # Application definition
 INSTALLED_APPS = [
@@ -29,6 +21,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
     'pandorastrum',
     "taggit",
 ]
@@ -50,7 +44,7 @@ ROOT_URLCONF = 'main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(PROJECT_ROOT, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -66,21 +60,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'main.wsgi.application'
 
-
 # Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-    # 'default': dj_database_url.config(
-    #     default=config('DATABASE_URL')
-    # )
 }
 # Update database configuration with $DATABASE_URL.
-db_from_env = dj_database_url.config(conn_max_age=500)
+db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
-DATABASES['default']['padb'] = {'NAME': DATABASES['default']['NAME']}
+DATABASES['default']['CONN_MAX_AGE'] = 500
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -98,6 +88,24 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Cloudinary Settings
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'your_cloud_name',
+    'API_KEY': 'your_api_key',
+    'API_SECRET': 'your_api_secret'
+}
+
+
+# Email settings
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'primeintegerslab@gmail.com'
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = "Ashiquzzaman Khan <primeintegerslab@gmail.com>"
+
+
+
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
@@ -110,12 +118,16 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, 'static'),
+    os.path.join(BASE_DIR, 'static'),
 ]
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, "staticfiles")
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MEDIA_URL = '/media/'  # or any prefix you choose
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 LOGOUT_REDIRECT_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
@@ -123,7 +135,7 @@ LOGIN_REDIRECT_URL = '/'
 CORS_REPLACE_HTTPS_REFERER      = True
 HOST_SCHEME                     = "https://"
 SECURE_PROXY_SSL_HEADER         = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT             = True
+SECURE_SSL_REDIRECT             = False
 SESSION_COOKIE_SECURE           = True
 CSRF_COOKIE_SECURE              = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS  = True

@@ -21,10 +21,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include("pandorastrum.urls"))
-    # url(r'^$', index_page)
 ]
 handler404 = 'pandorastrum.views.handler404'
-if local.DEBUG:
-    urlpatterns += static(local.STATIC_URL, document_root=local.STATIC_ROOT)
-    urlpatterns += static(local.MEDIA_URL, document_root=local.MEDIA_ROOT)
+handler500 = 'pandorastrum.views.handler500'
+# urlpatterns += static(local.STATIC_URL, document_root=local.STATIC_ROOT)
+# if local.DEBUG:
+#     urlpatterns += static(local.STATIC_URL, document_root=local.STATIC_ROOT)
+#     urlpatterns += static(local.MEDIA_URL, document_root=local.MEDIA_ROOT)
 
