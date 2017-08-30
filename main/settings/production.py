@@ -11,6 +11,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'o!6a*jaobw4pj7706n_&wt3qk^1sx%$01b0y%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+
 ALLOWED_HOSTS = ['pandorastrum.herokuapp.com', "127.0.0.1", "localhost"]
 
 # Application definition
@@ -90,11 +91,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Cloudinary Settings
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'your_cloud_name',
-    'API_KEY': 'your_api_key',
-    'API_SECRET': 'your_api_secret'
+    'CLOUD_NAME': 'chroniclesofanaash',
+    'API_KEY': '632947897142335',
+    'API_SECRET': 'ZKD9lYaBVbQViFs0apwIyifRVBs'
 }
-
+# CLOUDINARY_CLOUD_NAME = os.environ.get("CLOUDINARY_CLOUD_NAME")
+# CLOUDINARY_API_SECRET = os.environ.get("CLOUDINARY_API_SECRET")
+# CLOUDINARY_API_KEY = os.environ.get("CLOUDINARY_API_KEY")
+# CLOUDINARY_URL =os.environ.get("CLOUDINARY_URL")
 
 # Email settings
 # EMAIL_HOST = 'smtp.gmail.com'
@@ -104,17 +108,12 @@ CLOUDINARY_STORAGE = {
 # EMAIL_USE_TLS = True
 # DEFAULT_FROM_EMAIL = "Ashiquzzaman Khan <primeintegerslab@gmail.com>"
 
-
-
-
 # Internationalization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
-
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
@@ -132,6 +131,7 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 LOGOUT_REDIRECT_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
+# SSL
 CORS_REPLACE_HTTPS_REFERER      = True
 HOST_SCHEME                     = "https://"
 SECURE_PROXY_SSL_HEADER         = ('HTTP_X_FORWARDED_PROTO', 'https')

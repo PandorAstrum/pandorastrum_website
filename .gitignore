@@ -6,6 +6,7 @@
 # Directory to ignore
 .idea/
 .idea/workspace.xml
+main/settings/local.py
 
 # Environments to ignore
 .env
