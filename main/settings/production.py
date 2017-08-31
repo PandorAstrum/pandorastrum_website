@@ -1,5 +1,6 @@
 import os
 import dj_database_url
+import cloudinary
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -90,11 +91,18 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Cloudinary Settings
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'chroniclesofanaash',
-    'API_KEY': '632947897142335',
-    'API_SECRET': 'ZKD9lYaBVbQViFs0apwIyifRVBs'
-}
+cloudinary.config(
+  cloud_name = os.environ.get("CLOUDINARY_CLOUD_NAME"),
+  api_key = os.environ.get("CLOUDINARY_API_KEY"),
+  api_secret = os.environ.get("CLOUDINARY_API_SECRET")
+)
+
+
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': 'chroniclesofanaash',
+#     'API_KEY': '632947897142335',
+#     'API_SECRET': 'ZKD9lYaBVbQViFs0apwIyifRVBs'
+# }
 # CLOUDINARY_CLOUD_NAME = os.environ.get("CLOUDINARY_CLOUD_NAME")
 # CLOUDINARY_API_SECRET = os.environ.get("CLOUDINARY_API_SECRET")
 # CLOUDINARY_API_KEY = os.environ.get("CLOUDINARY_API_KEY")
