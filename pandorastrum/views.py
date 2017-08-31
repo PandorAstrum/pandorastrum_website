@@ -1,13 +1,7 @@
-import datetime
 from functools import reduce
-
-from django.views.generic import ListView
 from django.shortcuts import redirect, render, get_object_or_404
-from django.views.generic.base import TemplateView
-
 from taggit.models import Tag
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render
 from urllib.parse import quote_plus
 import operator
 from django.db.models import Q
@@ -32,22 +26,21 @@ from pandorastrum.models import (
 # Redirection of root url
 def redirect_root(request):
     return redirect("/home/")
-
 # Create your views here.
+# Home page -------------------------------------------------------------------------------
 def home_pageView(request):
-    homepage = HomeModel.objects.all()[0]
-    slider = GamesModel.objects.filter(is_slide_featured=True)
-    stores = GamesDownloadLink.objects.all()
-    portfolio = PortfolioModel.objects.filter(is_featured=True)
-    owls = Images.objects.all()
+    homepage    = HomeModel.objects.all()[0]
+    slider      = GamesModel.objects.filter(is_slide_featured=True)
+    stores      = GamesDownloadLink.objects.all()
+    portfolio   = PortfolioModel.objects.filter(is_featured=True)
+    owls        = Images.objects.all()
     game_updates = BlogModel.objects.filter(is_game_updates=True).order_by("-created")[:3]
-    freebies = BlogModel.objects.filter(is_freebies=True).order_by("-created")[0]
+    freebies    = BlogModel.objects.filter(is_freebies=True).order_by("-created")[0]
     tips_tricks = BlogModel.objects.filter(is_tips=True).order_by("-created")[:3]
-    dev_talks = BlogModel.objects.filter(is_dev_talks=True).order_by("-created")[:2]
+    dev_talks   = BlogModel.objects.filter(is_dev_talks=True).order_by("-created")[:2]
     featured_blog = BlogModel.objects.filter(is_featured=True).order_by("-created")[:3]
-    content = BlogContentModel.objects.all()
-
-    context = {
+    content     = BlogContentModel.objects.all()
+    context     = {
         "home_page" : homepage,
         "slider" : slider,
         "stores" : stores,
@@ -61,35 +54,34 @@ def home_pageView(request):
         "featured_blogs" : featured_blog
     }
     return render(request, "index.html", context)
-# gamebox block ---------------------------------------------------------------------------
+
+# Games page ------------------------------------------------------------------------------
 def game_pageView(request):
-    queryset = GamesModel.objects.all().order_by("-created")
-    upcoming = UpcomingGamesModel.objects.filter(is_active=True)
-    context = {
+    queryset    = GamesModel.objects.all().order_by("-created")
+    upcoming    = UpcomingGamesModel.objects.filter(is_active=True)
+    context     = {
         "games" : queryset,
         "upcoming" : upcoming
     }
     return render(request, "games.html", context)
 
 def game_detailView(request, id, **kwargs):
-    instance = get_object_or_404(GamesModel, id=id)
+    instance    = get_object_or_404(GamesModel, id=id)
     game_stores = GamesDownloadLink.objects.filter(related_to=instance.id)
-    sys_req = SystemRequirements.objects.filter(related_to=instance.id)
-    game_genre = GameGenre.objects.filter(related_to=instance.id)
-    game_lore = GameLore.objects.filter(related_to=instance.id)
-    gallery = GamesGallery.objects.filter(related_to=instance.id)
-    timeline = GamesTimeline.objects.filter(related_to=instance.id)
+    sys_req     = SystemRequirements.objects.filter(related_to=instance.id)
+    game_genre  = GameGenre.objects.filter(related_to=instance.id)
+    game_lore   = GameLore.objects.filter(related_to=instance.id)
+    gallery     = GamesGallery.objects.filter(related_to=instance.id)
+    timeline    = GamesTimeline.objects.filter(related_to=instance.id)
     # year month
-    date_field = 'completion_date'
-    archive = {}
-    years = timeline.dates(date_field, 'year')[::-1]
+    date_field  = 'completion_date'
+    archive     = {}
+    years       = timeline.dates(date_field, 'year')[::-1]
     for date_year in years:
         object = timeline.filter(completion_date__year=date_year.year)
         archive[date_year] = object
-
-    archive = sorted(archive.items(), reverse=True)
-
-    context = {
+    archive     = sorted(archive.items(), reverse=True)
+    context     = {
         "instance" : instance,
         "stores" : game_stores,
         "requirements" : sys_req,
@@ -223,7 +215,7 @@ def blog_pageView(request, tag_slug=None, **kwargs):
     }
     return render(request, "blog.html", context)
 
-# details single blog block ----------------------------------------------------------------
+# details single blog pages ----------------------------------------------------------------
 def blog_detailView(request, id, **kwargs):
     instance = get_object_or_404(BlogModel, id=id)
     blog_content = BlogContentModel.objects.filter(related_to=instance.id)
@@ -237,30 +229,19 @@ def blog_detailView(request, id, **kwargs):
     }
     return render(request, "blog_detail.html", context)
 
-
-
+# About pages ------------------------------------------------------------------------------
 def about_pageView(request):
-    queryset = AboutModel.objects.all()
-    team = AboutTeamImage.objects.all()
-    thanks = ThanksName.objects.all()
-    pro_address = AboutModel.objects.values_list('production_address', flat=True)[0]
-    pro_mob = AboutModel.objects.values_list("production_mobile", flat=True)[0]
-    pro_email = AboutModel.objects.values_list("production_email", flat=True)[0]
-    op_address = AboutModel.objects.values_list("operation_address", flat=True)[0]
-    op_email = AboutModel.objects.values_list("operation_email", flat=True)[0]
-    context = {
+    queryset    = AboutModel.objects.all().order_by("-created")[0]
+    team        = AboutTeamImage.objects.all()
+    thanks      = ThanksName.objects.all()
+    context     = {
         "about" : queryset,
         "team" : team,
-        "ty" : thanks,
-        "production_address" : pro_address,
-        "production_mobile" : pro_mob,
-        "production_email" : pro_email,
-        "operation_address" : op_address,
-        "operation_email" : op_email
+        "ty" : thanks
     }
     return render(request, "about.html", context)
 
-
+# Error pages -------------------------------------------------------------------------------
 def handler404(request):
     return render(request, 'error.html', status=404)
 

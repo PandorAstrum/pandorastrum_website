@@ -13,12 +13,12 @@
                             <div class="row upcoming">
                                 <div class="col-md-4">
                                     <a href="{% url 'upcoming' %}">
-                                    <img src="{{ u.game_img.url }}" class="img-responsive img-thumbnail center-block" />
+                                    <img src="{{ u.game_img.url }}" class="img-responsive img-thumbnail center-block" alt="{{ u.game_img }}" />
                                 </a>
                                 </div>
                                 <div class="col-md-4">
                                     <h3>Code name: {{ u.code_name }}</h3>
-                                    <p>{{ u.game_teaser_description }}</p>
+                                    <p>{{ u.game_teaser_description|truncatewords:200 }}</p>
                                     <div class="read">
                                         <div class="read-more">
                                             <a href="{% url "upcoming" %}"><span class="txt">See more..</span><span class="round"><i class="fa fa-chevron-right"></i></span></a>

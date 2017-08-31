@@ -8,7 +8,7 @@
             <div class="thumbContainer">
                 <div class="topBorder"></div>
                 <div class="bottomBorder"></div>
-                <img src="{{ instance.game_thumbnail.url }}" class="center-block" />
+                <img src="{{ instance.game_thumbnail.url }}" class="center-block" alt="{{ instance.game_thumbnail }}"/>
             </div>
             <h3 class="topic-heading">Play On</h3>
             <!-- buttons -->
@@ -76,10 +76,10 @@
                 </p>
                 <p class="title">Available On:</p>
                 <p class="data">
-                    {% if instance.web %}/ Web Broswer /{% endif %}
-                    {% if instance.android %}/ Android /{% endif %}
-                    {% if instance.pc %}/ PC /{% endif %}
-                    {% if instance.console %}/ Console /{% endif %}
+                    {% if instance.web %}Web Broswer, {% endif %}
+                    {% if instance.android %}Android, {% endif %}
+                    {% if instance.pc %}PC, {% endif %}
+                    {% if instance.console %}Console, {% endif %}
                 </p>
             </div>
         </div>
@@ -188,7 +188,7 @@
                                                     <div class="cd-timeline-img"></div>
                                                     <div class="day__img">
                                                         {% if o.img %}
-                                                            <img class="img-responsive" src="{{ o.img.url }}" alt="" />
+                                                            <img class="img-responsive" src="{{ o.img.url }}" alt="{{ o.img }}" />
                                                             <p class="caption">{{ o.description }}</p>
                                                         {% else %}
                                                             <p>{{ o.description }}</p>

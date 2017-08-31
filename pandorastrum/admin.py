@@ -30,9 +30,9 @@ from pandorastrum.models import (
 #  home -----------------------------
 @admin.register(HomeModel)
 class Homeadmin(admin.ModelAdmin):
-    date_hierarchy = "created"
-    list_display = ["__str__", "created", "updated"]
-    fieldsets = (
+    date_hierarchy  = "created"
+    list_display    = ["__str__", "created", "updated"]
+    fieldsets       = (
         (None, {
             'fields': ("home_page_name",)
         }),
@@ -80,10 +80,10 @@ class Timeline (admin.TabularInline):
 
 @admin.register(GamesModel)
 class GamesAdmin(admin.ModelAdmin):
-    date_hierarchy = "created"
-    list_display = ["__str__", "is_slide_featured", "slider_blend_mode", "created", "updated", "thumbnail"]
-    list_filter = ("released_on","game_title")
-    fieldsets = (
+    date_hierarchy  = "created"
+    list_display    = ["__str__", "is_slide_featured", "slider_blend_mode", "created", "updated", "thumbnail"]
+    list_filter     = ("released_on","game_title")
+    fieldsets       = (
         (None, {
             'fields': ("game_title", "game_short_description", "released_on")
         }),
@@ -94,7 +94,8 @@ class GamesAdmin(admin.ModelAdmin):
                        )
         }),
         ('Game Icons', {
-            'fields': (("slide_image", "is_slide_featured", "slider_blend_mode", "slider_navigation_color"),('game_thumbnail', "thumbnail"))
+            'fields': (("slide_image", "is_slide_featured", "slider_blend_mode", "slider_navigation_color", "sliderImage"),
+                       ('game_thumbnail', "thumbnail"))
         }),
         ('Read Only Info', {
             'classes': ('collapse',),
@@ -102,7 +103,7 @@ class GamesAdmin(admin.ModelAdmin):
         }),
     )
     inlines = [Genre, Gamestores, Lore, Gallery, Requirements, Timeline]
-    readonly_fields = ('slug', "created", "thumbnail")
+    readonly_fields = ('slug', "created", "thumbnail", "sliderImage")
 
 @admin.register(UpcomingGamesModel)
 class UpcomingAdmin(admin.ModelAdmin):
@@ -185,10 +186,10 @@ class BlogAdmin(admin.ModelAdmin):
 
 @admin.register(AuthorModel)
 class AuthorAdmin(admin.ModelAdmin):
-    date_hierarchy = 'created'
-    list_display = ["__str__", "created", "updated"]
-    list_filter = ('updated', 'author_name')
-    fieldsets = (
+    date_hierarchy  = 'created'
+    list_display    = ["__str__", "author_image_thumb", "created", "updated"]
+    list_filter     = ('updated', 'author_name')
+    fieldsets       = (
         (None, {
             'fields': ('author_name', "author_description", "author_image", "author_image_thumb")
         }),
@@ -197,9 +198,9 @@ class AuthorAdmin(admin.ModelAdmin):
             'fields': ('slug', "created")
         }),
     )
-
     readonly_fields = ('slug', "created", "author_image_thumb")
 
+# About ----------------------------------
 class Team(admin.TabularInline):
     model = AboutTeamImage
     extra = 0
@@ -211,33 +212,38 @@ class Thanks(admin.TabularInline):
 
 @admin.register(AboutModel)
 class AboutAdmin(admin.ModelAdmin):
-    date_hierarchy = 'created'
-    list_display = ["__str__", "created", "updated"]
-    list_filter = ('updated', "generic_model")
-    fieldsets = (
+    date_hierarchy  = 'created'
+    list_display    = ["__str__", "created", "updated"]
+    list_filter     = ('updated', "generic_model")
+    fieldsets       = (
         (None, {
             'fields': ('generic_model', )
         }),
         ('Production Studio Address', {
             'fields' : ("production_address",
+                        "production_country",
                         "production_mobile",
                         "production_email" )
         }),
         ('Operation Address', {
             'fields': ("operation_address",
+                       "operation_country",
                        "operation_email")
+        }),
+        ('Services', {
+            'classes': ('collapse',),
+            'fields': ("services_1",
+                       "services_2",
+                       "services_3",
+                       "services_4")
         }),
         ('Read Only Info', {
             'classes': ('collapse',),
             'fields': ('slug', "created")
         }),
     )
-
     inlines = [Team, Thanks]
     readonly_fields = ('slug', "created")
-
-
-
 
 
 admin.site.site_header = "PandorAstrum Administration"
