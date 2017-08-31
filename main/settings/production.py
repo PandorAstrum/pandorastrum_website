@@ -96,17 +96,11 @@ cloudinary.config(
   api_key = os.environ.get("CLOUDINARY_API_KEY"),
   api_secret = os.environ.get("CLOUDINARY_API_SECRET")
 )
-
-
 # CLOUDINARY_STORAGE = {
-#     'CLOUD_NAME': 'chroniclesofanaash',
-#     'API_KEY': '632947897142335',
-#     'API_SECRET': 'ZKD9lYaBVbQViFs0apwIyifRVBs'
+#     "CLOUD_NAME" : "chroniclesofanaash",
+#     "API_KEY" : "632947897142335",
+#     "API_SECRET" : "ZKD9lYaBVbQViFs0apwIyifRVBs"
 # }
-# CLOUDINARY_CLOUD_NAME = os.environ.get("CLOUDINARY_CLOUD_NAME")
-# CLOUDINARY_API_SECRET = os.environ.get("CLOUDINARY_API_SECRET")
-# CLOUDINARY_API_KEY = os.environ.get("CLOUDINARY_API_KEY")
-# CLOUDINARY_URL =os.environ.get("CLOUDINARY_URL")
 
 # Email settings
 # EMAIL_HOST = 'smtp.gmail.com'

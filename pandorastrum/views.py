@@ -30,7 +30,7 @@ def redirect_root(request):
 # Home page -------------------------------------------------------------------------------
 def home_pageView(request):
     homepage    = HomeModel.objects.all()[0]
-    slider      = GamesModel.objects.filter(is_slide_featured=True)
+    slider      = GamesModel.objects.filter(is_slide_featured=True).order_by("-created")
     stores      = GamesDownloadLink.objects.all()
     portfolio   = PortfolioModel.objects.filter(is_featured=True)
     owls        = Images.objects.all()
