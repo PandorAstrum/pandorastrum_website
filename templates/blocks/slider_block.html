@@ -22,7 +22,7 @@
                             </h2>
                             <a class="pa-slide__action-btn" href="#getit{{ s.id }}" data-type="page-transition">Get It<span data-text="Get It">Get It</span></a>
                         </div>
-                        <div id="getit{{ s.id }}">
+                        <div id="getit{{ forloop.counter }}">
                             <div class="slider-component__credits-close"></div>
                             <h3 class="slider-component__credits-name">{{ s.game_title }}</h3>
                             <div class="button-tile">
