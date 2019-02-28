@@ -10,7 +10,7 @@ SECRET_KEY = 'o!6a*jaobw4pj7706n_&wt3qk^1sx%$01b0y%s=+kn10iz0-g0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['pandorastrum.herokuapp.com', "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ['pandorastrum.com', 'www.pandorastrum.com', 'pandorastrum.herokuapp.com', "127.0.0.1", "localhost"]
 
 # Application definition
 INSTALLED_APPS = [
