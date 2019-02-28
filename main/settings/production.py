@@ -13,7 +13,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'o!6a*jaobw4pj7706n_&wt3qk^1sx%$01b0y%
 DEBUG = False
 
 
-ALLOWED_HOSTS = ['pandorastrum.herokuapp.com', "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ['www.pandorastrum.com','pandorastrum.herokuapp.com', "127.0.0.1", "localhost"]
 
 # Application definition
 INSTALLED_APPS = [
